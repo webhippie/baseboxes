@@ -2,18 +2,41 @@ date > /etc/vagrant_box_build_time
 
 apt-get -y update
 apt-get -y install linux-headers-$(uname -r) build-essential libffi5 libyaml-0-2
-apt-get -y install zlib1g-dev libreadline6 libreadline6-dev libyaml-dev
+apt-get -y install zlib1g-dev libreadline6 libreadline6-dev libyaml-dev git-core
 apt-get -y install curl unzip openssl libssl-dev zlib1g ncurses-dev make
 
-curl -L https://get.rvm.io | bash -s stable
+groupadd -r rbenv
+gpasswd -a deploy rbenv
 
-/usr/local/rvm/bin/rvm install 1.9.3 
-/usr/local/rvm/bin/rvm alias create default 1.9.3
-. /usr/local/rvm/environments/default
+cat << 'EOF' > /etc/profile.d/rbenv.sh
+export RBENV_ROOT=/usr/local/rbenv
+export PATH="$RBENV_ROOT/bin:$PATH"
 
-/usr/local/rvm/wrappers/ruby-1.9.3-p194/gem update --system
-/usr/local/rvm/wrappers/ruby-1.9.3-p194/gem install chef --no-ri --no-rdoc
-/usr/local/rvm/wrappers/ruby-1.9.3-p194/gem install puppet --no-ri --no-rdoc
+eval "$(rbenv init -)"
+EOF
+
+chmod +x /etc/profile.d/rbenv.sh
+
+export RBENV_ROOT=/usr/local/rbenv
+export PATH="$RBENV_ROOT/shims:$RBENV_ROOT/bin:$PATH"
+
+curl https://raw.github.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash
+
+rbenv install 1.9.3-p194
+rbenv global 1.9.3-p194
+rbenv rehash
+
+gem update --system
+rbenv rehash
+
+gem install bundler --no-ri --no-rdoc
+gem install rake --no-ri --no-rdoc
+gem install chef --no-ri --no-rdoc
+gem install puppet --no-ri --no-rdoc
+rbenv rehash
+
+chown -R root:rbenv $RBENV_ROOT
+chmod -R 775 $RBENV_ROOT
 
 sed -i -e 's/%sudo ALL=(ALL) ALL/%sudo ALL=NOPASSWD:ALL/g' /etc/sudoers
 
@@ -69,7 +92,7 @@ echo "pre-up sleep 2" >> /etc/network/interfaces
 
 rm -f /etc/ssh/ssh_host_*
 
-cat << EOF > /etc/init.d/ssh_gen_host_keys
+cat << 'EOF' > /etc/init.d/ssh_gen_host_keys
 #!/bin/sh
 ### BEGIN INIT INFO
 # Provides:          Generates new ssh host keys on first boot
@@ -83,7 +106,7 @@ cat << EOF > /etc/init.d/ssh_gen_host_keys
 ssh-keygen -f /etc/ssh/ssh_host_rsa_key -t rsa -N ""
 ssh-keygen -f /etc/ssh/ssh_host_dsa_key -t dsa -N ""
 insserv -r /etc/init.d/ssh_gen_host_keys
-rm -f \$0
+rm -f $0
 EOF
 
 chmod a+x /etc/init.d/ssh_gen_host_keys
