@@ -1,9 +1,9 @@
 date > /etc/vagrant_box_build_time
 
 apt-get -y update
-apt-get -y install linux-headers-$(uname -r) build-essential libffi5 libyaml-0-2
-apt-get -y install zlib1g-dev libreadline6 libreadline6-dev libyaml-dev git-core
-apt-get -y install curl unzip openssl libssl-dev zlib1g ncurses-dev make
+apt-get -y install linux-headers-$(uname -r) build-essential libffi5 libyaml-0-2 --fix-missing
+apt-get -y install zlib1g-dev libreadline6 libreadline6-dev libyaml-dev git-core --fix-missing
+apt-get -y install curl unzip openssl libssl-dev zlib1g ncurses-dev make --fix-missing
 
 groupadd -r rbenv
 gpasswd -a deploy rbenv
@@ -21,18 +21,17 @@ export RBENV_ROOT=/usr/local/rbenv
 export PATH="$RBENV_ROOT/shims:$RBENV_ROOT/bin:$PATH"
 
 curl https://raw.github.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash
+git clone https://github.com/joefiorini/rbenv-prompt.git $RBENV_ROOT/plugins/rbenv-prompt
+git clone https://github.com/jamis/rbenv-gemset.git $RBENV_ROOT/plugins/rbenv-gemset
 
-rbenv install 1.9.3-p194
+MAKE_OPTS="-j 4" rbenv install 1.9.3-p194
 rbenv global 1.9.3-p194
 rbenv rehash
 
 gem update --system
 rbenv rehash
 
-gem install bundler --no-ri --no-rdoc
-gem install rake --no-ri --no-rdoc
-gem install chef --no-ri --no-rdoc
-gem install puppet --no-ri --no-rdoc
+gem install bundler rake chef --no-ri --no-rdoc
 rbenv rehash
 
 chown -R root:rbenv $RBENV_ROOT
@@ -106,6 +105,11 @@ cat << 'EOF' > /etc/init.d/ssh_gen_host_keys
 ssh-keygen -f /etc/ssh/ssh_host_rsa_key -t rsa -N ""
 ssh-keygen -f /etc/ssh/ssh_host_dsa_key -t dsa -N ""
 insserv -r /etc/init.d/ssh_gen_host_keys
+
+if [ -f /root/postinstall.sh ]; then
+	rm -f /root/postinstall.sh
+fi
+
 rm -f $0
 EOF
 
@@ -114,6 +118,3 @@ insserv /etc/init.d/ssh_gen_host_keys
 
 dd if=/dev/zero of=/EMPTY bs=1M
 rm -f /EMPTY
-
-rm -f "/root/postinstall.sh"
-
