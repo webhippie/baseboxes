@@ -5,9 +5,14 @@ for debian base boxes to setup our development machines with vagrant.
 
 ## Download
 
- - [Debian Squeeze 64](https://dl.dropbox.com/u/40223032/squeeze64.box)
- - [Debian Squeeze 32](https://dl.dropbox.com/u/40223032/squeeze32.box)
+ - Debian Wheezy (7.0.0)
+   - [64bit](https://dl.dropbox.com/u/40223032/wheezy64.box)
+   - [32bit](https://dl.dropbox.com/u/40223032/wheezy32.box)
+ 
+ - Debian Squeeze (6.0.7)
+   - [64bit](https://dl.dropbox.com/u/40223032/squeeze64.box)
+   - [32bit](https://dl.dropbox.com/u/40223032/squeeze32.box)
 
 ## Credits
 
-Copyright (c) 2012 Thomas Boerger Programmierung <http://www.tbpro.de>
+Copyright (c) 2013 Thomas Boerger Programmierung <http://www.tbpro.de>

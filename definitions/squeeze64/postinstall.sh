@@ -5,10 +5,22 @@ apt-get -y install linux-headers-$(uname -r) build-essential libffi5 libyaml-0-2
 apt-get -y install zlib1g-dev libreadline6 libreadline6-dev libyaml-dev git-core --fix-missing
 apt-get -y install curl unzip openssl libssl-dev zlib1g ncurses-dev make --fix-missing
 
+echo "UseDNS no" >> /etc/ssh/sshd_config
+
+echo << 'EOF' > /etc/default/grub
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=0
+GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`
+GRUB_CMDLINE_LINUX_DEFAULT="quiet"
+GRUB_CMDLINE_LINUX="debian-installer=en_US"
+EOF
+
+update-grub
+
 groupadd -r rbenv
 gpasswd -a deploy rbenv
 
-cat << 'EOF' > /etc/profile.d/rbenv.sh
+echo << 'EOF' > /etc/profile.d/rbenv.sh
 export RBENV_ROOT=/usr/local/rbenv
 export PATH="$RBENV_ROOT/bin:$PATH"
 
@@ -51,7 +63,8 @@ touch /root/.ssh/authorized_keys
 chmod 0600 /root/.ssh/authorized_keys
 chown -R root:root /root/.ssh
 
-echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCc1nE4kCs9WXEEbotF+0Rivnr/9I0fc56QLZTqIr4Rsl3iZcvVDgYJmh6rPcl9xKBptNo/jK1EJF/bm2APf6wIU5Q7tNjeIw5IMJnBRBfPdQujXumb1LZMGnQvPT/gHdpVZvPkYlKkBocOJGPG99GZL0FlXXpc4eDYrgCMfCzRFG1SbQWcUdipbJJgELmbiOy7c5eHtb9i51x7g99pC91WnpInuN4pa0AFHwDQpBhS8RSLFEAfWNNs4T3SiYiUUq0lIHBoIoTM8fTTzhshXAlGWuwsZ9c9luEAw+n4QL8oD9a2ycWTJ3JCRK3CC/+J2MqCROSL4zpVA7+PFrloScMV tboerger" >> /root/.ssh/authorized_keys
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCc1nE4kCs9WXEEbotF+0Rivnr/9I0fc56QLZTqIr4Rsl3iZcvVDgYJmh6rPcl9xKBptNo/jK1EJF/bm2APf6wIU5Q7tNjeIw5IMJnBRBfPdQujXumb1LZMGnQvPT/gHdpVZvPkYlKkBocOJGPG99GZL0FlXXpc4eDYrgCMfCzRFG1SbQWcUdipbJJgELmbiOy7c5eHtb9i51x7g99pC91WnpInuN4pa0AFHwDQpBhS8RSLFEAfWNNs4T3SiYiUUq0lIHBoIoTM8fTTzhshXAlGWuwsZ9c9luEAw+n4QL8oD9a2ycWTJ3JCRK3CC/+J2MqCROSL4zpVA7+PFrloScMV tboerger@schleppmac.tbpro.de" >> /root/.ssh/authorized_keys
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCostSqSNw9Fl50Tmo4fupUPJWL0SM5efCALsnRbVMRmDQz2vIXAWX4pd7zumde9RNApJtjF+y/gFSteyf0au20LusvgrNP86EJfYVQ4IzDLf7+GKHV920WnQVUQkUvoCYwtirjG7fVQxB8Wdp3iqdsTSIGkQBXzrEBwpZL75i9BwiVH8YsMCAvu0PVGAYeppQhvBMrSYZO8VaB0hMrXkbUZaSwyAJGRQ/35pIVd9r9WBri+px06jkPi12gHL6gFXTFDKMgWea0OS2oaIYnCyA4ytm5ob2h/9mgWB3TWqekMUczLp/ZeJO4Gn2ea6m/T251lGZH4fm1CRYAYKJkaxjH tboerger@homemac.tbpro.de" >> /root/.ssh/authorized_keys
 
 mkdir -pm 744 /deploy/current
 chown -R deploy:deploy /deploy
@@ -59,6 +72,8 @@ chown -R deploy:deploy /deploy
 echo "" > /var/run/motd
 
 if [ -f .vbox_version ]; then
+  apt-get -y install --no-install-recommends libdbus-1-3
+  
   /etc/init.d/virtualbox-ose-guest-utils stop
   rmmod vboxguest
 
@@ -83,8 +98,10 @@ rm -rf /var/mail/* > /dev/null 2>&1
 rm -rf /var/lib/dhcp/* > /dev/null 2>&1
 
 rm -rf /dev/.udev/
+
 rm -rf /lib/udev/rules.d/75-persistent-net-generator.rules
 rm -rf /etc/udev/rules.d/70-persistent-net.rules
+
 mkdir /etc/udev/rules.d/70-persistent-net.rules
 
 echo "pre-up sleep 2" >> /etc/network/interfaces
@@ -107,7 +124,7 @@ ssh-keygen -f /etc/ssh/ssh_host_dsa_key -t dsa -N ""
 insserv -r /etc/init.d/ssh_gen_host_keys
 
 if [ -f /root/postinstall.sh ]; then
-	rm -f /root/postinstall.sh
+  rm -f /root/postinstall.sh
 fi
 
 rm -f $0

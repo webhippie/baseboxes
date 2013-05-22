@@ -4,7 +4,7 @@ Veewee::Session.declare({
   :disk_size => "20000",
   :disk_format => "VMDK",
   :hostiocache => "on",
-  :os_type_id => "Debian",
+  :os_type_id => "Debian_64",
   :virtualbox => { 
     :vm_options => [
       "hwvirtex" => "off",
@@ -13,9 +13,9 @@ Veewee::Session.declare({
       "natdnshostresolver1" => "on"
     ]
   },
-  :iso_file => "debian-6.0.7-i386-netinst.iso",
-  :iso_src => "http://cdimage.debian.org/cdimage/archive/6.0.7/i386/iso-cd/debian-6.0.7-i386-netinst.iso",
-  :iso_md5 => "6ebdb31269a3eaaf72fca0ed2f6ba29b",
+  :iso_file => "debian-7.0.0-amd64-netinst.iso",
+  :iso_src => "http://cdimage.debian.org/cdimage/release/7.0.0/amd64/iso-cd/debian-7.0.0-amd64-netinst.iso",
+  :iso_md5 => "6a55096340b5b1b7d335d5b559e13ea0",
   :iso_download_timeout => "1000",
   :boot_wait => "10",
   :boot_cmd_sequence => [
@@ -32,6 +32,7 @@ Veewee::Session.declare({
     "debconf/frontend=noninteractive ",
     "console-setup/ask_detect=false ",
     "console-keymaps-at/keymap=de ",
+    "keyboard-configuration/xkb-keymap=de ",
     "<Enter>"
   ],
   :kickstart_port => "7122",

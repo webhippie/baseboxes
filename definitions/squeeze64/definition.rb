@@ -3,11 +3,19 @@ Veewee::Session.declare({
   :memory_size=> "1024",
   :disk_size => "20000",
   :disk_format => "VMDK",
-  :hostiocache => "off",
+  :hostiocache => "on",
   :os_type_id => "Debian_64",
-  :iso_file => "debian-6.0.5-amd64-netinst.iso",
-  :iso_src => "http://cdimage.debian.org/debian-cd/6.0.5/amd64/iso-cd/debian-6.0.5-amd64-netinst.iso",
-  :iso_md5 => "a213b1d6da1996c677706d843b6ee0f2",
+  :virtualbox => { 
+    :vm_options => [
+      "hwvirtex" => "off",
+      "hwvirtexexcl" => "off",
+      "nestedpaging" => "off",
+      "natdnshostresolver1" => "on"
+    ]
+  },
+  :iso_file => "debian-6.0.7-amd64-netinst.iso",
+  :iso_src => "http://cdimage.debian.org/cdimage/archive/6.0.7/amd64/iso-cd/debian-6.0.7-amd64-netinst.iso",
+  :iso_md5 => "cc509122349a27bf1958e1ea0ce4065d",
   :iso_download_timeout => "1000",
   :boot_wait => "10",
   :boot_cmd_sequence => [
@@ -19,7 +27,7 @@ Veewee::Session.declare({
     "locale=en_US ",
     "kbd-chooser/method=de ",
     "netcfg/get_hostname=%NAME% ",
-    "netcfg/get_domain=vagrantup.com ",
+    "netcfg/get_domain=tbpro.de ",
     "fb=false ",
     "debconf/frontend=noninteractive ",
     "console-setup/ask_detect=false ",
@@ -35,7 +43,7 @@ Veewee::Session.declare({
   :ssh_key => "",
   :ssh_host_port => "7222",
   :ssh_guest_port => "22",
-  :sudo_cmd => "echo '%p'|sudo -S sh '%f'",
+  :sudo_cmd => "echo '%p'|sudo -S bash '%f'",
   :shutdown_cmd => "halt -p",
   :postinstall_files => [
     "postinstall.sh"

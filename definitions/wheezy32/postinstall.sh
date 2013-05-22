@@ -1,9 +1,9 @@
 date > /etc/vagrant_box_build_time
 
 apt-get -y update
-apt-get -y install linux-headers-$(uname -r) build-essential libffi5 libyaml-0-2 --fix-missing
-apt-get -y install zlib1g-dev libreadline6 libreadline6-dev libyaml-dev git-core --fix-missing
-apt-get -y install curl unzip openssl libssl-dev zlib1g ncurses-dev make --fix-missing
+#apt-get -y install linux-headers-$(uname -r) build-essential libffi5 libyaml-0-2 --fix-missing
+#apt-get -y install zlib1g-dev libreadline6 libreadline6-dev libyaml-dev git-core --fix-missing
+#apt-get -y install curl unzip openssl libssl-dev zlib1g ncurses-dev make --fix-missing
 
 echo "UseDNS no" >> /etc/ssh/sshd_config
 
@@ -17,37 +17,39 @@ EOF
 
 update-grub
 
-groupadd -r rbenv
-gpasswd -a deploy rbenv
+curl -L https://www.opscode.com/chef/install.sh | bash
 
-echo << 'EOF' > /etc/profile.d/rbenv.sh
-export RBENV_ROOT=/usr/local/rbenv
-export PATH="$RBENV_ROOT/bin:$PATH"
+#groupadd -r rbenv
+#gpasswd -a deploy rbenv
 
-eval "$(rbenv init -)"
-EOF
+#echo << 'EOF' > /etc/profile.d/rbenv.sh
+#export RBENV_ROOT=/usr/local/rbenv
+#export PATH="$RBENV_ROOT/bin:$PATH"
 
-chmod +x /etc/profile.d/rbenv.sh
+#eval "$(rbenv init -)"
+#EOF
 
-export RBENV_ROOT=/usr/local/rbenv
-export PATH="$RBENV_ROOT/shims:$RBENV_ROOT/bin:$PATH"
+#chmod +x /etc/profile.d/rbenv.sh
 
-curl https://raw.github.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash
-git clone https://github.com/joefiorini/rbenv-prompt.git $RBENV_ROOT/plugins/rbenv-prompt
-git clone https://github.com/jamis/rbenv-gemset.git $RBENV_ROOT/plugins/rbenv-gemset
+#export RBENV_ROOT=/usr/local/rbenv
+#export PATH="$RBENV_ROOT/shims:$RBENV_ROOT/bin:$PATH"
 
-MAKE_OPTS="-j 4" rbenv install 1.9.3-p194
-rbenv global 1.9.3-p194
-rbenv rehash
+#curl https://raw.github.com/fesplugas/rbenv-installer/master/bin/rbenv-installer | bash
+#git clone https://github.com/joefiorini/rbenv-prompt.git $RBENV_ROOT/plugins/rbenv-prompt
+#git clone https://github.com/jamis/rbenv-gemset.git $RBENV_ROOT/plugins/rbenv-gemset
 
-gem update --system
-rbenv rehash
+#MAKE_OPTS="-j 4" rbenv install 2.0.0-p195
+#rbenv global 2.0.0-p195
+#rbenv rehash
 
-gem install bundler rake chef --no-ri --no-rdoc
-rbenv rehash
+#gem update --system
+#rbenv rehash
 
-chown -R root:rbenv $RBENV_ROOT
-chmod -R 775 $RBENV_ROOT
+#gem install bundler rake --no-ri --no-rdoc
+#rbenv rehash
+
+#chown -R root:rbenv $RBENV_ROOT
+#chmod -R 775 $RBENV_ROOT
 
 sed -i -e 's/%sudo ALL=(ALL) ALL/%sudo ALL=NOPASSWD:ALL/g' /etc/sudoers
 
@@ -72,12 +74,16 @@ chown -R deploy:deploy /deploy
 echo "" > /var/run/motd
 
 if [ -f .vbox_version ]; then
-  apt-get -y install --no-install-recommends libdbus-1-3
+  if test -f /etc/init.d/virtualbox-ose-guest-utils; then
+    /etc/init.d/virtualbox-ose-guest-utils stop
+  fi
 
-  /etc/init.d/virtualbox-ose-guest-utils stop
   rmmod vboxguest
 
   aptitude -y purge virtualbox-ose-guest-x11 virtualbox-ose-guest-dkms virtualbox-ose-guest-utils
+  
+  apt-get install -y dkms
+  apt-get -y install --no-install-recommends libdbus-1-3
 
   VBOX_VERSION=$(cat /home/deploy/.vbox_version)
   VBOX_ISO=VBoxGuestAdditions_$VBOX_VERSION.iso
@@ -89,6 +95,8 @@ if [ -f .vbox_version ]; then
   umount /mnt
 
   rm /tmp/$VBOX_ISO
+  
+  /etc/init.d/vboxadd start
 fi
 
 aptitude -y autoclean
