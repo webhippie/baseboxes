@@ -63,4 +63,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  vagrant
   veewee
