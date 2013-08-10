@@ -39,5 +39,5 @@ EOF
 chmod a+x /etc/init.d/ssh_gen_host_keys
 insserv /etc/init.d/ssh_gen_host_keys
 
-dd if=/dev/zero of=/EMPTY bs=1M
-rm -f /EMPTY
+#dd if=/dev/zero of=/EMPTY bs=1M
+#rm -f /EMPTY

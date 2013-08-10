@@ -25,7 +25,7 @@ rbenv rehash
 gem update --system
 rbenv rehash
 
-gem install bundler rake --no-ri --no-rdoc
+gem install bundler --no-ri --no-rdoc
 rbenv rehash
 
 chown -R root:rbenv $RBENV_ROOT

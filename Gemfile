@@ -1,4 +1,2 @@
 source "http://rubygems.org"
-
-gem "veewee", "~> 0.3.7"
-gem "vagrant", "~> 1.0.7"
+gem "veewee", github: "jedi4ever/veewee"

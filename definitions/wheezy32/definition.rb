@@ -1,7 +1,7 @@
 Veewee::Session.declare({
   :cpu_count => "4",
   :memory_size=> "1024",
-  :disk_size => "20000",
+  :disk_size => "10000",
   :disk_format => "VMDK",
   :hostiocache => "on",
   :os_type_id => "Debian",
