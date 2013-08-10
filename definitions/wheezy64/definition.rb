@@ -13,9 +13,9 @@ Veewee::Session.declare({
       "natdnshostresolver1" => "on"
     ]
   },
-  :iso_file => "debian-7.0.0-amd64-netinst.iso",
-  :iso_src => "http://cdimage.debian.org/cdimage/release/7.0.0/amd64/iso-cd/debian-7.0.0-amd64-netinst.iso",
-  :iso_md5 => "6a55096340b5b1b7d335d5b559e13ea0",
+  :iso_file => "debian-7.1.0-amd64-netinst.iso",
+  :iso_src => "http://cdimage.debian.org/cdimage/release/7.1.0/amd64/iso-cd/debian-7.1.0-amd64-netinst.iso",
+  :iso_md5 => "80f498a1f9daa76bc911ae13692e4495",
   :iso_download_timeout => "1000",
   :boot_wait => "10",
   :boot_cmd_sequence => [
@@ -44,10 +44,17 @@ Veewee::Session.declare({
   :ssh_key => "",
   :ssh_host_port => "7222",
   :ssh_guest_port => "22",
-  :sudo_cmd => "echo '%p'|sudo -S bash '%f'",
+  :sudo_cmd => "echo '%p' | sudo -S bash '%f'",
   :shutdown_cmd => "halt -p",
   :postinstall_files => [
-    "postinstall.sh"
+    "base.sh",
+    "vagrant.sh",
+    "virtualbox.sh",
+    "ruby.sh",
+    "chef.sh",
+    "cleanup-virtualbox.sh",
+    "cleanup.sh",
+    "zerodisk.sh"
   ],
   :postinstall_timeout => "10000"
 })

@@ -13,9 +13,9 @@ Veewee::Session.declare({
       "natdnshostresolver1" => "on"
     ]
   },
-  :iso_file => "debian-7.0.0-i386-netinst.iso",
-  :iso_src => "http://cdimage.debian.org/cdimage/release/7.0.0/i386/iso-cd/debian-7.0.0-i386-netinst.iso",
-  :iso_md5 => "a6b93666a5393334accb7ac4ee28d949",
+  :iso_file => "debian-7.1.0-i386-netinst.iso",
+  :iso_src => "http://cdimage.debian.org/cdimage/release/7.1.0/i386/iso-cd/debian-7.1.0-i386-netinst.iso",
+  :iso_md5 => "a70efb67ca061175eabe7c5dc04ab323",
   :iso_download_timeout => "1000",
   :boot_wait => "10",
   :boot_cmd_sequence => [
@@ -32,7 +32,7 @@ Veewee::Session.declare({
     "debconf/frontend=noninteractive ",
     "console-setup/ask_detect=false ",
     "console-keymaps-at/keymap=de ",
-    "keyboard-configuration/xkb-keymap=de ",
+    "keyboard-configuration/xkb-keymap=de",
     "<Enter>"
   ],
   :kickstart_port => "7122",
@@ -44,10 +44,17 @@ Veewee::Session.declare({
   :ssh_key => "",
   :ssh_host_port => "7222",
   :ssh_guest_port => "22",
-  :sudo_cmd => "echo '%p'|sudo -S bash '%f'",
+  :sudo_cmd => "echo '%p' | sudo -S bash '%f'",
   :shutdown_cmd => "halt -p",
   :postinstall_files => [
-    "postinstall.sh"
+    "base.sh",
+    "vagrant.sh",
+    "virtualbox.sh",
+    "ruby.sh",
+    "chef.sh",
+    "cleanup-virtualbox.sh",
+    "cleanup.sh",
+    "zerodisk.sh"
   ],
   :postinstall_timeout => "10000"
 })

@@ -43,10 +43,17 @@ Veewee::Session.declare({
   :ssh_key => "",
   :ssh_host_port => "7222",
   :ssh_guest_port => "22",
-  :sudo_cmd => "echo '%p'|sudo -S bash '%f'",
+  :sudo_cmd => "echo '%p' | sudo -S bash '%f'",
   :shutdown_cmd => "halt -p",
   :postinstall_files => [
-    "postinstall.sh"
+    "base.sh",
+    "vagrant.sh",
+    "virtualbox.sh",
+    "ruby.sh",
+    "chef.sh",
+    "cleanup-virtualbox.sh",
+    "cleanup.sh",
+    "zerodisk.sh"
   ],
   :postinstall_timeout => "10000"
 })
