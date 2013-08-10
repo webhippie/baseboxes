@@ -1,3 +1,8 @@
+VBOX_VERSION=$(cat .vbox_version)
+VBOX_ISO=VBoxGuestAdditions_$VBOX_VERSION.iso
+
+rm -f $VBOX_ISO
+
 aptitude -y autoclean
 aptitude --purge clean
 
@@ -33,3 +38,6 @@ EOF
 
 chmod a+x /etc/init.d/ssh_gen_host_keys
 insserv /etc/init.d/ssh_gen_host_keys
+
+dd if=/dev/zero of=/EMPTY bs=1M
+rm -f /EMPTY

@@ -51,9 +51,7 @@ Veewee::Session.declare({
     "virtualbox.sh",
     "ruby.sh",
     "chef.sh",
-    "cleanup-virtualbox.sh",
-    "cleanup.sh",
-    "zerodisk.sh"
+    "cleanup.sh"
   ],
   :postinstall_timeout => "10000"
 })
