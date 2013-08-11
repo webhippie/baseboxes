@@ -1,9 +1,9 @@
 Veewee::Session.declare({
   :cpu_count => "4",
   :memory_size=> "1024",
-  :disk_size => "10000",
+  :disk_size => "10140",
   :disk_format => "VMDK",
-  :hostiocache => "on",
+  :hostiocache => "off",
   :os_type_id => "Debian_64",
   :virtualbox => { 
     :vm_options => [
@@ -51,7 +51,8 @@ Veewee::Session.declare({
     "virtualbox.sh",
     "ruby.sh",
     "chef.sh",
-    "cleanup.sh"
+    "cleanup.sh",
+    "zerodisk.sh"
   ],
   :postinstall_timeout => "10000"
 })

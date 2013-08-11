@@ -17,7 +17,6 @@ mkdir /etc/udev/rules.d/70-persistent-net.rules
 
 echo "pre-up sleep 2" >> /etc/network/interfaces
 
-rm -f /etc/ssh/ssh_host_*
 cat << 'EOF' > /etc/init.d/ssh_gen_host_keys
 #!/bin/sh
 ### BEGIN INIT INFO
@@ -29,6 +28,8 @@ cat << 'EOF' > /etc/init.d/ssh_gen_host_keys
 # Short-Description: Generates new ssh host keys on first boot
 # Description:       Generates new ssh host keys on first boot
 ### END INIT INFO
+rm -f /etc/ssh/ssh_host_*
+
 ssh-keygen -f /etc/ssh/ssh_host_rsa_key -t rsa -N ""
 ssh-keygen -f /etc/ssh/ssh_host_dsa_key -t dsa -N ""
 insserv -r /etc/init.d/ssh_gen_host_keys
@@ -38,6 +39,3 @@ EOF
 
 chmod a+x /etc/init.d/ssh_gen_host_keys
 insserv /etc/init.d/ssh_gen_host_keys
-
-#dd if=/dev/zero of=/EMPTY bs=1M
-#rm -f /EMPTY

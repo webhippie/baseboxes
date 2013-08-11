@@ -11,10 +11,13 @@ if test -f .vbox_version; then
 
   VBOX_VERSION=$(cat .vbox_version)
   VBOX_ISO=VBoxGuestAdditions_$VBOX_VERSION.iso
-  
+
   mount -o loop $VBOX_ISO /mnt
   yes | sh /mnt/VBoxLinuxAdditions.run
   umount /mnt
 
   /etc/init.d/vboxadd start
+
+  mkdir /tmp/veewee-validation
+  mount -t vboxsf veewee-validation /tmp/veewee-validation
 fi

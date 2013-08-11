@@ -1,12 +1,15 @@
 date > /etc/vagrant_box_build_time
 
-mkdir -pm 700 /home/deploy/.ssh
-curl -Lo /home/deploy/.ssh/authorized_keys "https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub"
+echo "vagrant ALL=NOPASSWD:ALL" > /etc/sudoers.d/vagrant
+chmod 0440 /etc/sudoers.d/vagrant
 
-chmod 0600 /home/deploy/.ssh/authorized_keys
-chown -R deploy:deploy /home/deploy/.ssh
+mkdir -pm 700 /home/vagrant/.ssh
+curl -Lo /home/vagrant/.ssh/authorized_keys "https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub"
 
-mkdir -pm 744 /deploy/current
-chown -R deploy:deploy /deploy
+chmod 0600 /home/vagrant/.ssh/authorized_keys
+chown -R vagrant:vagrant /home/vagrant/.ssh
+
+mkdir -pm 744 /vagrant
+chown -R vagrant:vagrant /vagrant
 
 echo "" > /var/run/motd
