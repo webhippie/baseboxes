@@ -27,7 +27,7 @@ Veewee::Session.declare({
     "locale=en_US ",
     "kbd-chooser/method=de ",
     "netcfg/get_hostname=%NAME% ",
-    "netcfg/get_domain=tbpro.de ",
+    "netcfg/get_domain=tbpro.org ",
     "fb=false ",
     "debconf/frontend=noninteractive ",
     "console-setup/ask_detect=false ",
