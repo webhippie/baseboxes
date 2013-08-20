@@ -16,6 +16,8 @@ if test -f .vbox_version; then
   yes | sh /mnt/VBoxLinuxAdditions.run
   umount /mnt
 
+  rm -f $VBOX_ISO
+
   /etc/init.d/vboxadd start
 
   mkdir /tmp/veewee-validation

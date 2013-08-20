@@ -1,5 +1,5 @@
 groupadd -r rbenv
-gpasswd -a deploy rbenv
+gpasswd -a vagrant rbenv
 
 echo << 'EOF' > /etc/profile.d/rbenv.sh
 export RBENV_ROOT=/usr/local/rbenv

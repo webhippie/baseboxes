@@ -1,4 +1,4 @@
-aptitude -y autoclean
+aptitude -y autoremove
 aptitude --purge clean
 
 rm -rf /var/mail/* > /dev/null 2>&1
