@@ -29,7 +29,7 @@ ssh-keygen -f /etc/ssh/ssh_host_rsa_key -t rsa -N ""
 ssh-keygen -f /etc/ssh/ssh_host_dsa_key -t dsa -N ""
 insserv -r /etc/init.d/ssh_gen_host_keys
 
-rm -f $0
+rm -f /etc/init.d/ssh_gen_host_keys
 EOF
 
 chmod a+x /etc/init.d/ssh_gen_host_keys

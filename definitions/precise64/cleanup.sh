@@ -1,4 +1,4 @@
-aptitude -y autoremove
+aptitude -y autoclean
 aptitude --purge clean
 
 rm -rf /var/mail/* > /dev/null 2>&1
@@ -27,10 +27,10 @@ rm -f /etc/ssh/ssh_host_*
 
 ssh-keygen -f /etc/ssh/ssh_host_rsa_key -t rsa -N ""
 ssh-keygen -f /etc/ssh/ssh_host_dsa_key -t dsa -N ""
-insserv -r /etc/init.d/ssh_gen_host_keys
+update-rc.d -f ssh_gen_host_keys remove
 
-rm -f $0
+rm -f /etc/init.d/ssh_gen_host_keys
 EOF
 
 chmod a+x /etc/init.d/ssh_gen_host_keys
-insserv /etc/init.d/ssh_gen_host_keys
+update-rc.d ssh_gen_host_keys defaults
