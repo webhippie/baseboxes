@@ -3,7 +3,15 @@ sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 cat > /etc/yum.repos.d/epel.repo << EOM
 [epel]
 name=epel
-baseurl=http://download.fedoraproject.org/pub/epel/6/\$basearch
+mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=epel-6&arch=\$basearch
+enabled=1
+gpgcheck=0
+EOM
+
+cat > /etc/yum.repos.d/remi.repo << EOM
+[remi]
+name=remi
+mirrorlist=http://rpms.famillecollet.com/enterprise/6/remi/mirror
 enabled=1
 gpgcheck=0
 EOM
