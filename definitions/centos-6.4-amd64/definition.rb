@@ -34,6 +34,7 @@ Veewee::Definition.declare({
   :shutdown_cmd => "/sbin/halt -h -p",
   :postinstall_files => [
     "base.sh",
+    "ruby.sh",
     "chef.sh",
     "vagrant.sh",
     "virtualbox.sh",

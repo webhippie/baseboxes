@@ -39,6 +39,7 @@ Veewee::Definition.declare({
   :shutdown_cmd => "shutdown -P now",
   :postinstall_files => [
     "base.sh",
+    "ruby.sh",
     "chef.sh",
     "vagrant.sh",
     "virtualbox.sh",
