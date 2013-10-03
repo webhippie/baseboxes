@@ -583,9 +583,6 @@
       <package>libnl</package>
       <package>linux-glibc-devel</package>
       <package>make</package>
-      <package>ruby</package>
-      <package>ruby-devel</package>
-      <package>rubygems</package>
       <package>sudo</package>
       <package>vim</package>
       <package>vim-data</package>
@@ -1230,33 +1227,6 @@
       <package>reiserfs</package>
       <package>rhino</package>
       <package>rpm-32bit</package>
-      <package>ruby-fcgi</package>
-      <package>rubygem-actionmailer-2_3</package>
-      <package>rubygem-actionpack-2_3</package>
-      <package>rubygem-activerecord</package>
-      <package>rubygem-activerecord-2_3</package>
-      <package>rubygem-activeresource-2_3</package>
-      <package>rubygem-activesupport-2_3</package>
-      <package>rubygem-daemon_controller</package>
-      <package>rubygem-fastthread</package>
-      <package>rubygem-gettext</package>
-      <package>rubygem-gettext_activerecord</package>
-      <package>rubygem-gettext_rails</package>
-      <package>rubygem-http_accept_language</package>
-      <package>rubygem-locale</package>
-      <package>rubygem-locale_rails</package>
-      <package>rubygem-passenger</package>
-      <package>rubygem-passenger-nginx</package>
-      <package>rubygem-polkit</package>
-      <package>rubygem-rack-1_1</package>
-      <package>rubygem-rails</package>
-      <package>rubygem-rails-2_3</package>
-      <package>rubygem-rake</package>
-      <package>rubygem-rpam</package>
-      <package>rubygem-ruby-dbus</package>
-      <package>rubygem-sqlite3</package>
-      <package>rubygem-static_record_cache</package>
-      <package>rubygem-webyast-rake-tasks</package>
       <package>samba</package>
       <package>samba-client</package>
       <package>sane-backends</package>
