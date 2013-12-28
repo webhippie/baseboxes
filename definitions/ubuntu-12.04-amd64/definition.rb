@@ -8,12 +8,11 @@ Veewee::Definition.declare({
   :virtualbox => { 
     :vm_options => [
       "hwvirtex" => "off",
-      "hwvirtexexcl" => "off",
       "nestedpaging" => "off",
       "natdnshostresolver1" => "on"
     ]
   },
-  :iso_file => "ubuntu-12.04.2-server-amd64-netboot.iso",
+  :iso_file => "ubuntu-12.04.3-server-amd64-netboot.iso",
   :iso_src => "http://archive.ubuntu.com/ubuntu/dists/precise/main/installer-amd64/current/images/netboot/mini.iso",
   :iso_md5 => "1278936cb0ee9d9a32961dd7743fa75c",
   :iso_download_timeout => "1000",
