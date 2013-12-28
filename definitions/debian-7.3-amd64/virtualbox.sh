@@ -1,5 +1,7 @@
-if test -f /home/vagrant/.vbox_version; then
-  if test -f /etc/init.d/virtualbox-ose-guest-utils; then
+if test -f /home/vagrant/.vbox_version
+then
+  if test -f /etc/init.d/virtualbox-ose-guest-utils
+  then
     /etc/init.d/virtualbox-ose-guest-utils stop
   fi
 

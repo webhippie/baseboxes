@@ -4,18 +4,17 @@ Veewee::Definition.declare({
   :disk_size => "20480",
   :disk_format => "VMDK",
   :hostiocache => "off",
-  :os_type_id => "Debian_64",
+  :os_type_id => "Debian",
   :virtualbox => { 
     :vm_options => [
       "hwvirtex" => "off",
-      "hwvirtexexcl" => "off",
       "nestedpaging" => "off",
       "natdnshostresolver1" => "on"
     ]
   },
-  :iso_file => "debian-7.1.0-amd64-netinst.iso",
-  :iso_src => "http://cdimage.debian.org/cdimage/release/7.1.0/amd64/iso-cd/debian-7.1.0-amd64-netinst.iso",
-  :iso_md5 => "80f498a1f9daa76bc911ae13692e4495",
+  :iso_file => "debian-7.3.0-i386-netinst.iso",
+  :iso_src => "http://cdimage.debian.org/cdimage/release/7.3.0/i386/iso-cd/debian-7.3.0-i386-netinst.iso",
+  :iso_md5 => "04c58f30744e64a0459caf7d7cace479",
   :iso_download_timeout => "1000",
   :boot_wait => "10", 
   :boot_cmd_sequence => [
@@ -27,7 +26,7 @@ Veewee::Definition.declare({
      "locale=en_US ",
      "kbd-chooser/method=us ",
      "netcfg/get_hostname=%NAME% ",
-     "netcfg/get_domain=tbpro.org ",
+     "netcfg/get_domain=webhippie.de ",
      "fb=false ",
      "debconf/frontend=noninteractive ",
      "console-setup/ask_detect=false ",
@@ -35,14 +34,14 @@ Veewee::Definition.declare({
      "keyboard-configuration/xkb-keymap=de ",
      "<Enter>"
   ],
-  :kickstart_port => "7126",
+  :kickstart_port => "7127",
   :kickstart_timeout => "10000",
   :kickstart_file => "preseed.cfg",
   :ssh_login_timeout => "10000",
   :ssh_user => "vagrant",
   :ssh_password => "vagrant",
   :ssh_key => "",
-  :ssh_host_port => "7226",
+  :ssh_host_port => "7227",
   :ssh_guest_port => "22",
   :sudo_cmd => "echo '%p' | sudo -S bash '%f'",
   :shutdown_cmd => "halt -p",
