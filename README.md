@@ -1,9 +1,11 @@
 # Baseboxes
 
 This repository holds our [veewee](https://github.com/jedi4ever/veewee) definition
-for various base boxes to setup our development machines with vagrant.
+for various base boxes to setup our development machines with vagrant. These boxes 
+are pretty minimalistic, if you are searching for a fullstack web development box 
+take a look at our [webdev](https://github.com/webhippie/webdev) boxes.
 
-## Downloads for Virtualbox
+## Downloads
 
 - [CentOS 6.5 64bit](http://vagrant.webhippie.de/centos-6.5-amd64.box)
 - [CentOS 6.5 32bit](http://vagrant.webhippie.de/centos-6.5-i386.box)
