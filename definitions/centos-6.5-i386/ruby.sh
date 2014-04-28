@@ -1,16 +1,18 @@
-yum -y install libxml2-devel libxslt-devel
-wget -O /tmp/ruby-install-0.3.4.tar.gz https://github.com/postmodern/ruby-install/archive/v0.3.4.tar.gz
+yum -y install libxml2-devel libxslt-devel ruby ruby-devel rubygems
+gem update --system
 
-pushd /tmp
-tar -xzvf ruby-install-0.3.4.tar.gz
+# wget -O /tmp/ruby-install-0.3.4.tar.gz https://github.com/postmodern/ruby-install/archive/v0.3.4.tar.gz
 
-pushd /tmp/ruby-install-0.3.4
-make install
-popd
-popd
+# pushd /tmp
+# tar -xzvf ruby-install-0.3.4.tar.gz
 
-rm -rf /tmp/ruby-install-0.3.4
-/usr/local/bin/ruby-install -i /usr/local ruby 2.0.0-p353
+# pushd /tmp/ruby-install-0.3.4
+# make install
+# popd
+# popd
 
-echo 'pathmunge /usr/local/bin' > /etc/profile.d/local.sh
-chmod +x /etc/profile.d/local.sh
+# rm -rf /tmp/ruby-install-0.3.4
+# /usr/local/bin/ruby-install -i /usr/local ruby 2.0.0-p353
+
+# echo 'pathmunge /usr/local/bin' > /etc/profile.d/local.sh
+# chmod +x /etc/profile.d/local.sh
