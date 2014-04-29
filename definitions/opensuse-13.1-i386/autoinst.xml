@@ -9,6 +9,7 @@
       <final_reboot config:type="boolean">true</final_reboot>
     </mode>
   </general>
+
   <report>
     <messages>
       <show config:type="boolean">false</show>
@@ -45,6 +46,7 @@
       <use>all</use>
     </drive>
   </partitioning>
+
   <bootloader>
     <loader_type>grub2</loader_type>
   </bootloader>
@@ -59,6 +61,9 @@
       <domain>webhippie.de</domain>
       <hostname>vagrant</hostname>
       <resolv_conf_policy>auto</resolv_conf_policy>
+      <searchlist config:type="list">
+        <search>webhippie.de</search>
+      </searchlist>
       <write_hostname config:type="boolean">true</write_hostname>
     </dns>
     <interfaces config:type="list">
@@ -88,12 +93,13 @@
       <ip_forward config:type="boolean">false</ip_forward>
     </routing>
   </networking>
+
   <firewall>
     <enable_firewall config:type="boolean">false</enable_firewall>
     <start_firewall config:type="boolean">false</start_firewall>
   </firewall>
 
-  <add-on>
+  <!--<add-on>
     <add_on_products config:type="list">
       <listentry>
         <media_url><![CDATA[http://download.opensuse.org/update/13.1/]]></media_url>
@@ -106,12 +112,13 @@
         <product_dir>/</product_dir>
       </listentry>
     </add_on_products>
-  </add-on>
+  </add-on>-->
 
   <software>
     <image/>
     <instsource>http://download.opensuse.org/distribution/13.1/repo/oss/</instsource>
     <kernel>kernel-default</kernel>
+    <install_recommended config:type="boolean">false</install_recommended>
     <packages config:type="list">
       <package>autoyast2-installation</package>
       <package>autoyast2</package>
@@ -120,15 +127,63 @@
       <package>grub2</package>
       <package>kernel-default</package>
       <package>kernel-default-devel</package>
-      <package>openssh</package>
-      <package>sudo</package>
       <package>yast2-installation</package>
       <package>yast2-network</package>
       <package>yast2-runlevel</package>
       <package>yast2-theme-openSUSE</package>
       <package>yast2-users</package>
       <package>zypper</package>
+      <package>aaa_base</package>
+      <package>bash</package>
+      <package>coreutils</package>
+      <package>cracklib-dict-full</package>
+      <package>device-mapper</package>
+      <package>dhcpcd</package>
+      <package>e2fsprogs</package>
+      <package>elfutils</package>
+      <package>filesystem</package>
+      <package>gcc</package>
+      <package>glibc</package>
+      <package>grub2</package>
+      <package>ifplugd</package>
+      <package>initviocons</package>
+      <package>insserv</package>
+      <package>iputils</package>
+      <package>kbd</package>
+      <package>kernel-default</package>
+      <package>klogd</package>
+      <package>less</package>
+      <package>login</package>
+      <package>mkinitrd</package>
+      <package>module-init-tools</package>
+      <package>ncurses-utils</package>
+      <package>openssh</package>
+      <package>openssl-certs</package>
+      <package>pam</package>
+      <package>pam-modules</package>
+      <package>procps</package>
+      <package>pwdutils</package>
+      <package>rpcbind</package>
+      <package>rpm</package>
+      <package>sudo</package>
+      <package>sysconfig</package>
+      <package>tar</package>
+      <package>timezone</package>
+      <package>vim</package>
+      <package>vim-base</package>
+      <package>w3m</package>
+      <package>zypper</package>
+      <package>rsync</package>
+      <package>ca-certificates-mozilla</package>
+      <package>glibc-locale</package>
+      <package>yast2-network</package>
+      <package>yast2-users</package>
+      <package>libyui-ncurses-pkg5</package>
     </packages>
+    <patterns config:type="list">
+      <pattern>base</pattern>
+      <pattern>yast2_basis</pattern>
+    </patterns>
     <remove-packages config:type="list">
       <package>bash-doc</package>
       <package>bundle-lang-gnome-en</package>
@@ -143,17 +198,29 @@
       <package>libgphoto2-6</package>
       <package>libgtk-3-0</package>
       <package>libX11-data</package>
-      <package>pattern:base</package>
-      <package>pattern:laptop</package>
-      <package>patterns-openSUSE-base</package>
-      <package>patterns-openSUSE-laptop</package>
       <package>perl-X11-Protocol</package>
       <package>readline-doc</package>
       <package>release-notes-openSUSE</package>
       <package>shared-mime-info</package>
       <package>shim</package>
       <package>vim-data</package>
-      <package>wallpaper-branding-openSUSE</package>
+      <package>libyui-gtk-pkg5</package>
+      <package>libyui-gtk5</package>
+      <package>Mesa</package>
+      <package>libcairo2</package>
+      <package>libgtk-3-0</package>
+      <package>gtk3-tools</package>
+      <package>libpango-1_0-0</package>
+      <package>libcairo-gobject2</package>
+      <package>pango-tools</package>
+      <package>wallpaper-branding-openSUSE-13.1</package>
+      <package>tcl</package>
+      <package>tk</package>
+      <package>libXft2</package>
+      <package>libtool</package>
+      <package>fontconfig</package>
+      <package>gitk</package>
+      <package>git-gui</package>
     </remove-packages>
   </software>
 
@@ -177,6 +244,7 @@
   </groups>
 
   <login_settings/>
+
   <user_defaults>
     <expire/>
     <group>1000</group>

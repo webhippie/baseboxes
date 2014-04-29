@@ -19,7 +19,7 @@ Veewee::Definition.declare({
   :boot_wait => "10", 
   :boot_cmd_sequence => [
     "<Esc><Enter>",
-    "linux netdevice=eth0 netsetup=dhcp ",
+    "linux netdevice=enp0s3 netsetup=dhcp ",
     "install=http://download.opensuse.org/distribution/13.1/repo/oss/ insecure=1 ",
     "lang=en_US autoyast=http://%IP%:%PORT%/autoinst.xml ",
     "textmode=1",
