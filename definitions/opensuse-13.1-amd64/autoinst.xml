@@ -14,7 +14,7 @@
       <default>openSUSE 13.1</default>
       <generic_mbr>true</generic_mbr>
       <lines_cache_id>2</lines_cache_id>
-      <timeout config:type="integer">8</timeout>
+      <timeout config:type="integer">5</timeout>
     </global>
     <loader_type>grub2</loader_type>
     <sections config:type="list">
@@ -156,10 +156,13 @@
       <package>glibc-locale</package>
       <package>yast2-network</package>
       <package>yast2-users</package>
+      <package>yast2-runlevel</package>
+      <package>yast2-sshd</package>
       <package>libyui-ncurses-pkg5</package>
     </packages>
     <patterns config:type="list">
       <pattern>base</pattern>
+      <pattern>yast2_basis</pattern>
     </patterns>
     <remove-packages config:type="list">
       <package>libyui-gtk-pkg5</package>
@@ -188,7 +191,7 @@
     <services config:type="list">
       <service>
         <service_name>sshd</service_name>
-        <service_start>enable</service_start>
+        <service_status>enable</service_status>
       </service>
     </services>
   </runlevel>
@@ -203,6 +206,8 @@
       <uid>1000</uid>
       <user_password>vagrant</user_password>
       <username>vagrant</username>
+      <forename/>
+      <surname/>
     </user>
     <user>
       <encrypted config:type="boolean">false</encrypted>
@@ -213,6 +218,8 @@
       <uid>0</uid>
       <user_password>vagrant</user_password>
       <username>root</username>
+      <forename/>
+      <surname/>
     </user>
   </users>
 </profile>
