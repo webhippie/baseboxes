@@ -1,5 +1,2 @@
-Gemfile.lock
-*.box
-
-.bundle
-.ruby-version
+.DS_Store
+packer_cache/
