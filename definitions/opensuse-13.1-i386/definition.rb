@@ -12,25 +12,21 @@ Veewee::Definition.declare({
       "natdnshostresolver1" => "on"
     ]
   },
-  :iso_file => "openSUSE-13.1-NET-i586.iso",
-  :iso_src => "http://download.opensuse.org/distribution/13.1/iso/openSUSE-13.1-NET-i586.iso",
-  :iso_md5 => "6d3c77f72ae4318439ddf5ad890b7687",
+  :iso_file => "openSUSE-13.1-DVD-i586.iso",
+  :iso_src => "http://download.opensuse.org/distribution/13.1/iso/openSUSE-13.1-DVD-i586.iso",
+  :iso_md5 => "1bd6223430910f6d5a168d4e19171462",
   :iso_download_timeout => "1000",
   :boot_wait => "10", 
   :boot_cmd_sequence => [
     "<Esc><Enter>",
     "linux ",
+    "netdevice=eth0 ",
     "netsetup=dhcp ",
-    "install=http://download.opensuse.org/distribution/13.1/repo/oss/ ",
-    "insecure=1 ",
-    "lang=en_US ",
-    "autoyast=http://%IP%:%PORT%/autoinst.xml ",
-    "textmode=1",
+    "instmode=dvd ",
+    "textmode=1 ",
+    "autoyast=http://%IP%:8888/autoinst.xml ",
     "<Enter>"
   ],
-  :kickstart_port => "7127",
-  :kickstart_timeout => "10000",
-  :kickstart_file => ["autoinst.xml", "autoinst.xml"],
   :ssh_login_timeout => "10000",
   :ssh_user => "vagrant",
   :ssh_password => "vagrant",
@@ -48,5 +44,18 @@ Veewee::Definition.declare({
     "cleanup.sh",
     "zerodisk.sh"
   ],
-  :postinstall_timeout => "10000"
+  :postinstall_timeout => "10000",
+  :hooks => {
+    # Before starting the build we spawn a webrick webserver which serves the
+    # autoyast profile to the installer. veewee's built in webserver solution
+    # doesn't work reliably with autoyast due to some timing issues.
+    :before_create => Proc.new do
+      Thread.new { 
+        WEBrick::HTTPServer.new(
+          :Port => 8888, 
+          :DocumentRoot => "#{Dir.pwd}/definitions/#{definition.box.name}"
+        ).start
+      }
+    end
+  }
 })

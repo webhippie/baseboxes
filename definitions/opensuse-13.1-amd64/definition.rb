@@ -12,20 +12,19 @@ Veewee::Definition.declare({
       "natdnshostresolver1" => "on"
     ]
   },
-  :iso_file => "openSUSE-13.1-NET-x86_64.iso",
-  :iso_src => "http://download.opensuse.org/distribution/13.1/iso/openSUSE-13.1-NET-x86_64.iso",
-  :iso_md5 => "6c0d656895cbd92f34de61d98ca364ea",
+  :iso_file => "openSUSE-13.1-DVD-x86_64.iso",
+  :iso_src => "http://download.opensuse.org/distribution/13.1/iso/openSUSE-13.1-DVD-x86_64.iso",
+  :iso_md5 => "1096c9c67fc8a67a94a32d04a15e909d",
   :iso_download_timeout => "1000",
   :boot_wait => "10", 
   :boot_cmd_sequence => [
     "<Esc><Enter>",
     "linux ",
+    "netdevice=eth0 ",
     "netsetup=dhcp ",
-    "install=http://download.opensuse.org/distribution/13.1/repo/oss/ ",
-    "insecure=1 ",
-    "lang=en_US ",
+    "instmode=dvd ",
+    "textmode=1 ",
     "autoyast=http://%IP%:%PORT%/autoinst.xml ",
-    "textmode=1",
     "<Enter>"
   ],
   :kickstart_port => "7126",

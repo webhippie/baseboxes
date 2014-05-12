@@ -14,7 +14,7 @@
       <default>openSUSE 13.1</default>
       <generic_mbr>true</generic_mbr>
       <lines_cache_id>2</lines_cache_id>
-      <timeout config:type="integer">5</timeout>
+      <timeout config:type="integer">8</timeout>
     </global>
     <loader_type>grub2</loader_type>
     <sections config:type="list">
@@ -69,8 +69,10 @@
     <interfaces config:type="list">
       <interface>
         <bootproto>dhcp</bootproto>
-        <device>enp0s3</device>
-        <startmode>onboot</startmode>
+        <device>eth0</device>
+        <name>82540EM Gigabit Ethernet Controller</name>
+        <startmode>nfsroot</startmode>
+        <usercontrol>no</usercontrol>
       </interface>
     </interfaces>
   </networking>
@@ -109,42 +111,39 @@
   <software>
     <install_recommended config:type="boolean">false</install_recommended>
     <packages config:type="list">
+      <package>bash</package>
+      <package>coreutils</package>
+      <package>cracklib-dict-full</package>
+      <package>device-mapper</package>
+      <package>e2fsprogs</package>
+      <package>elfutils</package>
+      <package>filesystem</package>
       <package>grub2</package>
-      <package>glibc-locale</package>
+      <package>ifplugd</package>
+      <package>insserv</package>
       <package>iputils</package>
       <package>kernel-default</package>
+      <package>libyui-ncurses-pkg5</package>
       <package>less</package>
-      <package>syslog-ng</package>
-      <package>vim</package>
+      <package>login</package>
+      <package>ncurses-utils</package>
+      <package>openssl-certs</package>
+      <package>pam</package>
+      <package>pam-modules</package>
       <package>sudo</package>
-      <package>screen</package>
-      <package>yast2</package>
-      <package>yast2-firstboot</package>
+      <package>tar</package>
+      <package>timezone</package>
+      <package>vim</package>
       <package>zypper</package>
-      <package>open-vm-tools</package>
-      <package>yast2-trans-en_US</package>
-      <package>wget</package>
-      <package>curl</package>
-      <package>iproute2</package>
-      <package>autoyast2</package>
+      <package>ca-certificates-mozilla</package>
+      <package>yast2-network</package>
+      <package>yast2-users</package>
     </packages>
     <patterns config:type="list">
       <pattern>base</pattern>
-      <pattern>yast2_basis</pattern>
       <pattern>sw_management</pattern>
     </patterns>
   </software>
-
-  <runlevel>
-    <services config:type="list">
-      <service>
-        <service_name>network</service_name>
-      </service>
-      <service>
-        <service_name>sshd</service_name>
-      </service>
-    </services>
-  </runlevel>
 
   <users config:type="list">
     <user>
@@ -174,17 +173,15 @@
   </users>
 
   <scripts>
-    <chroot-scripts config:type="list">
+    <init-scripts config:type="list">
       <script>
         <chrooted config:type="boolean">true</chrooted>
         <interpreter>shell</interpreter>
-        <source><![CDATA[#!/bin/bash
-service network restart
-service sshd restart
-
-insserv sshd
+        <source><![CDATA[
+  chkconfig sshd on
+  rcsshd start
 ]]></source>
       </script>
-    </chroot-scripts>
+    </init-scripts>
   </scripts>
 </profile>
