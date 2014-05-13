@@ -17,7 +17,7 @@
       "guest_os_type": "OpenSUSE_64",
       "http_directory": "http",
       "hard_drive_interface": "sata",
-      "guest_additions_mode": "upload",
+      "guest_additions_mode": "disable",
       "shutdown_command": "echo 'vagrant' | sudo -S /sbin/shutdown -P now",
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--vrde", "on"],
@@ -50,12 +50,10 @@
         "scripts/opensuse/13.1/update.sh",
         "scripts/opensuse/13.1/services.sh",
         "scripts/opensuse/13.1/vagrant.sh",
-
-        "scripts/common/sshd.sh",
-        "scripts/common/motd.sh",
-
+        "scripts/opensuse/13.1/sshd.sh",
+        "scripts/opensuse/13.1/motd.sh",
         "scripts/opensuse/13.1/cleanup.sh",
-        "scripts/common/zerodisk.sh"
+        "scripts/opensuse/13.1/zerodisk.sh"
       ]
     }
   ]
