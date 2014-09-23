@@ -1,0 +1,81 @@
+{
+  "variables": {
+    "version": "0.0.1",
+    "fusion_path": "/usr/local/Caskroom/vmware-fusion/6.0.4-1887983/VMware Fusion.app"
+  },
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+
+      "vm_name": "debian-7.6",
+      "guest_os_type": "Debian_64",
+
+      "iso_url": "http://cdimage.debian.org/mirror/cdimage/release/7.6.0/amd64/iso-cd/debian-7.6.0-amd64-netinst.iso",
+      "iso_checksum": "8a3c2ad7fd7a9c4c7e9bcb5cae38c135",
+      "iso_checksum_type": "md5",
+      
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "disk_size": 20480,
+      "guest_additions_mode": "upload",
+      "hard_drive_interface": "sata",
+      "ssh_port": 22,
+      "headless": false,
+      "http_directory": "http",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "1024"],
+        ["modifyvm", "{{.Name}}", "--cpus", "4"]
+      ],
+      "boot_command": [
+        "<Tab> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7.6/ks.cfg<Enter>"
+      ]
+    },
+    {
+      "type": "vmware-iso",
+
+      "iso_url": "http://cdimage.debian.org/mirror/cdimage/release/7.6.0/amd64/iso-cd/debian-7.6.0-amd64-netinst.iso",
+      "iso_checksum": "8a3c2ad7fd7a9c4c7e9bcb5cae38c135",
+      "iso_checksum_type": "md5",
+      
+      "fusion_app_path": "{{user `fusion_path`}}",
+      
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "disk_size": 20480,
+      "tools_upload_flavor": "linux",
+      "ssh_port": 22,
+      "headless": false,
+      "http_directory": "http",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "boot_command": [
+        "<Tab> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-6.5/ks.cfg<Enter>"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "keep_input_artifact": false,
+      "output": "images/{{.BuildName}}-{{.Provider}}-{{user `version`}}.box",
+      "type": "vagrant"
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "type": "shell",
+      "scripts": [
+        "scripts/debian/7.6/base.sh",
+        "scripts/debian/7.6/updates.sh",
+        "scripts/debian/7.6/sshd.sh",
+        "scripts/debian/7.6/ruby.sh",
+        "scripts/common/chef.sh",
+        "scripts/common/vagrant.sh",
+        "scripts/common/motd.sh",
+        "scripts/common/virtualbox.sh",
+        "scripts/debian/7.6/cleanup.sh",
+        "scripts/common/zerodisk.sh"
+      ]
+    }
+  ]
+}

@@ -15,6 +15,3 @@ zypper ar http://download.opensuse.org/update/13.1-non-oss/ update-non-oss
 zypper ref
 zypper up -y
 
-zypper rm -y virtualbox-guest-kmp-default \
-  virtualbox-guest-kmp-desktop virtualbox-guest-kmp-pae \
-  virtualbox-guest-tools virtualbox-guest-x11
