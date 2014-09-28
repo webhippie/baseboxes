@@ -3,15 +3,17 @@ set -x
 
 rm -f /etc/zypp/repos.d/*.repo
 
-rpm --import http://download.opensuse.org/distribution/13.1/repo/oss/gpg-pubkey-3dbdc284-4be1884d.asc
-rpm --import http://download.opensuse.org/distribution/13.1/repo/oss/gpg-pubkey-307e3d54-4be01a65.asc
+rpm --import http://download.opensuse.org/distribution/13.1/repo/oss/content.key
+zypper addrepo -n 'openSUSE OSS' http://download.opensuse.org/distribution/13.1/repo/oss/ distro-oss
 
-zypper ar http://download.opensuse.org/distribution/13.1/repo/oss/ dist-oss
-zypper ar http://download.opensuse.org/distribution/13.1/repo/non-oss/ dist-non-oss
+rpm --import http://download.opensuse.org/update/13.1/repodata/repomd.xml.key
+zypper addrepo -n 'openSUSE OSS Update' http://download.opensuse.org/update/13.1/ distro-update-oss
 
-zypper ar http://download.opensuse.org/update/13.1/ update
-zypper ar http://download.opensuse.org/update/13.1-non-oss/ update-non-oss
+rpm --import http://download.opensuse.org/distribution/13.1/repo/non-oss/content.key
+zypper addrepo -n 'openSUSE Non-OSS' http://download.opensuse.org/distribution/13.1/repo/non-oss/ distro-non-oss
 
-zypper ref
-zypper up -y
+rpm --import http://download.opensuse.org/update/13.1-non-oss/repodata/repomd.xml.key
+zypper addrepo -n 'openSUSE Non-OSS Update' http://download.opensuse.org/update/13.1-non-oss/ distro-update-non-oss
 
+zypper --gpg-auto-import-keys --non-interactive ref
+zypper --gpg-auto-import-keys --non-interactive dup

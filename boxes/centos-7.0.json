@@ -1,10 +1,12 @@
 {
   "variables": {
     "version": "0.0.1",
+    "os": "centos-7.0",
     "fusion_path": "/usr/local/Caskroom/vmware-fusion/6.0.4-1887983/VMware Fusion.app"
   },
   "builders": [
     {
+      "name": "virtualbox",
       "type": "virtualbox-iso",
 
       "vm_name": "centos-7.0",
@@ -14,6 +16,7 @@
       "iso_checksum": "96de4f38a2f07da51831153549c8bd0c",
       "iso_checksum_type": "md5",
       
+      "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "disk_size": 20480,
@@ -28,18 +31,22 @@
         ["modifyvm", "{{.Name}}", "--cpus", "4"]
       ],
       "boot_command": [
-        "<esc><wait> vmlinuz initrd=initrd.img text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-7.0/ks.cfg<enter>"
+        "<tab><wait> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-7.0/ks.cfg<enter>"
       ]
     },
     {
+      "name": "vmware",
       "type": "vmware-iso",
 
       "iso_url": "http://ftp.tu-chemnitz.de/pub/linux/centos/7.0.1406/isos/x86_64/CentOS-7.0-1406-x86_64-NetInstall.iso",
       "iso_checksum": "96de4f38a2f07da51831153549c8bd0c",
       "iso_checksum_type": "md5",
+      "guest_os_type": "centos-64",
       
       "fusion_app_path": "{{user `fusion_path`}}",
+      "vm_name": "{{user `os`}}",
       
+      "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "disk_size": 20480,
@@ -48,15 +55,20 @@
       "headless": false,
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "vmx_data": {
+        "memsize": "512",
+        "numvcpus": "1",
+        "cpuid.coresPerSocket": "1"
+      },
       "boot_command": [
-        "<Tab> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-6.5/ks.cfg<Enter>"
+        "<tab><wait> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-7.0/ks.cfg<enter>"
       ]
     }
   ],
   "post-processors": [
     {
       "keep_input_artifact": false,
-      "output": "images/{{.BuildName}}-{{.Provider}}-{{user `version`}}.box",
+      "output": "images/{{user `os`}}-{{.Provider}}-{{user `version`}}.box",
       "type": "vagrant"
     }
   ],
@@ -66,11 +78,12 @@
       "type": "shell",
       "scripts": [
         "scripts/centos/7.0/base.sh",
-        "scripts/centos/7.0/ruby.sh",
+        "scripts/centos/7.0/update.sh",
+        "scripts/common/vmtools.sh",
+        "scripts/centos/7.0/sshd.sh",
         "scripts/common/chef.sh",
         "scripts/common/vagrant.sh",
         "scripts/common/motd.sh",
-        "scripts/common/virtualbox.sh",
         "scripts/centos/7.0/cleanup.sh",
         "scripts/common/zerodisk.sh"
       ]

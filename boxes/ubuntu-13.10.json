@@ -1,10 +1,12 @@
 {
   "variables": {
     "version": "0.0.1",
+    "os": "ubuntu-13.10",
     "fusion_path": "/usr/local/Caskroom/vmware-fusion/6.0.4-1887983/VMware Fusion.app"
   },
   "builders": [
     {
+      "name": "virtualbox",
       "type": "virtualbox-iso",
 
       "vm_name": "ubuntu-13.10",
@@ -14,6 +16,7 @@
       "iso_checksum": "4d1a8b720cdd14b76ed9410c63a00d0e",
       "iso_checksum_type": "md5",
       
+      "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "disk_size": 20480,
@@ -24,11 +27,11 @@
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "1024"],
-        ["modifyvm", "{{.Name}}", "--cpus", "4"]
+        ["modifyvm", "{{.Name}}", "--memory", "512"],
+        ["modifyvm", "{{.Name}}", "--cpus", "1"]
       ],
       "boot_command": [
-        "<Esc><Esc><Enter> ",
+        "<esc><esc><enter><wait> ",
         "/install/vmlinuz ",
         "noapic ",
         "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-13.10/preseed.cfg ",
@@ -43,18 +46,22 @@
         "keyboard-configuration/layout=Germany ",
         "keyboard-configuration/variant=Germany ",
         "console-setup/ask_detect=false ",
-        "initrd=/install/initrd.gz -- <Enter>"
+        "initrd=/install/initrd.gz -- <enter>"
       ]
     },
     {
+      "name": "vmware",
       "type": "vmware-iso",
 
       "iso_url": "http://releases.ubuntu.com/saucy/ubuntu-13.10-server-amd64.iso",
       "iso_checksum": "4d1a8b720cdd14b76ed9410c63a00d0e",
       "iso_checksum_type": "md5",
+      "guest_os_type": "ubuntu-64",
       
       "fusion_app_path": "{{user `fusion_path`}}",
+      "vm_name": "{{user `os`}}",
       
+      "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "disk_size": 20480,
@@ -63,15 +70,35 @@
       "headless": false,
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "vmx_data": {
+        "memsize": "512",
+        "numvcpus": "1",
+        "cpuid.coresPerSocket": "1"
+      },
       "boot_command": [
-        "<Tab> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-6.5/ks.cfg<Enter>"
+        "<esc><esc><enter><wait> ",
+        "/install/vmlinuz ",
+        "noapic ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-13.10/preseed.cfg ",
+        "debian-installer=en_US ",
+        "auto ",
+        "locale=en_US ",
+        "kbd-chooser/method=de ",
+        "hostname=vagrant ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=pc105 ",
+        "keyboard-configuration/layout=Germany ",
+        "keyboard-configuration/variant=Germany ",
+        "console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- <enter>"
       ]
     }
   ],
   "post-processors": [
     {
       "keep_input_artifact": false,
-      "output": "images/{{.BuildName}}-{{.Provider}}-{{user `version`}}.box",
+      "output": "images/{{user `os`}}-{{.Provider}}-{{user `version`}}.box",
       "type": "vagrant"
     }
   ],
@@ -81,13 +108,12 @@
       "type": "shell",
       "scripts": [
         "scripts/ubuntu/13.10/base.sh",
-        "scripts/ubuntu/13.10/updates.sh",
+        "scripts/ubuntu/13.10/update.sh",
+        "scripts/common/vmtools.sh",
         "scripts/ubuntu/13.10/sshd.sh",
-        "scripts/ubuntu/13.10/ruby.sh",
         "scripts/common/chef.sh",
         "scripts/common/vagrant.sh",
         "scripts/common/motd.sh",
-        "scripts/common/virtualbox.sh",
         "scripts/ubuntu/13.10/cleanup.sh",
         "scripts/common/zerodisk.sh"
       ]

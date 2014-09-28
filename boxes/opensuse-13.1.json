@@ -1,19 +1,22 @@
 {
   "variables": {
     "version": "0.0.1",
+    "os": "opensuse-13.1",
     "fusion_path": "/usr/local/Caskroom/vmware-fusion/6.0.4-1887983/VMware Fusion.app"
   },
   "builders": [
     {
+      "name": "virtualbox",
       "type": "virtualbox-iso",
 
       "vm_name": "opensuse-13.1",
       "guest_os_type": "OpenSUSE_64",
 
-      "iso_url": "http://download.opensuse.org/distribution/13.1/iso/openSUSE-13.1-NET-x86_64.iso",
-      "iso_checksum": "6c0d656895cbd92f34de61d98ca364ea",
+      "iso_url": "http://download.opensuse.org/distribution/13.1/iso/openSUSE-13.1-DVD-x86_64.iso",
+      "iso_checksum": "1096c9c67fc8a67a94a32d04a15e909d",
       "iso_checksum_type": "md5",
       
+      "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "disk_size": 20480,
@@ -24,29 +27,33 @@
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "1024"],
-        ["modifyvm", "{{.Name}}", "--cpus", "4"]
+        ["modifyvm", "{{.Name}}", "--memory", "512"],
+        ["modifyvm", "{{.Name}}", "--cpus", "1"]
       ],
       "boot_command": [
         "<esc><enter><wait>",
         "linux ",
         "netsetup=dhcp ",
-        "lang=en_US ",
-        "hostname={{.Name}} ",
+        "lang=en_US.utf8 ",
         "textmode=1 ",
+        "instmode=dvd ",
         "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.1/autoinst.xml ",
-        "<wait><enter><wait>"
+        "<enter><wait>"
       ]
     },
     {
+      "name": "vmware",
       "type": "vmware-iso",
 
-      "iso_url": "http://download.opensuse.org/distribution/13.1/iso/openSUSE-13.1-NET-x86_64.iso",
-      "iso_checksum": "6c0d656895cbd92f34de61d98ca364ea",
+      "iso_url": "http://download.opensuse.org/distribution/13.1/iso/openSUSE-13.1-DVD-x86_64.iso",
+      "iso_checksum": "1096c9c67fc8a67a94a32d04a15e909d",
       "iso_checksum_type": "md5",
+      "guest_os_type": "opensuse-64",
       
       "fusion_app_path": "{{user `fusion_path`}}",
+      "vm_name": "{{user `os`}}",
       
+      "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "disk_size": 20480,
@@ -55,15 +62,27 @@
       "headless": false,
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "vmx_data": {
+        "memsize": "512",
+        "numvcpus": "1",
+        "cpuid.coresPerSocket": "1"
+      },
       "boot_command": [
-        "<Tab> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-6.5/ks.cfg<Enter>"
+        "<esc><enter><wait>",
+        "linux ",
+        "netsetup=dhcp ",
+        "lang=en_US.utf8 ",
+        "textmode=1 ",
+        "instmode=dvd ",
+        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.1/autoinst.xml ",
+        "<enter><wait>"
       ]
     }
   ],
   "post-processors": [
     {
       "keep_input_artifact": false,
-      "output": "images/{{.BuildName}}-{{.Provider}}-{{user `version`}}.box",
+      "output": "images/{{user `os`}}-{{.Provider}}-{{user `version`}}.box",
       "type": "vagrant"
     }
   ],
@@ -72,13 +91,15 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "type": "shell",
       "scripts": [
+        "scripts/opensuse/13.1/base.sh",
         "scripts/opensuse/13.1/update.sh",
-        "scripts/opensuse/13.1/services.sh",
-        "scripts/opensuse/13.1/vagrant.sh",
+        "scripts/common/vmtools.sh",
         "scripts/opensuse/13.1/sshd.sh",
-        "scripts/opensuse/13.1/motd.sh",
+        "scripts/common/chef.sh",
+        "scripts/common/vagrant.sh",
+        "scripts/common/motd.sh",
         "scripts/opensuse/13.1/cleanup.sh",
-        "scripts/opensuse/13.1/zerodisk.sh"
+        "scripts/common/zerodisk.sh"
       ]
     }
   ]

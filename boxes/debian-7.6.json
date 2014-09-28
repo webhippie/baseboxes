@@ -1,10 +1,12 @@
 {
   "variables": {
     "version": "0.0.1",
+    "os": "debian-7.6",
     "fusion_path": "/usr/local/Caskroom/vmware-fusion/6.0.4-1887983/VMware Fusion.app"
   },
   "builders": [
     {
+      "name": "virtualbox",
       "type": "virtualbox-iso",
 
       "vm_name": "debian-7.6",
@@ -14,6 +16,7 @@
       "iso_checksum": "8a3c2ad7fd7a9c4c7e9bcb5cae38c135",
       "iso_checksum_type": "md5",
       
+      "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "disk_size": 20480,
@@ -22,24 +25,42 @@
       "ssh_port": 22,
       "headless": false,
       "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "shutdown_command": "echo 'vagrant' | sudo -S halt -p",
       "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "1024"],
-        ["modifyvm", "{{.Name}}", "--cpus", "4"]
+        ["modifyvm", "{{.Name}}", "--memory", "512"],
+        ["modifyvm", "{{.Name}}", "--cpus", "1"]
       ],
       "boot_command": [
-        "<Tab> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7.6/ks.cfg<Enter>"
+        "<esc><wait>",
+        "install ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7.6/preseed.cfg ",
+        "debian-installer=en_US ",
+        "auto ",
+        "locale=en_US ",
+        "kbd-chooser/method=us ",
+        "netcfg/get_hostname=vagrant ",
+        "netcfg/get_domain=webhippie.de ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "console-setup/ask_detect=false ",
+        "console-keymaps-at/keymap=de ",
+        "keyboard-configuration/xkb-keymap=de ",
+        "<enter>"
       ]
     },
     {
+      "name": "vmware",
       "type": "vmware-iso",
 
       "iso_url": "http://cdimage.debian.org/mirror/cdimage/release/7.6.0/amd64/iso-cd/debian-7.6.0-amd64-netinst.iso",
       "iso_checksum": "8a3c2ad7fd7a9c4c7e9bcb5cae38c135",
       "iso_checksum_type": "md5",
+      "guest_os_type": "debian7-64",
       
       "fusion_app_path": "{{user `fusion_path`}}",
+      "vm_name": "{{user `os`}}",
       
+      "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "disk_size": 20480,
@@ -47,16 +68,35 @@
       "ssh_port": 22,
       "headless": false,
       "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "shutdown_command": "echo 'vagrant' | sudo -S halt -p",
+      "vmx_data": {
+        "memsize": "512",
+        "numvcpus": "1",
+        "cpuid.coresPerSocket": "1"
+      },
       "boot_command": [
-        "<Tab> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-6.5/ks.cfg<Enter>"
+        "<esc><wait>",
+        "install ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7.6/preseed.cfg ",
+        "debian-installer=en_US ",
+        "auto ",
+        "locale=en_US ",
+        "kbd-chooser/method=us ",
+        "netcfg/get_hostname=vagrant ",
+        "netcfg/get_domain=webhippie.de ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "console-setup/ask_detect=false ",
+        "console-keymaps-at/keymap=de ",
+        "keyboard-configuration/xkb-keymap=de ",
+        "<enter>"
       ]
     }
   ],
   "post-processors": [
     {
       "keep_input_artifact": false,
-      "output": "images/{{.BuildName}}-{{.Provider}}-{{user `version`}}.box",
+      "output": "images/{{user `os`}}-{{.Provider}}-{{user `version`}}.box",
       "type": "vagrant"
     }
   ],
@@ -66,13 +106,12 @@
       "type": "shell",
       "scripts": [
         "scripts/debian/7.6/base.sh",
-        "scripts/debian/7.6/updates.sh",
+        "scripts/debian/7.6/update.sh",
+        "scripts/common/vmtools.sh",
         "scripts/debian/7.6/sshd.sh",
-        "scripts/debian/7.6/ruby.sh",
         "scripts/common/chef.sh",
         "scripts/common/vagrant.sh",
         "scripts/common/motd.sh",
-        "scripts/common/virtualbox.sh",
         "scripts/debian/7.6/cleanup.sh",
         "scripts/common/zerodisk.sh"
       ]
