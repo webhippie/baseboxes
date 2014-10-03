@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -x
 
-sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
-
 apt-get -y update
 apt-get -y install linux-headers-$(uname -r) build-essential wget aptitude --fix-missing
 apt-get -y install zlib1g-dev libssl-dev libreadline-gplv2-dev dkms --fix-missing
@@ -25,3 +23,5 @@ GRUB_CMDLINE_LINUX="debian-installer=en_US"
 EOF
 
 update-grub
+
+exit 0

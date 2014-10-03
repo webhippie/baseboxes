@@ -20,3 +20,5 @@ then
 else
   echo "vagrant ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers
 fi
+
+exit 0

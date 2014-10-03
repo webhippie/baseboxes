@@ -37,3 +37,5 @@ EOF
 
 chmod a+x /etc/init.d/ssh_gen_host_keys
 insserv /etc/init.d/ssh_gen_host_keys
+
+exit 0

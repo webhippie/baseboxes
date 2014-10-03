@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -x
 
-sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
-
 cat > /etc/yum.repos.d/epel.repo << EOM
 [epel]
 name=epel
@@ -23,3 +21,5 @@ yum -y install gcc make gcc-c++ kernel-devel-`uname -r` zlib-devel openssl-devel
 yum -y install readline-devel sqlite-devel perl wget dkms nfs-utils git
 
 echo "UseDNS no" >> /etc/ssh/sshd_config
+
+exit 0

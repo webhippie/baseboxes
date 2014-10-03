@@ -23,7 +23,7 @@
       "guest_additions_mode": "upload",
       "hard_drive_interface": "sata",
       "ssh_port": 22,
-      "headless": false,
+      "headless": true,
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "vboxmanage": [
@@ -56,7 +56,7 @@
       "disk_size": 20480,
       "tools_upload_flavor": "linux",
       "ssh_port": 22,
-      "headless": false,
+      "headless": true,
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "vmx_data": {

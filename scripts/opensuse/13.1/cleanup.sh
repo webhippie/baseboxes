@@ -38,3 +38,5 @@ EOF
 
 chmod a+x /etc/init.d/ssh_gen_host_keys
 chkconfig ssh_gen_host_keys on
+
+exit 0

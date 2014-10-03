@@ -37,3 +37,5 @@ EOF
 
 chmod a+x /etc/init.d/ssh_gen_host_keys
 update-rc.d ssh_gen_host_keys defaults
+
+exit 0

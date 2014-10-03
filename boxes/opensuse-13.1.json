@@ -23,9 +23,9 @@
       "guest_additions_mode": "upload",
       "hard_drive_interface": "sata",
       "ssh_port": 22,
-      "headless": false,
+      "headless": true,
       "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/shutdown -P now",
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", "512"],
         ["modifyvm", "{{.Name}}", "--cpus", "1"]
@@ -61,9 +61,9 @@
       "disk_size": 20480,
       "tools_upload_flavor": "linux",
       "ssh_port": 22,
-      "headless": false,
+      "headless": true,
       "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/shutdown -P now",
       "vmx_data": {
         "memsize": "512",
         "numvcpus": "1",

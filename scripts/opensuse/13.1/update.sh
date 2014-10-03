@@ -17,3 +17,5 @@ zypper addrepo -n 'openSUSE Non-OSS Update' http://download.opensuse.org/update/
 
 zypper --gpg-auto-import-keys --non-interactive ref
 zypper --gpg-auto-import-keys --non-interactive dup
+
+exit 0

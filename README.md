@@ -9,7 +9,7 @@ look at our [webdev](https://github.com/webhippie/webdev) boxes.
 
 * Install packer from the [website](http://www.packer.io)
 * ```export PACKER_CACHE_DIR=cache```
-* ```packer build -parallel=true -only=vmware,virtualbox boxes/definition.json```
+* ```packer build -parallel=true boxes/definition.json```
 
 ## Downloads
 
