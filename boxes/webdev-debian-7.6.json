@@ -1,7 +1,7 @@
 {
   "variables": {
     "version": "0.1.0",
-    "os": "debian-7.6",
+    "os": "webdev-debian-7.6",
     "fusion_path": "/usr/local/Caskroom/vmware-fusion/6.0.4-1887983/VMware Fusion.app",
 
     "iso_url": "http://cdimage.debian.org/mirror/cdimage/release/7.6.0/amd64/iso-cd/debian-7.6.0-amd64-netinst.iso",
@@ -23,8 +23,8 @@
       "hard_drive_interface": "sata",
       
       "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "512"],
-        ["modifyvm", "{{.Name}}", "--cpus", "1"]
+        ["modifyvm", "{{.Name}}", "--memory", "1024"],
+        ["modifyvm", "{{.Name}}", "--cpus", "2"]
       ],
 
       "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
@@ -67,8 +67,8 @@
       "tools_upload_flavor": "linux",
       
       "vmx_data": {
-        "memsize": "512",
-        "numvcpus": "1",
+        "memsize": "1024",
+        "numvcpus": "2",
         "cpuid.coresPerSocket": "1"
       },
       
@@ -117,7 +117,73 @@
         "scripts/debian/7.6/sshd.sh",
         "scripts/common/chef.sh",
         "scripts/common/vagrant.sh",
-        "scripts/common/motd.sh",
+        "scripts/common/motd.sh"
+      ]
+    },
+    {
+      "type": "chef-solo",
+      "cookbook_paths": ["chef/cookbooks"],
+      "roles_path": "chef/roles",
+      "data_bags_path": "chef/data_bags",
+      "skip_install": true,
+
+      "run_list": [
+        "recipe[database]",
+        "recipe[sshkey]",
+        "recipe[apt]",
+        "recipe[sudo]",
+        "recipe[locales]",
+        "recipe[timezone]",
+        "recipe[hosts]",
+        "recipe[motd]",
+        "recipe[build]",
+        "recipe[network]",
+        "recipe[readline]",
+        "recipe[git]",
+        "recipe[subversion]",
+        "recipe[cronlist]",
+        "recipe[homeshick]",
+        "recipe[htop]",
+        "recipe[imagemagick]",
+        "recipe[java]",
+        "recipe[locate]",
+        "recipe[screen]",
+        "recipe[nano]",
+        "recipe[vim]",
+        "recipe[sqlite]",
+        "recipe[php]",
+        "recipe[ruby]",
+        "recipe[ntp]",
+        "recipe[openssh]",
+        "recipe[elasticsearch]",
+        "recipe[memcached]",
+        "recipe[redis]",
+        "recipe[mysql]",
+        "recipe[nginx]",
+        "recipe[webdev]"
+      ],
+
+      "json": {
+        "nginx": {
+          "user": "vagrant",
+          "group": "vagrant",
+          "apps": [],
+          "confs": []
+        },
+        "php": {
+          "default_app": {
+            "dir": "/vagrant"
+          }
+        },
+        "ruby": {
+          "method": "source"
+        }
+      }
+    },
+    {
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "type": "shell",
+      "scripts": [
         "scripts/debian/7.6/cleanup.sh",
         "scripts/common/zerodisk.sh"
       ]

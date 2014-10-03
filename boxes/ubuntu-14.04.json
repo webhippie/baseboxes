@@ -2,34 +2,39 @@
   "variables": {
     "version": "0.1.0",
     "os": "ubuntu-14.04",
-    "fusion_path": "/usr/local/Caskroom/vmware-fusion/6.0.4-1887983/VMware Fusion.app"
+    "fusion_path": "/usr/local/Caskroom/vmware-fusion/6.0.4-1887983/VMware Fusion.app",
+
+    "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04.1-server-amd64.iso",
+    "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
+    "iso_checksum_type": "md5",
   },
   "builders": [
     {
       "name": "virtualbox",
       "type": "virtualbox-iso",
 
-      "vm_name": "ubuntu-14.04",
-      "guest_os_type": "Ubuntu_64",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04.1-server-amd64.iso",
-      "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
-      "iso_checksum_type": "md5",
-      
-      "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
-      "ssh_username": "vagrant",
-      "ssh_password": "vagrant",
-      "disk_size": 20480,
+      "vm_name": "{{user `os`}}",
+      "guest_os_type": "Ubuntu_64",
       "guest_additions_mode": "upload",
       "hard_drive_interface": "sata",
-      "ssh_port": 22,
-      "headless": true,
-      "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", "512"],
         ["modifyvm", "{{.Name}}", "--cpus", "1"]
       ],
+
+      "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "disk_size": 20480,
+      "ssh_port": 22,
+      "headless": true,
+      "http_directory": "http",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
         "<esc><esc><enter><wait> ",
         "/install/vmlinuz ",
@@ -53,28 +58,29 @@
       "name": "vmware",
       "type": "vmware-iso",
 
-      "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04.1-server-amd64.iso",
-      "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
-      "iso_checksum_type": "md5",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
       "guest_os_type": "ubuntu-64",
-      
       "fusion_app_path": "{{user `fusion_path`}}",
       "vm_name": "{{user `os`}}",
-      
-      "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
-      "ssh_username": "vagrant",
-      "ssh_password": "vagrant",
-      "disk_size": 20480,
       "tools_upload_flavor": "linux",
-      "ssh_port": 22,
-      "headless": true,
-      "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      
       "vmx_data": {
         "memsize": "512",
         "numvcpus": "1",
         "cpuid.coresPerSocket": "1"
       },
+      
+      "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "disk_size": 20480,
+      "ssh_port": 22,
+      "headless": true,
+      "http_directory": "http",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
         "<esc><esc><enter><wait> ",
         "/install/vmlinuz ",

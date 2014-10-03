@@ -2,34 +2,39 @@
   "variables": {
     "version": "0.1.0",
     "os": "opensuse-13.1",
-    "fusion_path": "/usr/local/Caskroom/vmware-fusion/6.0.4-1887983/VMware Fusion.app"
+    "fusion_path": "/usr/local/Caskroom/vmware-fusion/6.0.4-1887983/VMware Fusion.app",
+
+    "iso_url": "http://download.opensuse.org/distribution/13.1/iso/openSUSE-13.1-DVD-x86_64.iso",
+    "iso_checksum": "1096c9c67fc8a67a94a32d04a15e909d",
+    "iso_checksum_type": "md5",
   },
   "builders": [
     {
       "name": "virtualbox",
       "type": "virtualbox-iso",
 
-      "vm_name": "opensuse-13.1",
-      "guest_os_type": "OpenSUSE_64",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "iso_url": "http://download.opensuse.org/distribution/13.1/iso/openSUSE-13.1-DVD-x86_64.iso",
-      "iso_checksum": "1096c9c67fc8a67a94a32d04a15e909d",
-      "iso_checksum_type": "md5",
+      "vm_name": "{{user `os`}}",
+      "guest_os_type": "OpenSUSE_64",
+      "guest_additions_mode": "upload",
+      "hard_drive_interface": "sata",
+
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "512"],
+        ["modifyvm", "{{.Name}}", "--cpus", "1"]
+      ],
       
       "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
       "disk_size": 20480,
-      "guest_additions_mode": "upload",
-      "hard_drive_interface": "sata",
       "ssh_port": 22,
       "headless": true,
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S /sbin/shutdown -P now",
-      "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "512"],
-        ["modifyvm", "{{.Name}}", "--cpus", "1"]
-      ],
       "boot_command": [
         "<esc><enter><wait>",
         "linux ",
@@ -47,28 +52,29 @@
       "name": "vmware",
       "type": "vmware-iso",
 
-      "iso_url": "http://download.opensuse.org/distribution/13.1/iso/openSUSE-13.1-DVD-x86_64.iso",
-      "iso_checksum": "1096c9c67fc8a67a94a32d04a15e909d",
-      "iso_checksum_type": "md5",
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
       "guest_os_type": "opensuse-64",
-      
       "fusion_app_path": "{{user `fusion_path`}}",
       "vm_name": "{{user `os`}}",
-      
-      "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
-      "ssh_username": "vagrant",
-      "ssh_password": "vagrant",
-      "disk_size": 20480,
       "tools_upload_flavor": "linux",
-      "ssh_port": 22,
-      "headless": true,
-      "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/shutdown -P now",
+      
       "vmx_data": {
         "memsize": "512",
         "numvcpus": "1",
         "cpuid.coresPerSocket": "1"
       },
+      
+      "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "disk_size": 20480,
+      "ssh_port": 22,
+      "headless": true,
+      "http_directory": "http",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/shutdown -P now",
       "boot_command": [
         "<esc><enter><wait>",
         "linux ",
