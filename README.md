@@ -7,8 +7,9 @@ look at our [webdev](https://github.com/webhippie/webdev) boxes.
 
 ## Building
 
-* You need to export ```PACKER_CACHE_DIR=cache```, else your cache dir will be different!
-* Please execute ```packer build -parallel=true -only=vmware,virtualbox boxes/definition.json```
+* Install packer from the [website](http://www.packer.io)
+* ```export PACKER_CACHE_DIR=cache```
+* ```packer build -parallel=true -only=vmware,virtualbox boxes/definition.json```
 
 ## Downloads
 
