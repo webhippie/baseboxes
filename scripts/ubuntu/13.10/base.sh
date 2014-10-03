@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -x
 
+sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
+
+apt-get -y update
 apt-get -y install linux-headers-$(uname -r) build-essential libffi6 libyaml-0-2 dkms --fix-missing
 apt-get -y install zlib1g-dev libreadline6 libreadline6-dev libyaml-dev git-core --fix-missing
 apt-get -y install curl unzip openssl libssl-dev zlib1g ncurses-dev make nfs-common --fix-missing

@@ -1,6 +1,6 @@
 {
   "variables": {
-    "version": "0.0.1",
+    "version": "0.1.0",
     "os": "ubuntu-14.04",
     "fusion_path": "/usr/local/Caskroom/vmware-fusion/6.0.4-1887983/VMware Fusion.app"
   },

@@ -60,8 +60,7 @@
     <interfaces config:type="list">
       <interface>
         <bootproto>dhcp</bootproto>
-        <device>enp0s25</device>
-        <name>Intel Ethernet controller</name>
+        <device>eth0</device>
         <startmode>auto</startmode>
         <usercontrol>no</usercontrol>
       </interface>
@@ -113,6 +112,7 @@
       <pattern>enhanced_base</pattern>
       <pattern>sw_management</pattern>
       <pattern>yast2_basis</pattern>
+      <pattern>yast2_install_wf</pattern>
     </patterns>
 
     <packages config:type="list">
@@ -125,6 +125,7 @@
       <package>sudo</package>
       <package>vim</package>
       <package>wget</package>
+      <package>yast2-runlevel</package>
       <package>zypper</package>
     </packages>
   </software>
@@ -137,6 +138,47 @@
   <deploy_image>
     <image_installation config:type="boolean">false</image_installation>
   </deploy_image>
+
+  <runlevel>
+    <default>3</default>
+
+    <services config:type="list">
+      <service>
+        <service_name>sshd</service_name>
+        <service_status>enable</service_status>
+      </service> 
+      <service>
+        <service_name>sshd</service_name>
+        <service_status>enable</service_status>
+      </service>
+    </services>
+  </runlevel>
+
+  <scripts>
+    <chroot-scripts config:type="list">
+      <script>
+        <filename>newrename.sh</filename>
+        <interpreter>shell</interpreter>
+
+        <source>ln -sf /dev/null /etc/udev/rules.d/80-net-setup-link.rules</source>
+
+        <feedback config:type="boolean">false</feedback>
+        <debug config:type="boolean">true</debug>
+        <chrooted config:type="boolean">true</chrooted>
+      </script>
+
+      <script>
+        <filename>oldrename.sh</filename>
+        <interpreter>shell</interpreter>
+
+        <source>ln -sf /dev/null /etc/udev/rules.d/80-net-name-slot.rules</source>
+
+        <feedback config:type="boolean">false</feedback>
+        <debug config:type="boolean">true</debug>
+        <chrooted config:type="boolean">true</chrooted>
+      </script>
+    </chroot-scripts>
+  </scripts>
 
   <users config:type="list">
     <user>

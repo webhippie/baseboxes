@@ -1,6 +1,6 @@
 {
   "variables": {
-    "version": "0.0.1",
+    "version": "0.1.0",
     "os": "centos-7.0",
     "fusion_path": "/usr/local/Caskroom/vmware-fusion/6.0.4-1887983/VMware Fusion.app"
   },
@@ -31,7 +31,11 @@
         ["modifyvm", "{{.Name}}", "--cpus", "4"]
       ],
       "boot_command": [
-        "<tab><wait> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-7.0/ks.cfg<enter>"
+        "<tab><wait> ",
+        "biosdevname=0 ",
+        "net.ifnames=0 ",
+        "text ",
+        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-7.0/ks.cfg<enter>"
       ]
     },
     {
@@ -61,7 +65,11 @@
         "cpuid.coresPerSocket": "1"
       },
       "boot_command": [
-        "<tab><wait> text ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-7.0/ks.cfg<enter>"
+        "<tab><wait> ",
+        "biosdevname=0 ",
+        "net.ifnames=0 ",
+        "text ",
+        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-7.0/ks.cfg<enter>"
       ]
     }
   ],

@@ -1,6 +1,6 @@
 {
   "variables": {
-    "version": "0.0.1",
+    "version": "0.1.0",
     "os": "opensuse-13.1",
     "fusion_path": "/usr/local/Caskroom/vmware-fusion/6.0.4-1887983/VMware Fusion.app"
   },
@@ -33,6 +33,8 @@
       "boot_command": [
         "<esc><enter><wait>",
         "linux ",
+        "biosdevname=0 ",
+        "net.ifnames=0 ",
         "netsetup=dhcp ",
         "lang=en_US.utf8 ",
         "textmode=1 ",
@@ -70,6 +72,8 @@
       "boot_command": [
         "<esc><enter><wait>",
         "linux ",
+        "biosdevname=0 ",
+        "net.ifnames=0 ",
         "netsetup=dhcp ",
         "lang=en_US.utf8 ",
         "textmode=1 ",
