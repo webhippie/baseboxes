@@ -41,9 +41,9 @@ end
 ## Downloads
 
 * Debian 7.6
-  * [Virtualbox](http://vagrant.webhippie.de/webdev-debian-7.6-virtualbox-0.0.1.box)
-  * [VMware](http://vagrant.webhippie.de/webdev-debian-7.6-vmware-0.0.1.box)
-  * [Libvirt/KVM](http://vagrant.webhippie.de/webdev-debian-7.6-libvirt-0.0.1.box)
+  * [Virtualbox](http://vagrant.webhippie.de/webdev-debian-7.6-virtualbox-0.1.0.box)
+  * [VMware](http://vagrant.webhippie.de/webdev-debian-7.6-vmware-0.1.0.box)
+  * [Libvirt/KVM](http://vagrant.webhippie.de/webdev-debian-7.6-libvirt-0.1.0.box)
   * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/webdev-debian-7.6)
 
 ## Supported
