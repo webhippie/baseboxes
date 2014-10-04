@@ -6,7 +6,7 @@
 
     "iso_url": "http://ftp.tu-chemnitz.de/pub/linux/centos/7.0.1406/isos/x86_64/CentOS-7.0-1406-x86_64-NetInstall.iso",
     "iso_checksum": "96de4f38a2f07da51831153549c8bd0c",
-    "iso_checksum_type": "md5",
+    "iso_checksum_type": "md5"
   },
   "builders": [
     {
@@ -23,8 +23,8 @@
       "hard_drive_interface": "sata",
       
       "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "1024"],
-        ["modifyvm", "{{.Name}}", "--cpus", "4"]
+        ["modifyvm", "{{.Name}}", "--memory", "512"],
+        ["modifyvm", "{{.Name}}", "--cpus", "1"]
       ],
 
       "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",

@@ -4,10 +4,9 @@
     "os": "centos-6.5",
     "fusion_path": "/usr/local/Caskroom/vmware-fusion/6.0.4-1887983/VMware Fusion.app",
 
-
     "iso_url": "http://ftp.tu-chemnitz.de/pub/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-netinstall.iso",
     "iso_checksum": "939fd1d87c11ffe7795324438b85adfb",
-    "iso_checksum_type": "md5",
+    "iso_checksum_type": "md5"
   },
   "builders": [
     {
