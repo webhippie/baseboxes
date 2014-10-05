@@ -148,7 +148,7 @@
         <service_status>enable</service_status>
       </service> 
       <service>
-        <service_name>sshd</service_name>
+        <service_name>network</service_name>
         <service_status>enable</service_status>
       </service>
     </services>
