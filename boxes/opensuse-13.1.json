@@ -34,7 +34,7 @@
       "ssh_port": 22,
       "headless": true,
       "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/shutdown -P now",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -p",
       "boot_command": [
         "<esc><enter><wait>",
         "linux ",
@@ -74,7 +74,7 @@
       "ssh_port": 22,
       "headless": true,
       "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/shutdown -P now",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -p",
       "boot_command": [
         "<esc><enter><wait>",
         "linux ",
