@@ -128,6 +128,15 @@
       <package>yast2-runlevel</package>
       <package>zypper</package>
     </packages>
+
+    <remove-packages config:type="list">
+      <package>libapparmor</package>
+      <package>apparmor-profiles</package>
+      <package>apparmor-utils</package>
+      <package>apparmor-parser</package>
+      <package>yast2-apparmor</package>
+      <package>apparmor-docs</package>
+    </remove-packages>
   </software>
 
   <timezone>
@@ -183,7 +192,6 @@
   <users config:type="list">
     <user>
       <username>root</username>
-      <fullname>Root</fullname>
       <home>/root</home>
       <user_password>vagrant</user_password>
 
@@ -196,7 +204,6 @@
 
     <user>
       <username>vagrant</username>
-      <fullname>Vagrant</fullname>
       <home>/home/vagrant</home>
       <user_password>vagrant</user_password>
 
