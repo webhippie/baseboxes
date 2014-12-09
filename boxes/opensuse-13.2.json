@@ -1,11 +1,11 @@
 {
   "variables": {
-    "version": "0.1.1",
-    "os": "opensuse-13.1",
+    "version": "0.0.1",
+    "os": "opensuse-13.2",
     "fusion_path": "/usr/local/Caskroom/vmware-fusion/6.0.4-1887983/VMware Fusion.app",
 
-    "iso_url": "http://download.opensuse.org/distribution/13.1/iso/openSUSE-13.1-DVD-x86_64.iso",
-    "iso_checksum": "1096c9c67fc8a67a94a32d04a15e909d",
+    "iso_url": "http://download.opensuse.org/distribution/13.2/iso/openSUSE-13.2-DVD-x86_64.iso",
+    "iso_checksum": "350b8cb014a4e342cc9a7cc9df891b99",
     "iso_checksum_type": "md5"
   },
   "builders": [
@@ -44,7 +44,7 @@
         "lang=en_US.utf8 ",
         "textmode=1 ",
         "instmode=dvd ",
-        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.1/autoinst.xml ",
+        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.2/autoinst.xml ",
         "<enter><wait>"
       ]
     },
@@ -84,7 +84,7 @@
         "lang=en_US.utf8 ",
         "textmode=1 ",
         "instmode=dvd ",
-        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.1/autoinst.xml ",
+        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.2/autoinst.xml ",
         "<enter><wait>"
       ]
     }
@@ -101,14 +101,14 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "type": "shell",
       "scripts": [
-        "scripts/opensuse/13.1/base.sh",
-        "scripts/opensuse/13.1/update.sh",
+        "scripts/opensuse/13.2/base.sh",
+        "scripts/opensuse/13.2/update.sh",
         "scripts/common/vmtools.sh",
-        "scripts/opensuse/13.1/sshd.sh",
+        "scripts/opensuse/13.2/sshd.sh",
         "scripts/common/chef.sh",
         "scripts/common/vagrant.sh",
         "scripts/common/motd.sh",
-        "scripts/opensuse/13.1/cleanup.sh",
+        "scripts/opensuse/13.2/cleanup.sh",
         "scripts/common/zerodisk.sh"
       ]
     }
