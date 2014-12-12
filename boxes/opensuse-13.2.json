@@ -101,6 +101,7 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "type": "shell",
       "scripts": [
+        "scripts/opensuse/13.2/wait.sh",
         "scripts/opensuse/13.2/base.sh",
         "scripts/opensuse/13.2/update.sh",
         "scripts/common/vmtools.sh",
