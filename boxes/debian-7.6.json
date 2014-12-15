@@ -2,7 +2,7 @@
   "variables": {
     "version": "0.1.0",
     "os": "debian-7.6",
-    "fusion_path": "/usr/local/Caskroom/vmware-fusion/6.0.4-1887983/VMware Fusion.app",
+    "fusion_path": "/usr/local/Caskroom/vmware-fusion/7.1.0-2314774/VMware Fusion.app",
 
     "iso_url": "http://cdimage.debian.org/mirror/cdimage/release/7.6.0/amd64/iso-cd/debian-7.6.0-amd64-netinst.iso",
     "iso_checksum": "8a3c2ad7fd7a9c4c7e9bcb5cae38c135",
@@ -97,13 +97,54 @@
         "keyboard-configuration/xkb-keymap=de ",
         "<enter>"
       ]
+    },
+    {
+      "name": "kvm",
+      "type": "qemu",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "accelerator": "kvm",
+      "disk_interface": "virtio",
+      "net_device": "virtio-net",
+      "format": "qcow2",
+      "vm_name": "baseboxes-{{user `os`}}",
+
+      "output_directory": "images/{{user `os`}}-libvirt-{{user `version`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "disk_size": 20480,
+      "ssh_port": 22,
+      "headless": true,
+      "http_directory": "http",
+      "shutdown_command": "echo 'vagrant' | sudo -S halt -p",
+      "boot_command": [
+        "<esc><wait>",
+        "install ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7.6/preseed.cfg ",
+        "debian-installer=en_US ",
+        "auto ",
+        "locale=en_US ",
+        "kbd-chooser/method=us ",
+        "netcfg/get_hostname=vagrant ",
+        "netcfg/get_domain=webhippie.de ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "console-setup/ask_detect=false ",
+        "console-keymaps-at/keymap=de ",
+        "keyboard-configuration/xkb-keymap=de ",
+        "<enter>"
+      ]
     }
   ],
   "post-processors": [
     {
       "keep_input_artifact": false,
       "output": "images/{{user `os`}}-{{.Provider}}-{{user `version`}}.box",
-      "type": "vagrant"
+      "type": "vagrant",
+      "only": ["virtualbox", "vmware"]
     }
   ],
   "provisioners": [
