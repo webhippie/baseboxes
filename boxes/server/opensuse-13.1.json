@@ -38,6 +38,7 @@
         "linux ",
         "biosdevname=0 ",
         "net.ifnames=0 ",
+        "netdevice=eth0 ",
         "netsetup=dhcp ",
         "lang=en_US.utf8 ",
         "textmode=1 ",

@@ -18,7 +18,7 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "accelerator": "none",
+      "accelerator": "{{user `qemu_accelerator`}}",
       "disk_interface": "virtio",
       "net_device": "virtio-net",
       "machine_type": "pc-1.3",
@@ -31,7 +31,7 @@
       "ssh_wait_timeout": "90m",
       "disk_size": 20480,
       "ssh_port": 22,
-      "headless": false,
+      "headless": true,
       "http_directory": "http",
       "shutdown_command": "echo 'p455w0rd!234' | sudo -S /sbin/halt -p",
       "boot_command": [
