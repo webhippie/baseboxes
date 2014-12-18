@@ -1,12 +1,14 @@
 {
   "variables": {
-    "version": "0.1.0",
-    "os": "webdev-debian-7.6",
+    "version": "0.0.1",
+    "os": "webdev-ubuntu-13.10",
     "fusion_path": "/usr/local/Caskroom/vmware-fusion/7.1.0-2314774/VMware Fusion.app",
 
-    "iso_url": "http://cdimage.debian.org/mirror/cdimage/release/7.6.0/amd64/iso-cd/debian-7.6.0-amd64-netinst.iso",
-    "iso_checksum": "8a3c2ad7fd7a9c4c7e9bcb5cae38c135",
-    "iso_checksum_type": "md5"
+    "iso_url": "http://releases.ubuntu.com/saucy/ubuntu-13.10-server-amd64.iso",
+    "iso_checksum": "4d1a8b720cdd14b76ed9410c63a00d0e",
+    "iso_checksum_type": "md5",
+
+    "qemu_accelerator": "kvm"
   },
   "builders": [
     {
@@ -18,13 +20,13 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
       "vm_name": "{{user `os`}}",
-      "guest_os_type": "Debian_64",
+      "guest_os_type": "Ubuntu_64",
       "guest_additions_mode": "upload",
       "hard_drive_interface": "sata",
       
       "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "1024"],
-        ["modifyvm", "{{.Name}}", "--cpus", "2"]
+        ["modifyvm", "{{.Name}}", "--memory", "512"],
+        ["modifyvm", "{{.Name}}", "--cpus", "1"]
       ],
 
       "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
@@ -34,23 +36,24 @@
       "ssh_port": 22,
       "headless": true,
       "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S halt -p",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
-        "<esc><wait>",
-        "install ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7.6/preseed.cfg ",
+        "<esc><esc><enter><wait> ",
+        "/install/vmlinuz ",
+        "noapic ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-13.10/vagrant.cfg ",
         "debian-installer=en_US ",
         "auto ",
         "locale=en_US ",
-        "kbd-chooser/method=us ",
-        "netcfg/get_hostname=vagrant ",
-        "netcfg/get_domain=webhippie.de ",
+        "kbd-chooser/method=de ",
+        "hostname=vagrant ",
         "fb=false ",
         "debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=pc105 ",
+        "keyboard-configuration/layout=Germany ",
+        "keyboard-configuration/variant=Germany ",
         "console-setup/ask_detect=false ",
-        "console-keymaps-at/keymap=de ",
-        "keyboard-configuration/xkb-keymap=de ",
-        "<enter>"
+        "initrd=/install/initrd.gz -- <enter>"
       ]
     },
     {
@@ -61,14 +64,14 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "guest_os_type": "debian7-64",
+      "guest_os_type": "ubuntu-64",
       "fusion_app_path": "{{user `fusion_path`}}",
       "vm_name": "{{user `os`}}",
       "tools_upload_flavor": "linux",
       
       "vmx_data": {
-        "memsize": "1024",
-        "numvcpus": "2",
+        "memsize": "512",
+        "numvcpus": "1",
         "cpuid.coresPerSocket": "1"
       },
       
@@ -79,34 +82,35 @@
       "ssh_port": 22,
       "headless": true,
       "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S halt -p",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
-        "<esc><wait>",
-        "install ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7.6/preseed.cfg ",
+        "<esc><esc><enter><wait> ",
+        "/install/vmlinuz ",
+        "noapic ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-13.10/vagrant.cfg ",
         "debian-installer=en_US ",
         "auto ",
         "locale=en_US ",
-        "kbd-chooser/method=us ",
-        "netcfg/get_hostname=vagrant ",
-        "netcfg/get_domain=webhippie.de ",
+        "kbd-chooser/method=de ",
+        "hostname=vagrant ",
         "fb=false ",
         "debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=pc105 ",
+        "keyboard-configuration/layout=Germany ",
+        "keyboard-configuration/variant=Germany ",
         "console-setup/ask_detect=false ",
-        "console-keymaps-at/keymap=de ",
-        "keyboard-configuration/xkb-keymap=de ",
-        "<enter>"
+        "initrd=/install/initrd.gz -- <enter>"
       ]
     },
     {
-      "name": "kvm",
+      "name": "qemu",
       "type": "qemu",
 
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "accelerator": "kvm",
+      "accelerator": "{{user `qemu_accelerator`}}",
       "disk_interface": "virtio",
       "net_device": "virtio-net",
       "format": "qcow2",
@@ -119,23 +123,24 @@
       "ssh_port": 22,
       "headless": true,
       "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S halt -p",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
-        "<esc><wait>",
-        "install ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7.6/preseed.cfg ",
+        "<esc><esc><enter><wait> ",
+        "/install/vmlinuz ",
+        "noapic ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-13.10/vagrant.cfg ",
         "debian-installer=en_US ",
         "auto ",
         "locale=en_US ",
-        "kbd-chooser/method=us ",
-        "netcfg/get_hostname=vagrant ",
-        "netcfg/get_domain=webhippie.de ",
+        "kbd-chooser/method=de ",
+        "hostname=vagrant ",
         "fb=false ",
         "debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=pc105 ",
+        "keyboard-configuration/layout=Germany ",
+        "keyboard-configuration/variant=Germany ",
         "console-setup/ask_detect=false ",
-        "console-keymaps-at/keymap=de ",
-        "keyboard-configuration/xkb-keymap=de ",
-        "<enter>"
+        "initrd=/install/initrd.gz -- <enter>"
       ]
     }
   ],
@@ -152,13 +157,12 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "type": "shell",
       "scripts": [
-        "scripts/debian/7.6/base.sh",
-        "scripts/debian/7.6/update.sh",
-        "scripts/common/vmtools.sh",
-        "scripts/debian/7.6/sshd.sh",
-        "scripts/common/chef.sh",
-        "scripts/common/vagrant.sh",
-        "scripts/common/motd.sh"
+        "scripts/ubuntu/13.10/base.sh",
+        "scripts/ubuntu/13.10/update.sh",
+        "scripts/ubuntu/13.10/vmtools.sh",
+        "scripts/ubuntu/13.10/chef.sh",
+        "scripts/ubuntu/13.10/vagrant.sh",
+        "scripts/ubuntu/13.10/motd.sh"
       ]
     },
     {
@@ -176,18 +180,15 @@
         "recipe[locales]",
         "recipe[timezone]",
         "recipe[hosts]",
-        "recipe[motd]",
         "recipe[build]",
         "recipe[network]",
         "recipe[readline]",
         "recipe[git]",
-        "recipe[subversion]",
         "recipe[cronlist]",
         "recipe[homeshick]",
         "recipe[htop]",
         "recipe[imagemagick]",
         "recipe[java]",
-        "recipe[locate]",
         "recipe[screen]",
         "recipe[nano]",
         "recipe[vim]",
@@ -225,8 +226,8 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "type": "shell",
       "scripts": [
-        "scripts/debian/7.6/cleanup.sh",
-        "scripts/common/zerodisk.sh"
+        "scripts/ubuntu/13.10/cleanup.sh",
+        "scripts/ubuntu/13.10/zerodisk.sh"
       ]
     }
   ]

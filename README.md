@@ -5,49 +5,30 @@ base boxes to setup our development machines with vagrant. These boxes are prett
 minimalistic, if you are searching for a fullstack web development box take a
 look at our [webdev](WEBDEV.md) boxes.
 
+
 ## Building
 
 * Install packer from the [website](http://www.packer.io)
 * ```export PACKER_CACHE_DIR=cache```
-* ```packer build -parallel=true boxes/definition.json```
+* ```packer build -parallel=true boxes/base/definition.json```
+
 
 ## Downloads
 
-* Centos 6.5
-  * [Virtualbox](http://vagrant.webhippie.de/centos-6.5-virtualbox-0.0.1.box)
-  * [VMware](http://vagrant.webhippie.de/centos-6.5-vmware-0.0.1.box)
-  * [Libvirt/KVM](http://vagrant.webhippie.de/centos-6.5-libvirt-0.0.1.box)
-  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/centos-6.5)
+The boxes are seperated into 3 groups, you can choose the one that matches best
+for you:
 
-* Centos 7.0
-  * [Virtualbox](http://vagrant.webhippie.de/centos-7.0-virtualbox-0.0.1.box)
-  * [VMware](http://vagrant.webhippie.de/centos-7.0-vmware-0.0.1.box)
-  * [Libvirt/KVM](http://vagrant.webhippie.de/centos-7.0-libvirt-0.0.1.box)
-  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/centos-7.0)
+* [Base](BASE.md): Simple vagrant base images which are pretty minimalistic, as
+  you can see on the definitions we have already preinstalled the vmtools and
+  chef 11.
 
-* Debian 7.6
-  * [Virtualbox](http://vagrant.webhippie.de/debian-7.6-virtualbox-0.0.1.box)
-  * [VMware](http://vagrant.webhippie.de/debian-7.6-vmware-0.0.1.box)
-  * [Libvirt/KVM](http://vagrant.webhippie.de/debian-7.6-libvirt-0.0.1.box)
-  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/debian-7.6)
+* [Webdev](WEBDEV.md): Extended vagrant images where we have already preinstalled
+  a fullstack development environment for web applications.
 
-* openSUSE 13.1
-  * [Virtualbox](http://vagrant.webhippie.de/opensuse-13.1-virtualbox-0.0.1.box)
-  * [VMware](http://vagrant.webhippie.de/opensuse-13.1-vmware-0.0.1.box)
-  * [Libvirt/KVM](http://vagrant.webhippie.de/opensuse-13.1-libvirt-0.0.1.box)
-  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/opensuse-13.1)
+* [Server](SERVER.md): Not really vagrant images but definitions for generating
+  qcow2 images which are getting used on our servers. These images can easily
+  get imported through libvirt into KVM or Xen.
 
-* Ubuntu 13.10
-  * [Virtualbox](http://vagrant.webhippie.de/ubuntu-13.10-virtualbox-0.0.1.box)
-  * [VMware](http://vagrant.webhippie.de/ubuntu-13.10-vmware-0.0.1.box)
-  * [Libvirt/KVM](http://vagrant.webhippie.de/ubuntu-13.10-libvirt-0.0.1.box)
-  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/ubuntu-13.10)
-
-* Ubuntu 14.04
-  * [Virtualbox](http://vagrant.webhippie.de/ubuntu-14.04-virtualbox-0.0.1.box)
-  * [VMware](http://vagrant.webhippie.de/ubuntu-14.04-vmware-0.0.1.box)
-  * [Libvirt/KVM](http://vagrant.webhippie.de/ubuntu-14.04-libvirt-0.0.1.box)
-  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/ubuntu-14.04)
 
 ## Credits
 

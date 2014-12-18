@@ -1,0 +1,216 @@
+{
+  "variables": {
+    "version": "0.0.1",
+    "os": "webdev-opensuse-13.1",
+    "fusion_path": "/usr/local/Caskroom/vmware-fusion/7.1.0-2314774/VMware Fusion.app",
+
+    "iso_url": "http://download.opensuse.org/distribution/13.1/iso/openSUSE-13.1-DVD-x86_64.iso",
+    "iso_checksum": "1096c9c67fc8a67a94a32d04a15e909d",
+    "iso_checksum_type": "md5",
+
+    "qemu_accelerator": "kvm"
+  },
+  "builders": [
+    {
+      "name": "virtualbox",
+      "type": "virtualbox-iso",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "vm_name": "{{user `os`}}",
+      "guest_os_type": "OpenSUSE_64",
+      "guest_additions_mode": "upload",
+      "hard_drive_interface": "sata",
+
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "512"],
+        ["modifyvm", "{{.Name}}", "--cpus", "1"]
+      ],
+      
+      "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "disk_size": 20480,
+      "ssh_port": 22,
+      "headless": true,
+      "http_directory": "http",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -p",
+      "boot_command": [
+        "<esc><enter><wait>",
+        "linux ",
+        "biosdevname=0 ",
+        "net.ifnames=0 ",
+        "netsetup=dhcp ",
+        "lang=en_US.utf8 ",
+        "textmode=1 ",
+        "instmode=dvd ",
+        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.1/vagrant.xml ",
+        "<enter><wait>"
+      ]
+    },
+    {
+      "name": "vmware",
+      "type": "vmware-iso",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "guest_os_type": "opensuse-64",
+      "fusion_app_path": "{{user `fusion_path`}}",
+      "vm_name": "{{user `os`}}",
+      "tools_upload_flavor": "linux",
+      
+      "vmx_data": {
+        "memsize": "512",
+        "numvcpus": "1",
+        "cpuid.coresPerSocket": "1"
+      },
+      
+      "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "disk_size": 20480,
+      "ssh_port": 22,
+      "headless": true,
+      "http_directory": "http",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -p",
+      "boot_command": [
+        "<esc><enter><wait>",
+        "linux ",
+        "biosdevname=0 ",
+        "net.ifnames=0 ",
+        "netsetup=dhcp ",
+        "lang=en_US.utf8 ",
+        "textmode=1 ",
+        "instmode=dvd ",
+        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.1/vagrant.xml ",
+        "<enter><wait>"
+      ]
+    },
+    {
+      "name": "qemu",
+      "type": "qemu",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "accelerator": "{{user `qemu_accelerator`}}",
+      "disk_interface": "virtio",
+      "net_device": "virtio-net",
+      "format": "qcow2",
+      "vm_name": "baseboxes-{{user `os`}}",
+
+      "output_directory": "images/{{user `os`}}-libvirt-{{user `version`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "disk_size": 20480,
+      "ssh_port": 22,
+      "headless": true,
+      "http_directory": "http",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -p",
+      "boot_command": [
+        "<esc><enter><wait>",
+        "linux ",
+        "biosdevname=0 ",
+        "net.ifnames=0 ",
+        "netsetup=dhcp ",
+        "lang=en_US.utf8 ",
+        "textmode=1 ",
+        "instmode=dvd ",
+        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.1/vagrant.xml ",
+        "<enter><wait>"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "keep_input_artifact": false,
+      "output": "images/{{user `os`}}-{{.Provider}}-{{user `version`}}.box",
+      "type": "vagrant",
+      "only": ["virtualbox", "vmware"]
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "type": "shell",
+      "scripts": [
+        "scripts/opensuse/13.1/base.sh",
+        "scripts/opensuse/13.1/update.sh",
+        "scripts/opensuse/13.1/vmtools.sh",
+        "scripts/opensuse/13.1/chef.sh",
+        "scripts/opensuse/13.1/vagrant.sh",
+        "scripts/opensuse/13.1/motd.sh"
+      ]
+    },
+    {
+      "type": "chef-solo",
+      "cookbook_paths": ["chef/cookbooks"],
+      "roles_path": "chef/roles",
+      "data_bags_path": "chef/data_bags",
+      "skip_install": true,
+
+      "run_list": [
+        "recipe[database]",
+        "recipe[sshkey]",
+        "recipe[zypper]",
+        "recipe[sudo]",
+        "recipe[locales]",
+        "recipe[timezone]",
+        "recipe[hosts]",
+        "recipe[build]",
+        "recipe[network]",
+        "recipe[readline]",
+        "recipe[git]",
+        "recipe[cronlist]",
+        "recipe[homeshick]",
+        "recipe[htop]",
+        "recipe[imagemagick]",
+        "recipe[java]",
+        "recipe[screen]",
+        "recipe[nano]",
+        "recipe[vim]",
+        "recipe[sqlite]",
+        "recipe[php]",
+        "recipe[ruby]",
+        "recipe[ntp]",
+        "recipe[openssh]",
+        "recipe[elasticsearch]",
+        "recipe[memcached]",
+        "recipe[redis]",
+        "recipe[mysql]",
+        "recipe[nginx]",
+        "recipe[webdev]"
+      ],
+
+      "json": {
+        "nginx": {
+          "user": "vagrant",
+          "group": "vagrant",
+          "apps": [],
+          "confs": []
+        },
+        "php": {
+          "default_app": {
+            "dir": "/vagrant"
+          }
+        },
+        "ruby": {
+          "method": "package"
+        }
+      }
+    },
+    {
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "type": "shell",
+      "scripts": [
+        "scripts/opensuse/13.1/cleanup.sh",
+        "scripts/opensuse/13.1/zerodisk.sh"
+      ]
+    }
+  ]
+}

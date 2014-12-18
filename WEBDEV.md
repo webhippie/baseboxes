@@ -1,4 +1,4 @@
-# Webdev
+# Webdev vagrant boxes
 
 The webdev boxes define a full stack development environment for web development
 based on the below listed technologies.
@@ -32,19 +32,6 @@ Vagrant.configure("2") do |config|
 end
 ```
 
-## Building
-
-* Install packer from the [website](http://www.packer.io)
-* ```export PACKER_CACHE_DIR=cache```
-* ```packer build -parallel=true boxes/definition.json```
-
-## Downloads
-
-* Debian 7.6
-  * [Virtualbox](http://vagrant.webhippie.de/webdev-debian-7.6-virtualbox-0.1.0.box)
-  * [VMware](http://vagrant.webhippie.de/webdev-debian-7.6-vmware-0.1.0.box)
-  * [Libvirt/KVM](http://vagrant.webhippie.de/webdev-debian-7.6-libvirt-0.1.0.box)
-  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/webdev-debian-7.6)
 
 ## Supported
 
@@ -52,6 +39,7 @@ end
 * [Typo3](http://typo3.org/)
 * [Symfony2](http://symfony.com/)
 * [Wordpress](http://wordpress.org/)
+
 
 ## Included
 
@@ -63,10 +51,12 @@ end
 * Elasticsearch
 * Redis
 
+
 ## Planned
 
 * PostgreSQL
 * Mongodb
+
 
 ## Cookbooks
 
@@ -106,6 +96,52 @@ end
 * [vim](https://github.com/tboerger/chef-vim)
 * [webdev](https://github.com/tboerger/chef-webdev)
 * [zypper](https://github.com/tboerger/chef-zypper)
+
+
+## Downloads
+
+* Centos 6.5
+  * [Virtualbox](http://vagrant.webhippie.de/webdev/centos-6.5-virtualbox-0.0.1.box)
+  * [VMware](http://vagrant.webhippie.de/webdev/centos-6.5-vmware-0.0.1.box)
+  * [Libvirt/KVM](http://vagrant.webhippie.de/webdev/centos-6.5-libvirt-0.0.1.box)
+  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/webdev-centos-6.5)
+
+* Centos 7.0
+  * [Virtualbox](http://vagrant.webhippie.de/webdev/centos-7.0-virtualbox-0.0.1.box)
+  * [VMware](http://vagrant.webhippie.de/webdev/centos-7.0-vmware-0.0.1.box)
+  * [Libvirt/KVM](http://vagrant.webhippie.de/webdev/centos-7.0-libvirt-0.0.1.box)
+  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/webdev-centos-7.0)
+
+* Debian 7.6
+  * [Virtualbox](http://vagrant.webhippie.de/webdev/debian-7.6-virtualbox-0.0.1.box)
+  * [VMware](http://vagrant.webhippie.de/webdev/debian-7.6-vmware-0.0.1.box)
+  * [Libvirt/KVM](http://vagrant.webhippie.de/webdev/debian-7.6-libvirt-0.0.1.box)
+  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/webdev-debian-7.6)
+
+* openSUSE 13.1
+  * [Virtualbox](http://vagrant.webhippie.de/webdev/opensuse-13.1-virtualbox-0.0.1.box)
+  * [VMware](http://vagrant.webhippie.de/webdev/opensuse-13.1-vmware-0.0.1.box)
+  * [Libvirt/KVM](http://vagrant.webhippie.de/webdev/opensuse-13.1-libvirt-0.0.1.box)
+  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/webdev-opensuse-13.1)
+
+* openSUSE 13.2
+  * [Virtualbox](http://vagrant.webhippie.de/webdev/opensuse-13.2-virtualbox-0.0.1.box)
+  * [VMware](http://vagrant.webhippie.de/webdev/opensuse-13.2-vmware-0.0.1.box)
+  * [Libvirt/KVM](http://vagrant.webhippie.de/webdev/opensuse-13.2-libvirt-0.0.1.box)
+  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/webdev-opensuse-13.2)
+
+* Ubuntu 13.10
+  * [Virtualbox](http://vagrant.webhippie.de/webdev/ubuntu-13.10-virtualbox-0.0.1.box)
+  * [VMware](http://vagrant.webhippie.de/webdev/ubuntu-13.10-vmware-0.0.1.box)
+  * [Libvirt/KVM](http://vagrant.webhippie.de/webdev/ubuntu-13.10-libvirt-0.0.1.box)
+  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/webdev-ubuntu-13.10)
+
+* Ubuntu 14.04
+  * [Virtualbox](http://vagrant.webhippie.de/webdev/ubuntu-14.04-virtualbox-0.0.1.box)
+  * [VMware](http://vagrant.webhippie.de/webdev/ubuntu-14.04-vmware-0.0.1.box)
+  * [Libvirt/KVM](http://vagrant.webhippie.de/webdev/ubuntu-14.04-libvirt-0.0.1.box)
+  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/webdev-ubuntu-14.04)
+
 
 ## Credits
 

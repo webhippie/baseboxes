@@ -1,12 +1,14 @@
 {
   "variables": {
-    "version": "0.1.1",
-    "os": "opensuse-13.1",
+    "version": "1.0.0",
+    "os": "debian-7.6",
     "fusion_path": "/usr/local/Caskroom/vmware-fusion/7.1.0-2314774/VMware Fusion.app",
 
-    "iso_url": "http://download.opensuse.org/distribution/13.1/iso/openSUSE-13.1-DVD-x86_64.iso",
-    "iso_checksum": "1096c9c67fc8a67a94a32d04a15e909d",
-    "iso_checksum_type": "md5"
+    "iso_url": "http://cdimage.debian.org/mirror/cdimage/archive/7.6.0/amd64/iso-cd/debian-7.6.0-amd64-netinst.iso",
+    "iso_checksum": "8a3c2ad7fd7a9c4c7e9bcb5cae38c135",
+    "iso_checksum_type": "md5",
+
+    "qemu_accelerator": "kvm"
   },
   "builders": [
     {
@@ -18,15 +20,15 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
       "vm_name": "{{user `os`}}",
-      "guest_os_type": "OpenSUSE_64",
+      "guest_os_type": "Debian_64",
       "guest_additions_mode": "upload",
       "hard_drive_interface": "sata",
-
+      
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", "512"],
         ["modifyvm", "{{.Name}}", "--cpus", "1"]
       ],
-      
+
       "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -34,18 +36,23 @@
       "ssh_port": 22,
       "headless": true,
       "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -p",
+      "shutdown_command": "echo 'vagrant' | sudo -S halt -p",
       "boot_command": [
-        "<esc><enter><wait>",
-        "linux ",
-        "biosdevname=0 ",
-        "net.ifnames=0 ",
-        "netsetup=dhcp ",
-        "lang=en_US.utf8 ",
-        "textmode=1 ",
-        "instmode=dvd ",
-        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.1/autoinst.xml ",
-        "<enter><wait>"
+        "<esc><wait>",
+        "install ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7.6/vagrant.cfg ",
+        "debian-installer=en_US ",
+        "auto ",
+        "locale=en_US ",
+        "kbd-chooser/method=us ",
+        "netcfg/get_hostname=vagrant ",
+        "netcfg/get_domain=webhippie.de ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "console-setup/ask_detect=false ",
+        "console-keymaps-at/keymap=de ",
+        "keyboard-configuration/xkb-keymap=de ",
+        "<enter>"
       ]
     },
     {
@@ -56,7 +63,7 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "guest_os_type": "opensuse-64",
+      "guest_os_type": "debian7-64",
       "fusion_app_path": "{{user `fusion_path`}}",
       "vm_name": "{{user `os`}}",
       "tools_upload_flavor": "linux",
@@ -74,29 +81,34 @@
       "ssh_port": 22,
       "headless": true,
       "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -p",
+      "shutdown_command": "echo 'vagrant' | sudo -S halt -p",
       "boot_command": [
-        "<esc><enter><wait>",
-        "linux ",
-        "biosdevname=0 ",
-        "net.ifnames=0 ",
-        "netsetup=dhcp ",
-        "lang=en_US.utf8 ",
-        "textmode=1 ",
-        "instmode=dvd ",
-        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.1/autoinst.xml ",
-        "<enter><wait>"
+        "<esc><wait>",
+        "install ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7.6/vagrant.cfg ",
+        "debian-installer=en_US ",
+        "auto ",
+        "locale=en_US ",
+        "kbd-chooser/method=us ",
+        "netcfg/get_hostname=vagrant ",
+        "netcfg/get_domain=webhippie.de ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "console-setup/ask_detect=false ",
+        "console-keymaps-at/keymap=de ",
+        "keyboard-configuration/xkb-keymap=de ",
+        "<enter>"
       ]
     },
     {
-      "name": "kvm",
+      "name": "qemu",
       "type": "qemu",
 
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "accelerator": "kvm",
+      "accelerator": "{{user `qemu_accelerator`}}",
       "disk_interface": "virtio",
       "net_device": "virtio-net",
       "format": "qcow2",
@@ -109,18 +121,23 @@
       "ssh_port": 22,
       "headless": true,
       "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -p",
+      "shutdown_command": "echo 'vagrant' | sudo -S halt -p",
       "boot_command": [
-        "<esc><enter><wait>",
-        "linux ",
-        "biosdevname=0 ",
-        "net.ifnames=0 ",
-        "netsetup=dhcp ",
-        "lang=en_US.utf8 ",
-        "textmode=1 ",
-        "instmode=dvd ",
-        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.1/autoinst.xml ",
-        "<enter><wait>"
+        "<esc><wait>",
+        "install ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7.6/vagrant.cfg ",
+        "debian-installer=en_US ",
+        "auto ",
+        "locale=en_US ",
+        "kbd-chooser/method=us ",
+        "netcfg/get_hostname=vagrant ",
+        "netcfg/get_domain=webhippie.de ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "console-setup/ask_detect=false ",
+        "console-keymaps-at/keymap=de ",
+        "keyboard-configuration/xkb-keymap=de ",
+        "<enter>"
       ]
     }
   ],
@@ -137,16 +154,15 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "type": "shell",
       "scripts": [
-        "scripts/opensuse/13.1/wait.sh",
-        "scripts/opensuse/13.1/base.sh",
-        "scripts/opensuse/13.1/update.sh",
-        "scripts/common/vmtools.sh",
-        "scripts/opensuse/13.1/sshd.sh",
-        "scripts/common/chef.sh",
-        "scripts/common/vagrant.sh",
-        "scripts/common/motd.sh",
-        "scripts/opensuse/13.1/cleanup.sh",
-        "scripts/common/zerodisk.sh"
+        "scripts/debian/7.6/base.sh",
+        "scripts/debian/7.6/update.sh",
+        "scripts/debian/7.6/vmtools.sh",
+        "scripts/debian/7.6/sshd.sh",
+        "scripts/debian/7.6/chef.sh",
+        "scripts/debian/7.6/vagrant.sh",
+        "scripts/debian/7.6/motd.sh",
+        "scripts/debian/7.6/cleanup.sh",
+        "scripts/debian/7.6/zerodisk.sh"
       ]
     }
   ]

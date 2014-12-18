@@ -1,12 +1,14 @@
 {
   "variables": {
-    "version": "0.1.0",
-    "os": "ubuntu-13.10",
+    "version": "1.0.0",
+    "os": "centos-6.5",
     "fusion_path": "/usr/local/Caskroom/vmware-fusion/7.1.0-2314774/VMware Fusion.app",
 
-    "iso_url": "http://releases.ubuntu.com/saucy/ubuntu-13.10-server-amd64.iso",
-    "iso_checksum": "4d1a8b720cdd14b76ed9410c63a00d0e",
-    "iso_checksum_type": "md5"
+    "iso_url": "http://ftp.tu-chemnitz.de/pub/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-netinstall.iso",
+    "iso_checksum": "939fd1d87c11ffe7795324438b85adfb",
+    "iso_checksum_type": "md5",
+
+    "qemu_accelerator": "kvm"
   },
   "builders": [
     {
@@ -18,7 +20,7 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
       "vm_name": "{{user `os`}}",
-      "guest_os_type": "Ubuntu_64",
+      "guest_os_type": "RedHat_64",
       "guest_additions_mode": "upload",
       "hard_drive_interface": "sata",
       
@@ -26,7 +28,7 @@
         ["modifyvm", "{{.Name}}", "--memory", "512"],
         ["modifyvm", "{{.Name}}", "--cpus", "1"]
       ],
-
+      
       "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -36,22 +38,11 @@
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
-        "<esc><esc><enter><wait> ",
-        "/install/vmlinuz ",
-        "noapic ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-13.10/preseed.cfg ",
-        "debian-installer=en_US ",
-        "auto ",
-        "locale=en_US ",
-        "kbd-chooser/method=de ",
-        "hostname=vagrant ",
-        "fb=false ",
-        "debconf/frontend=noninteractive ",
-        "keyboard-configuration/modelcode=pc105 ",
-        "keyboard-configuration/layout=Germany ",
-        "keyboard-configuration/variant=Germany ",
-        "console-setup/ask_detect=false ",
-        "initrd=/install/initrd.gz -- <enter>"
+        "<tab><wait> ",
+        "biosdevname=0 ",
+        "net.ifnames=0 ",
+        "text ",
+        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-6.5/vagrant.cfg<enter>"
       ]
     },
     {
@@ -62,17 +53,17 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "guest_os_type": "ubuntu-64",
+      "guest_os_type": "centos-64",
       "fusion_app_path": "{{user `fusion_path`}}",
       "vm_name": "{{user `os`}}",
       "tools_upload_flavor": "linux",
-      
+
       "vmx_data": {
         "memsize": "512",
         "numvcpus": "1",
         "cpuid.coresPerSocket": "1"
       },
-      
+
       "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -82,33 +73,22 @@
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
-        "<esc><esc><enter><wait> ",
-        "/install/vmlinuz ",
-        "noapic ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-13.10/preseed.cfg ",
-        "debian-installer=en_US ",
-        "auto ",
-        "locale=en_US ",
-        "kbd-chooser/method=de ",
-        "hostname=vagrant ",
-        "fb=false ",
-        "debconf/frontend=noninteractive ",
-        "keyboard-configuration/modelcode=pc105 ",
-        "keyboard-configuration/layout=Germany ",
-        "keyboard-configuration/variant=Germany ",
-        "console-setup/ask_detect=false ",
-        "initrd=/install/initrd.gz -- <enter>"
+        "<tab><wait> ",
+        "biosdevname=0 ",
+        "net.ifnames=0 ",
+        "text ",
+        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-6.5/vagrant.cfg<enter>"
       ]
     },
     {
-      "name": "kvm",
+      "name": "qemu",
       "type": "qemu",
 
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "accelerator": "kvm",
+      "accelerator": "{{user `qemu_accelerator`}}",
       "disk_interface": "virtio",
       "net_device": "virtio-net",
       "format": "qcow2",
@@ -123,22 +103,11 @@
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
-        "<esc><esc><enter><wait> ",
-        "/install/vmlinuz ",
-        "noapic ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-13.10/preseed.cfg ",
-        "debian-installer=en_US ",
-        "auto ",
-        "locale=en_US ",
-        "kbd-chooser/method=de ",
-        "hostname=vagrant ",
-        "fb=false ",
-        "debconf/frontend=noninteractive ",
-        "keyboard-configuration/modelcode=pc105 ",
-        "keyboard-configuration/layout=Germany ",
-        "keyboard-configuration/variant=Germany ",
-        "console-setup/ask_detect=false ",
-        "initrd=/install/initrd.gz -- <enter>"
+        "<tab><wait> ",
+        "biosdevname=0 ",
+        "net.ifnames=0 ",
+        "text ",
+        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-6.5/vagrant.cfg<enter>"
       ]
     }
   ],
@@ -155,15 +124,15 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "type": "shell",
       "scripts": [
-        "scripts/ubuntu/13.10/base.sh",
-        "scripts/ubuntu/13.10/update.sh",
-        "scripts/common/vmtools.sh",
-        "scripts/ubuntu/13.10/sshd.sh",
-        "scripts/common/chef.sh",
-        "scripts/common/vagrant.sh",
-        "scripts/common/motd.sh",
-        "scripts/ubuntu/13.10/cleanup.sh",
-        "scripts/common/zerodisk.sh"
+        "scripts/centos/6.5/base.sh",
+        "scripts/centos/6.5/update.sh",
+        "scripts/centos/6.5/vmtools.sh",
+        "scripts/centos/6.5/sshd.sh",
+        "scripts/centos/6.5/chef.sh",
+        "scripts/centos/6.5/vagrant.sh",
+        "scripts/centos/6.5/motd.sh",
+        "scripts/centos/6.5/cleanup.sh",
+        "scripts/centos/6.5/zerodisk.sh"
       ]
     }
   ]

@@ -1,0 +1,172 @@
+{
+  "variables": {
+    "version": "1.0.0",
+    "os": "ubuntu-13.10",
+    "fusion_path": "/usr/local/Caskroom/vmware-fusion/7.1.0-2314774/VMware Fusion.app",
+
+    "iso_url": "http://releases.ubuntu.com/saucy/ubuntu-13.10-server-amd64.iso",
+    "iso_checksum": "4d1a8b720cdd14b76ed9410c63a00d0e",
+    "iso_checksum_type": "md5",
+
+    "qemu_accelerator": "kvm"
+  },
+  "builders": [
+    {
+      "name": "virtualbox",
+      "type": "virtualbox-iso",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "vm_name": "{{user `os`}}",
+      "guest_os_type": "Ubuntu_64",
+      "guest_additions_mode": "upload",
+      "hard_drive_interface": "sata",
+      
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "512"],
+        ["modifyvm", "{{.Name}}", "--cpus", "1"]
+      ],
+
+      "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "disk_size": 20480,
+      "ssh_port": 22,
+      "headless": true,
+      "http_directory": "http",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "boot_command": [
+        "<esc><esc><enter><wait> ",
+        "/install/vmlinuz ",
+        "noapic ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-13.10/vagrant.cfg ",
+        "debian-installer=en_US ",
+        "auto ",
+        "locale=en_US ",
+        "kbd-chooser/method=de ",
+        "hostname=vagrant ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=pc105 ",
+        "keyboard-configuration/layout=Germany ",
+        "keyboard-configuration/variant=Germany ",
+        "console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ]
+    },
+    {
+      "name": "vmware",
+      "type": "vmware-iso",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "guest_os_type": "ubuntu-64",
+      "fusion_app_path": "{{user `fusion_path`}}",
+      "vm_name": "{{user `os`}}",
+      "tools_upload_flavor": "linux",
+      
+      "vmx_data": {
+        "memsize": "512",
+        "numvcpus": "1",
+        "cpuid.coresPerSocket": "1"
+      },
+      
+      "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "disk_size": 20480,
+      "ssh_port": 22,
+      "headless": true,
+      "http_directory": "http",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "boot_command": [
+        "<esc><esc><enter><wait> ",
+        "/install/vmlinuz ",
+        "noapic ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-13.10/vagrant.cfg ",
+        "debian-installer=en_US ",
+        "auto ",
+        "locale=en_US ",
+        "kbd-chooser/method=de ",
+        "hostname=vagrant ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=pc105 ",
+        "keyboard-configuration/layout=Germany ",
+        "keyboard-configuration/variant=Germany ",
+        "console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ]
+    },
+    {
+      "name": "qemu",
+      "type": "qemu",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "accelerator": "{{user `qemu_accelerator`}}",
+      "disk_interface": "virtio",
+      "net_device": "virtio-net",
+      "format": "qcow2",
+      "vm_name": "baseboxes-{{user `os`}}",
+
+      "output_directory": "images/{{user `os`}}-libvirt-{{user `version`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "disk_size": 20480,
+      "ssh_port": 22,
+      "headless": true,
+      "http_directory": "http",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "boot_command": [
+        "<esc><esc><enter><wait> ",
+        "/install/vmlinuz ",
+        "noapic ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-13.10/vagrant.cfg ",
+        "debian-installer=en_US ",
+        "auto ",
+        "locale=en_US ",
+        "kbd-chooser/method=de ",
+        "hostname=vagrant ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=pc105 ",
+        "keyboard-configuration/layout=Germany ",
+        "keyboard-configuration/variant=Germany ",
+        "console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "keep_input_artifact": false,
+      "output": "images/{{user `os`}}-{{.Provider}}-{{user `version`}}.box",
+      "type": "vagrant",
+      "only": ["virtualbox", "vmware"]
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "type": "shell",
+      "scripts": [
+        "scripts/ubuntu/13.10/base.sh",
+        "scripts/ubuntu/13.10/update.sh",
+        "scripts/ubuntu/13.10/vmtools.sh",
+        "scripts/ubuntu/13.10/sshd.sh",
+        "scripts/ubuntu/13.10/chef.sh",
+        "scripts/ubuntu/13.10/vagrant.sh",
+        "scripts/ubuntu/13.10/motd.sh",
+        "scripts/ubuntu/13.10/cleanup.sh",
+        "scripts/ubuntu/13.10/zerodisk.sh"
+      ]
+    }
+  ]
+}

@@ -18,7 +18,7 @@ then
   echo "vagrant ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/vagrant
   chmod 0440 /etc/sudoers.d/vagrant
 else
-  echo "vagrant ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers
+  echo "vagrant ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 fi
 
 exit 0

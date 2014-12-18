@@ -1,12 +1,14 @@
 {
   "variables": {
-    "version": "0.1.0",
-    "os": "centos-7.0",
+    "version": "1.0.0",
+    "os": "ubuntu-14.04",
     "fusion_path": "/usr/local/Caskroom/vmware-fusion/7.1.0-2314774/VMware Fusion.app",
 
-    "iso_url": "http://ftp.tu-chemnitz.de/pub/linux/centos/7.0.1406/isos/x86_64/CentOS-7.0-1406-x86_64-NetInstall.iso",
-    "iso_checksum": "96de4f38a2f07da51831153549c8bd0c",
-    "iso_checksum_type": "md5"
+    "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04.1-server-amd64.iso",
+    "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
+    "iso_checksum_type": "md5",
+
+    "qemu_accelerator": "kvm"
   },
   "builders": [
     {
@@ -18,7 +20,7 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
       "vm_name": "{{user `os`}}",
-      "guest_os_type": "RedHat_64",
+      "guest_os_type": "Ubuntu_64",
       "guest_additions_mode": "upload",
       "hard_drive_interface": "sata",
       
@@ -36,11 +38,22 @@
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
-        "<tab><wait> ",
-        "biosdevname=0 ",
-        "net.ifnames=0 ",
-        "text ",
-        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-7.0/ks.cfg<enter>"
+        "<esc><esc><enter><wait> ",
+        "/install/vmlinuz ",
+        "noapic ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-14.04/vagrant.cfg ",
+        "debian-installer=en_US ",
+        "auto ",
+        "locale=en_US ",
+        "kbd-chooser/method=de ",
+        "hostname=vagrant ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=pc105 ",
+        "keyboard-configuration/layout=Germany ",
+        "keyboard-configuration/variant=Germany ",
+        "console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- <enter>"
       ]
     },
     {
@@ -51,7 +64,7 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "guest_os_type": "centos-64",
+      "guest_os_type": "ubuntu-64",
       "fusion_app_path": "{{user `fusion_path`}}",
       "vm_name": "{{user `os`}}",
       "tools_upload_flavor": "linux",
@@ -61,7 +74,7 @@
         "numvcpus": "1",
         "cpuid.coresPerSocket": "1"
       },
-
+      
       "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -71,22 +84,33 @@
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
-        "<tab><wait> ",
-        "biosdevname=0 ",
-        "net.ifnames=0 ",
-        "text ",
-        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-7.0/ks.cfg<enter>"
+        "<esc><esc><enter><wait> ",
+        "/install/vmlinuz ",
+        "noapic ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-14.04/vagrant.cfg ",
+        "debian-installer=en_US ",
+        "auto ",
+        "locale=en_US ",
+        "kbd-chooser/method=de ",
+        "hostname=vagrant ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=pc105 ",
+        "keyboard-configuration/layout=Germany ",
+        "keyboard-configuration/variant=Germany ",
+        "console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- <enter>"
       ]
     },
     {
-      "name": "kvm",
+      "name": "qemu",
       "type": "qemu",
 
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "accelerator": "kvm",
+      "accelerator": "{{user `qemu_accelerator`}}",
       "disk_interface": "virtio",
       "net_device": "virtio-net",
       "format": "qcow2",
@@ -101,11 +125,22 @@
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
-        "<tab><wait> ",
-        "biosdevname=0 ",
-        "net.ifnames=0 ",
-        "text ",
-        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-7.0/ks.cfg<enter>"
+        "<esc><esc><enter><wait> ",
+        "/install/vmlinuz ",
+        "noapic ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-14.04/vagrant.cfg ",
+        "debian-installer=en_US ",
+        "auto ",
+        "locale=en_US ",
+        "kbd-chooser/method=de ",
+        "hostname=vagrant ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=pc105 ",
+        "keyboard-configuration/layout=Germany ",
+        "keyboard-configuration/variant=Germany ",
+        "console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- <enter>"
       ]
     }
   ],
@@ -122,15 +157,15 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "type": "shell",
       "scripts": [
-        "scripts/centos/7.0/base.sh",
-        "scripts/centos/7.0/update.sh",
-        "scripts/common/vmtools.sh",
-        "scripts/centos/7.0/sshd.sh",
-        "scripts/common/chef.sh",
-        "scripts/common/vagrant.sh",
-        "scripts/common/motd.sh",
-        "scripts/centos/7.0/cleanup.sh",
-        "scripts/common/zerodisk.sh"
+        "scripts/ubuntu/14.04/base.sh",
+        "scripts/ubuntu/14.04/update.sh",
+        "scripts/ubuntu/14.04/vmtools.sh",
+        "scripts/ubuntu/14.04/sshd.sh",
+        "scripts/ubuntu/14.04/chef.sh",
+        "scripts/ubuntu/14.04/vagrant.sh",
+        "scripts/ubuntu/14.04/motd.sh",
+        "scripts/ubuntu/14.04/cleanup.sh",
+        "scripts/ubuntu/14.04/zerodisk.sh"
       ]
     }
   ]

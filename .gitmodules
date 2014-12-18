@@ -22,9 +22,6 @@
 [submodule "chef/cookbooks/hosts"]
 	path = chef/cookbooks/hosts
 	url = https://github.com/tboerger/chef-hosts.git
-[submodule "chef/cookbooks/motd"]
-	path = chef/cookbooks/motd
-	url = https://github.com/tboerger/chef-motd.git
 [submodule "chef/cookbooks/build"]
 	path = chef/cookbooks/build
 	url = https://github.com/tboerger/chef-build.git

@@ -1,0 +1,71 @@
+{
+  "variables": {
+    "version": "0.0.1",
+    "os": "server-ubuntu-13.10",
+
+    "iso_url": "http://releases.ubuntu.com/saucy/ubuntu-13.10-server-amd64.iso",
+    "iso_checksum": "4d1a8b720cdd14b76ed9410c63a00d0e",
+    "iso_checksum_type": "md5",
+
+    "qemu_accelerator": "kvm"
+  },
+  "builders": [
+    {
+      "name": "qemu",
+      "type": "qemu",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "accelerator": "{{user `qemu_accelerator`}}",
+      "disk_interface": "virtio",
+      "net_device": "virtio-net",
+      "format": "qcow2",
+      "vm_name": "baseboxes-{{user `os`}}",
+
+      "output_directory": "images/{{user `os`}}-libvirt-{{user `version`}}",
+      "ssh_username": "deploy",
+      "ssh_password": "p455w0rd!234",
+      "ssh_wait_timeout": "90m",
+      "disk_size": 20480,
+      "ssh_port": 22,
+      "headless": true,
+      "http_directory": "http",
+      "shutdown_command": "echo 'p455w0rd!234' | sudo -S shutdown -P now",
+      "boot_command": [
+        "<esc><esc><enter><wait> ",
+        "/install/vmlinuz ",
+        "noapic ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-13.10/server.cfg ",
+        "debian-installer=en_US ",
+        "auto ",
+        "locale=en_US ",
+        "kbd-chooser/method=de ",
+        "hostname=server ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "keyboard-configuration/modelcode=pc105 ",
+        "keyboard-configuration/layout=Germany ",
+        "keyboard-configuration/variant=Germany ",
+        "console-setup/ask_detect=false ",
+        "initrd=/install/initrd.gz -- <enter>"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "echo 'p455w0rd!234' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "type": "shell",
+      "scripts": [
+        "scripts/ubuntu/13.10/base.sh",
+        "scripts/ubuntu/13.10/update.sh",
+        "scripts/ubuntu/13.10/sshd.sh",
+        "scripts/ubuntu/13.10/services.sh",
+        "scripts/ubuntu/13.10/chefdk.sh",
+        "scripts/ubuntu/13.10/motd.sh",
+        "scripts/ubuntu/13.10/cleanup.sh"
+      ]
+    }
+  ]
+}

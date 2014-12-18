@@ -1,12 +1,14 @@
 {
   "variables": {
-    "version": "0.1.0",
-    "os": "centos-6.5",
+    "version": "1.0.0",
+    "os": "opensuse-13.2",
     "fusion_path": "/usr/local/Caskroom/vmware-fusion/7.1.0-2314774/VMware Fusion.app",
 
-    "iso_url": "http://ftp.tu-chemnitz.de/pub/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-netinstall.iso",
-    "iso_checksum": "939fd1d87c11ffe7795324438b85adfb",
-    "iso_checksum_type": "md5"
+    "iso_url": "http://download.opensuse.org/distribution/13.2/iso/openSUSE-13.2-DVD-x86_64.iso",
+    "iso_checksum": "350b8cb014a4e342cc9a7cc9df891b99",
+    "iso_checksum_type": "md5",
+
+    "qemu_accelerator": "kvm"
   },
   "builders": [
     {
@@ -18,10 +20,10 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
       "vm_name": "{{user `os`}}",
-      "guest_os_type": "RedHat_64",
+      "guest_os_type": "OpenSUSE_64",
       "guest_additions_mode": "upload",
       "hard_drive_interface": "sata",
-      
+
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", "512"],
         ["modifyvm", "{{.Name}}", "--cpus", "1"]
@@ -34,13 +36,18 @@
       "ssh_port": 22,
       "headless": true,
       "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -p",
       "boot_command": [
-        "<tab><wait> ",
+        "<esc><enter><wait>",
+        "linux ",
         "biosdevname=0 ",
         "net.ifnames=0 ",
-        "text ",
-        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-6.5/ks.cfg<enter>"
+        "netsetup=dhcp ",
+        "lang=en_US.utf8 ",
+        "textmode=1 ",
+        "instmode=dvd ",
+        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.2/vagrant.xml ",
+        "<enter><wait>"
       ]
     },
     {
@@ -51,17 +58,17 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "guest_os_type": "centos-64",
+      "guest_os_type": "opensuse-64",
       "fusion_app_path": "{{user `fusion_path`}}",
       "vm_name": "{{user `os`}}",
       "tools_upload_flavor": "linux",
-
+      
       "vmx_data": {
         "memsize": "512",
         "numvcpus": "1",
         "cpuid.coresPerSocket": "1"
       },
-
+      
       "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -69,24 +76,29 @@
       "ssh_port": 22,
       "headless": true,
       "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -p",
       "boot_command": [
-        "<tab><wait> ",
+        "<esc><enter><wait>",
+        "linux ",
         "biosdevname=0 ",
         "net.ifnames=0 ",
-        "text ",
-        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-6.5/ks.cfg<enter>"
+        "netsetup=dhcp ",
+        "lang=en_US.utf8 ",
+        "textmode=1 ",
+        "instmode=dvd ",
+        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.2/vagrant.xml ",
+        "<enter><wait>"
       ]
     },
     {
-      "name": "kvm",
+      "name": "qemu",
       "type": "qemu",
 
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "accelerator": "kvm",
+      "accelerator": "{{user `qemu_accelerator`}}",
       "disk_interface": "virtio",
       "net_device": "virtio-net",
       "format": "qcow2",
@@ -99,13 +111,18 @@
       "ssh_port": 22,
       "headless": true,
       "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -p",
       "boot_command": [
-        "<tab><wait> ",
+        "<esc><enter><wait>",
+        "linux ",
         "biosdevname=0 ",
         "net.ifnames=0 ",
-        "text ",
-        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-6.5/ks.cfg<enter>"
+        "netsetup=dhcp ",
+        "lang=en_US.utf8 ",
+        "textmode=1 ",
+        "instmode=dvd ",
+        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.2/vagrant.xml ",
+        "<enter><wait>"
       ]
     }
   ],
@@ -122,15 +139,16 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "type": "shell",
       "scripts": [
-        "scripts/centos/6.5/base.sh",
-        "scripts/centos/6.5/update.sh",
-        "scripts/common/vmtools.sh",
-        "scripts/centos/6.5/sshd.sh",
-        "scripts/common/chef.sh",
-        "scripts/common/vagrant.sh",
-        "scripts/common/motd.sh",
-        "scripts/centos/6.5/cleanup.sh",
-        "scripts/common/zerodisk.sh"
+        "scripts/opensuse/13.2/wait.sh",
+        "scripts/opensuse/13.2/base.sh",
+        "scripts/opensuse/13.2/update.sh",
+        "scripts/opensuse/13.2/vmtools.sh",
+        "scripts/opensuse/13.2/sshd.sh",
+        "scripts/opensuse/13.2/chef.sh",
+        "scripts/opensuse/13.2/vagrant.sh",
+        "scripts/opensuse/13.2/motd.sh",
+        "scripts/opensuse/13.2/cleanup.sh",
+        "scripts/opensuse/13.2/zerodisk.sh"
       ]
     }
   ]

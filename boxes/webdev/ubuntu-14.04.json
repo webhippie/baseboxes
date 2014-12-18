@@ -1,12 +1,14 @@
 {
   "variables": {
-    "version": "0.1.0",
-    "os": "ubuntu-14.04",
+    "version": "0.0.1",
+    "os": "webdev-ubuntu-14.04",
     "fusion_path": "/usr/local/Caskroom/vmware-fusion/7.1.0-2314774/VMware Fusion.app",
 
     "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04.1-server-amd64.iso",
     "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
-    "iso_checksum_type": "md5"
+    "iso_checksum_type": "md5",
+
+    "qemu_accelerator": "kvm"
   },
   "builders": [
     {
@@ -39,7 +41,7 @@
         "<esc><esc><enter><wait> ",
         "/install/vmlinuz ",
         "noapic ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-14.04/preseed.cfg ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-14.04/vagrant.cfg ",
         "debian-installer=en_US ",
         "auto ",
         "locale=en_US ",
@@ -85,7 +87,7 @@
         "<esc><esc><enter><wait> ",
         "/install/vmlinuz ",
         "noapic ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-14.04/preseed.cfg ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-14.04/vagrant.cfg ",
         "debian-installer=en_US ",
         "auto ",
         "locale=en_US ",
@@ -101,14 +103,14 @@
       ]
     },
     {
-      "name": "kvm",
+      "name": "qemu",
       "type": "qemu",
 
       "iso_url": "{{user `iso_url`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "accelerator": "kvm",
+      "accelerator": "{{user `qemu_accelerator`}}",
       "disk_interface": "virtio",
       "net_device": "virtio-net",
       "format": "qcow2",
@@ -126,7 +128,7 @@
         "<esc><esc><enter><wait> ",
         "/install/vmlinuz ",
         "noapic ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-14.04/preseed.cfg ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-14.04/vagrant.cfg ",
         "debian-installer=en_US ",
         "auto ",
         "locale=en_US ",
@@ -157,13 +159,75 @@
       "scripts": [
         "scripts/ubuntu/14.04/base.sh",
         "scripts/ubuntu/14.04/update.sh",
-        "scripts/common/vmtools.sh",
-        "scripts/ubuntu/14.04/sshd.sh",
-        "scripts/common/chef.sh",
-        "scripts/common/vagrant.sh",
-        "scripts/common/motd.sh",
+        "scripts/ubuntu/14.04/vmtools.sh",
+        "scripts/ubuntu/14.04/chef.sh",
+        "scripts/ubuntu/14.04/vagrant.sh",
+        "scripts/ubuntu/14.04/motd.sh"
+      ]
+    },
+    {
+      "type": "chef-solo",
+      "cookbook_paths": ["chef/cookbooks"],
+      "roles_path": "chef/roles",
+      "data_bags_path": "chef/data_bags",
+      "skip_install": true,
+
+      "run_list": [
+        "recipe[database]",
+        "recipe[sshkey]",
+        "recipe[apt]",
+        "recipe[sudo]",
+        "recipe[locales]",
+        "recipe[timezone]",
+        "recipe[hosts]",
+        "recipe[build]",
+        "recipe[network]",
+        "recipe[readline]",
+        "recipe[git]",
+        "recipe[cronlist]",
+        "recipe[homeshick]",
+        "recipe[htop]",
+        "recipe[imagemagick]",
+        "recipe[java]",
+        "recipe[screen]",
+        "recipe[nano]",
+        "recipe[vim]",
+        "recipe[sqlite]",
+        "recipe[php]",
+        "recipe[ruby]",
+        "recipe[ntp]",
+        "recipe[openssh]",
+        "recipe[elasticsearch]",
+        "recipe[memcached]",
+        "recipe[redis]",
+        "recipe[mysql]",
+        "recipe[nginx]",
+        "recipe[webdev]"
+      ],
+
+      "json": {
+        "nginx": {
+          "user": "vagrant",
+          "group": "vagrant",
+          "apps": [],
+          "confs": []
+        },
+        "php": {
+          "default_app": {
+            "dir": "/vagrant"
+          }
+        },
+        "ruby": {
+          "method": "source"
+        }
+      }
+    },
+    {
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "type": "shell",
+      "scripts": [
         "scripts/ubuntu/14.04/cleanup.sh",
-        "scripts/common/zerodisk.sh"
+        "scripts/ubuntu/14.04/zerodisk.sh"
       ]
     }
   ]
