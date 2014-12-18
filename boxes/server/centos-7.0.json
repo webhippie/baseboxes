@@ -22,9 +22,9 @@
       "disk_interface": "virtio",
       "net_device": "virtio-net",
       "format": "qcow2",
-      "vm_name": "baseboxes-{{user `os`}}",
+      "vm_name": "{{user `os`}}-{{user `version`}}",
 
-      "output_directory": "images/{{user `os`}}-libvirt-{{user `version`}}",
+      "output_directory": "images/{{user `os`}}-{{user `version`}}",
       "ssh_username": "deploy",
       "ssh_password": "p455w0rd!234",
       "ssh_wait_timeout": "90m",

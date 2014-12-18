@@ -1,105 +1,105 @@
 [submodule "chef/cookbooks/database"]
 	path = chef/cookbooks/database
-	url = https://github.com/tboerger/chef-database.git
+	url = https://github.com/chefhippie/database.git
 [submodule "chef/cookbooks/sshkey"]
 	path = chef/cookbooks/sshkey
-	url = https://github.com/tboerger/chef-sshkey.git
+	url = https://github.com/chefhippie/sshkey.git
 [submodule "chef/cookbooks/apt"]
 	path = chef/cookbooks/apt
-	url = https://github.com/tboerger/chef-apt.git
+	url = https://github.com/chefhippie/apt.git
 [submodule "chef/cookbooks/zypper"]
 	path = chef/cookbooks/zypper
-	url = https://github.com/tboerger/chef-zypper.git
+	url = https://github.com/chefhippie/zypper.git
 [submodule "chef/cookbooks/sudo"]
 	path = chef/cookbooks/sudo
-	url = https://github.com/tboerger/chef-sudo.git
+	url = https://github.com/chefhippie/sudo.git
 [submodule "chef/cookbooks/locales"]
 	path = chef/cookbooks/locales
-	url = https://github.com/tboerger/chef-locales.git
+	url = https://github.com/chefhippie/locales.git
 [submodule "chef/cookbooks/timezone"]
 	path = chef/cookbooks/timezone
-	url = https://github.com/tboerger/chef-timezone.git
+	url = https://github.com/chefhippie/timezone.git
 [submodule "chef/cookbooks/hosts"]
 	path = chef/cookbooks/hosts
-	url = https://github.com/tboerger/chef-hosts.git
+	url = https://github.com/chefhippie/hosts.git
 [submodule "chef/cookbooks/build"]
 	path = chef/cookbooks/build
-	url = https://github.com/tboerger/chef-build.git
+	url = https://github.com/chefhippie/build.git
 [submodule "chef/cookbooks/network"]
 	path = chef/cookbooks/network
-	url = https://github.com/tboerger/chef-network.git
+	url = https://github.com/chefhippie/network.git
 [submodule "chef/cookbooks/readline"]
 	path = chef/cookbooks/readline
-	url = https://github.com/tboerger/chef-readline.git
+	url = https://github.com/chefhippie/readline.git
 [submodule "chef/cookbooks/git"]
 	path = chef/cookbooks/git
-	url = https://github.com/tboerger/chef-git.git
+	url = https://github.com/chefhippie/git.git
 [submodule "chef/cookbooks/subversion"]
 	path = chef/cookbooks/subversion
-	url = https://github.com/tboerger/chef-subversion.git
+	url = https://github.com/chefhippie/subversion.git
 [submodule "chef/cookbooks/cronlist"]
 	path = chef/cookbooks/cronlist
-	url = https://github.com/tboerger/chef-cronlist.git
+	url = https://github.com/chefhippie/cronlist.git
 [submodule "chef/cookbooks/homeshick"]
 	path = chef/cookbooks/homeshick
-	url = https://github.com/tboerger/chef-homeshick.git
+	url = https://github.com/chefhippie/homeshick.git
 [submodule "chef/cookbooks/htop"]
 	path = chef/cookbooks/htop
-	url = https://github.com/tboerger/chef-htop.git
+	url = https://github.com/chefhippie/htop.git
 [submodule "chef/cookbooks/imagemagick"]
 	path = chef/cookbooks/imagemagick
-	url = https://github.com/tboerger/chef-imagemagick.git
+	url = https://github.com/chefhippie/imagemagick.git
 [submodule "chef/cookbooks/java"]
 	path = chef/cookbooks/java
-	url = https://github.com/tboerger/chef-java.git
+	url = https://github.com/chefhippie/java.git
 [submodule "chef/cookbooks/locate"]
 	path = chef/cookbooks/locate
-	url = https://github.com/tboerger/chef-locate.git
+	url = https://github.com/chefhippie/locate.git
 [submodule "chef/cookbooks/screen"]
 	path = chef/cookbooks/screen
-	url = https://github.com/tboerger/chef-screen.git
+	url = https://github.com/chefhippie/screen.git
 [submodule "chef/cookbooks/nano"]
 	path = chef/cookbooks/nano
-	url = https://github.com/tboerger/chef-nano.git
+	url = https://github.com/chefhippie/nano.git
 [submodule "chef/cookbooks/vim"]
 	path = chef/cookbooks/vim
-	url = https://github.com/tboerger/chef-vim.git
+	url = https://github.com/chefhippie/vim.git
 [submodule "chef/cookbooks/sqlite"]
 	path = chef/cookbooks/sqlite
-	url = https://github.com/tboerger/chef-sqlite.git
+	url = https://github.com/chefhippie/sqlite.git
 [submodule "chef/cookbooks/php"]
 	path = chef/cookbooks/php
-	url = https://github.com/tboerger/chef-php.git
+	url = https://github.com/chefhippie/php.git
 [submodule "chef/cookbooks/ruby"]
 	path = chef/cookbooks/ruby
-	url = https://github.com/tboerger/chef-ruby.git
+	url = https://github.com/chefhippie/ruby.git
 [submodule "chef/cookbooks/ntp"]
 	path = chef/cookbooks/ntp
-	url = https://github.com/tboerger/chef-ntp.git
+	url = https://github.com/chefhippie/ntp.git
 [submodule "chef/cookbooks/openssh"]
 	path = chef/cookbooks/openssh
-	url = https://github.com/tboerger/chef-openssh.git
+	url = https://github.com/chefhippie/openssh.git
 [submodule "chef/cookbooks/elasticsearch"]
 	path = chef/cookbooks/elasticsearch
-	url = https://github.com/tboerger/chef-elasticsearch.git
+	url = https://github.com/chefhippie/elasticsearch.git
 [submodule "chef/cookbooks/memcached"]
 	path = chef/cookbooks/memcached
-	url = https://github.com/tboerger/chef-memcached.git
+	url = https://github.com/chefhippie/memcached.git
 [submodule "chef/cookbooks/redis"]
 	path = chef/cookbooks/redis
-	url = https://github.com/tboerger/chef-redis.git
+	url = https://github.com/chefhippie/redis.git
 [submodule "chef/cookbooks/mysql"]
 	path = chef/cookbooks/mysql
-	url = https://github.com/tboerger/chef-mysql.git
+	url = https://github.com/chefhippie/mysql.git
 [submodule "chef/cookbooks/nginx"]
 	path = chef/cookbooks/nginx
-	url = https://github.com/tboerger/chef-nginx.git
+	url = https://github.com/chefhippie/nginx.git
 [submodule "chef/cookbooks/webdev"]
 	path = chef/cookbooks/webdev
-	url = https://github.com/tboerger/chef-webdev.git
+	url = https://github.com/chefhippie/webdev.git
 [submodule "chef/cookbooks/postgresql"]
 	path = chef/cookbooks/postgresql
-	url = https://github.com/tboerger/chef-postgresql.git
+	url = https://github.com/chefhippie/postgresql.git
 [submodule "chef/cookbooks/mongodb"]
 	path = chef/cookbooks/mongodb
-	url = https://github.com/tboerger/chef-mongodb.git
+	url = https://github.com/chefhippie/mongodb.git

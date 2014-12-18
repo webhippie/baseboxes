@@ -71,6 +71,28 @@
     <drive>
       <device>/dev/sda</device>
       <initialize config:type="boolean">true</initialize>
+
+      <partitions config:type="list">
+        <partition>
+          <filesystem config:type="symbol">ext4</filesystem>
+          <fstopt>acl,user_xattr</fstopt>
+          <mount>/</mount>
+
+          <mountby config:type="symbol">id</mountby>
+          <partition_id config:type="integer">131</partition_id>
+          <partition_nr config:type="integer">1</partition_nr>
+          <size>max</size>
+
+          <resize config:type="boolean">false</resize>
+          <create config:type="boolean">true</create>
+          <crypt_fs config:type="boolean">false</crypt_fs>
+          <format config:type="boolean">true</format>
+          <loop_fs config:type="boolean">false</loop_fs>
+        </partition>
+      </partitions>
+
+      <pesize/>
+      <type config:type="symbol">CT_DISK</type>
       <use>all</use>
     </drive>
   </partitioning>
@@ -155,7 +177,7 @@
       <service>
         <service_name>sshd</service_name>
         <service_status>enable</service_status>
-      </service> 
+      </service>
       <service>
         <service_name>network</service_name>
         <service_status>enable</service_status>

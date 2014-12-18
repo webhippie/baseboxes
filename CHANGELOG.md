@@ -4,6 +4,10 @@
 ## 2014-12-18
 
 * Total restructuring of this repository
+* Updated submodule references to correct repos
+* Switched harddisk for qemu builds
+* Added static partitioning to opensuse images
+* Some minor fixes to server image output paths
 
 
 ## 2014-12-15

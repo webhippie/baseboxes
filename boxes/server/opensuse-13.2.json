@@ -21,9 +21,8 @@
       "accelerator": "{{user `qemu_accelerator`}}",
       "disk_interface": "virtio",
       "net_device": "virtio-net",
-      "machine_type": "pc-1.3",
       "format": "qcow2",
-      "vm_name": "baseboxes-{{user `os`}}",
+      "vm_name": "{{user `os`}}-{{user `version`}}",
 
       "output_directory": "images/{{user `os`}}-{{user `version`}}",
       "ssh_username": "deploy",
