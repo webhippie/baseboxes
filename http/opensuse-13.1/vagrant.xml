@@ -71,40 +71,6 @@
     <drive>
       <device>/dev/sda</device>
       <initialize config:type="boolean">true</initialize>
-
-      <partitions config:type="list">
-        <partition>
-          <filesystem config:type="symbol">ext4</filesystem>
-          <fstopt>acl,user_xattr</fstopt>
-          <mount>/boot</mount>
-
-          <mountby config:type="symbol">id</mountby>
-          <partition_id config:type="integer">131</partition_id>
-          <partition_nr config:type="integer">1</partition_nr>
-          <size>1G</size>
-
-          <create config:type="boolean">true</create>
-          <format config:type="boolean">true</format>
-          <crypt_fs config:type="boolean">false</crypt_fs>
-        </partition>
-
-        <partition>
-          <filesystem config:type="symbol">ext4</filesystem>
-          <fstopt>acl,user_xattr</fstopt>
-          <mount>/</mount>
-
-          <mountby config:type="symbol">id</mountby>
-          <partition_id config:type="integer">131</partition_id>
-          <partition_nr config:type="integer">2</partition_nr>
-          <size>max</size>
-
-          <create config:type="boolean">true</create>
-          <format config:type="boolean">true</format>
-          <crypt_fs config:type="boolean">false</crypt_fs>
-        </partition>
-      </partitions>
-
-      <type config:type="symbol">CT_DISK</type>
       <use>all</use>
     </drive>
   </partitioning>
