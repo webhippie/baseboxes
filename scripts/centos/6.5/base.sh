@@ -17,8 +17,8 @@ enabled=1
 gpgcheck=0
 EOM
 
-yum -y install gcc make gcc-c++ kernel-devel-`uname -r` zlib-devel openssl-devel
-yum -y install readline-devel sqlite-devel perl wget dkms nfs-utils git
+yum -y install gcc make gcc-c++ kernel-devel zlib-devel openssl-devel fuse-utils
+yum -y install readline-devel sqlite-devel perl wget dkms nfs-utils git bzip2
 
 echo "UseDNS no" >> /etc/ssh/sshd_config
 
