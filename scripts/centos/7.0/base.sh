@@ -20,6 +20,6 @@ EOM
 yum -y install gcc make gcc-c++ kernel-devel zlib-devel openssl-devel fuse-utils
 yum -y install readline-devel sqlite-devel perl wget dkms nfs-utils git bzip2
 
-echo "UseDNS no" >> /etc/ssh/sshd_config
+sed -i "s/^.*requiretty/#Defaults requiretty/" /etc/sudoers
 
 exit 0
