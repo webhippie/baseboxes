@@ -1,5 +1,10 @@
 # Changelog
 
+## 2014-12-23
+
+* Fixed last bits of vagrant images
+* Released all vagrant images as 1.0.0
+
 
 ## 2014-12-18
 
