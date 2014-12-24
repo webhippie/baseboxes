@@ -117,9 +117,12 @@
       <package>curl</package>
       <package>dhcp</package>
       <package>dhcp-client</package>
+      <package>gcc</package>
       <package>git</package>
       <package>grub2</package>
+      <package>kernel-devel</package>
       <package>less</package>
+      <package>make</package>
       <package>sudo</package>
       <package>vim</package>
       <package>wget</package>
