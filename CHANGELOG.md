@@ -3,6 +3,8 @@
 ## 2015-01-15
 
 * Renamed qemu to libvirt and prepared for build
+* Increased server disk size
+* Added device-mapper to openSUSE server images
 
 
 ## 2014-12-23

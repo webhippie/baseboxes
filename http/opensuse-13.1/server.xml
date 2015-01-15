@@ -115,6 +115,7 @@
 
     <packages config:type="list">
       <package>curl</package>
+      <package>device-mapper</package>
       <package>dhcp</package>
       <package>dhcp-client</package>
       <package>git</package>

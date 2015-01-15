@@ -28,7 +28,7 @@
       "ssh_username": "deploy",
       "ssh_password": "p455w0rd!234",
       "ssh_wait_timeout": "90m",
-      "disk_size": 20480,
+      "disk_size": 51200,
       "ssh_port": 22,
       "headless": true,
       "http_directory": "http",
