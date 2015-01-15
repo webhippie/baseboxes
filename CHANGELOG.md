@@ -5,6 +5,7 @@
 * Renamed qemu to libvirt and prepared for build
 * Increased server disk size
 * Added device-mapper to openSUSE server images
+* Fixed chefdk install for Centos, Debian and Ubuntu
 
 
 ## 2014-12-23
