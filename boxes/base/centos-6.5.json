@@ -81,7 +81,7 @@
       ]
     },
     {
-      "name": "qemu",
+      "name": "libvirt",
       "type": "qemu",
 
       "iso_url": "{{user `iso_url`}}",
@@ -116,7 +116,7 @@
       "keep_input_artifact": false,
       "output": "images/{{user `os`}}-{{.Provider}}-{{user `version`}}.box",
       "type": "vagrant",
-      "only": ["virtualbox", "vmware", "qemu"]
+      "only": ["virtualbox", "vmware", "libvirt"]
     }
   ],
   "provisioners": [
