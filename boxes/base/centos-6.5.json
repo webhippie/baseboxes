@@ -116,7 +116,7 @@
       "keep_input_artifact": false,
       "output": "images/{{user `os`}}-{{.Provider}}-{{user `version`}}.box",
       "type": "vagrant",
-      "only": ["virtualbox", "vmware"]
+      "only": ["virtualbox", "vmware", "qemu"]
     }
   ],
   "provisioners": [

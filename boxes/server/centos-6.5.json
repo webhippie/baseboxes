@@ -11,7 +11,7 @@
   },
   "builders": [
     {
-      "name": "qemu",
+      "name": "libvirt",
       "type": "qemu",
 
       "iso_url": "{{user `iso_url`}}",

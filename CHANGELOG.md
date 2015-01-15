@@ -1,5 +1,10 @@
 # Changelog
 
+## 2015-01-15
+
+* Renamed qemu to libvirt and prepared for build
+
+
 ## 2014-12-23
 
 * Fixed last bits of vagrant images
