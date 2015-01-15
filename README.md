@@ -1,9 +1,7 @@
 # Baseboxes
 
 This repository holds our [packer](https://www.packer.io) definition for various
-base boxes to setup our development machines with vagrant. These boxes are pretty
-minimalistic, if you are searching for a fullstack web development box take a
-look at our [webdev](WEBDEV.md) boxes.
+base boxes to setup our development machines with vagrant.
 
 
 ## Building
