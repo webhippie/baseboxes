@@ -1,10 +1,10 @@
 {
   "variables": {
     "version": "0.0.1",
-    "os": "server-centos-6.5",
+    "os": "server-centos-7",
 
-    "iso_url": "http://ftp.tu-chemnitz.de/pub/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-netinstall.iso",
-    "iso_checksum": "939fd1d87c11ffe7795324438b85adfb",
+    "iso_url": "http://ftp.tu-chemnitz.de/pub/linux/centos/7.1406/isos/x86_64/CentOS-7.0-1406-x86_64-NetInstall.iso",
+    "iso_checksum": "96de4f38a2f07da51831153549c8bd0c",
     "iso_checksum_type": "md5",
 
     "qemu_accelerator": "kvm"
@@ -38,7 +38,7 @@
         "biosdevname=0 ",
         "net.ifnames=0 ",
         "text ",
-        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-6.5/server.cfg<enter>"
+        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-7/server.cfg<enter>"
       ]
     }
   ],
@@ -47,13 +47,13 @@
       "execute_command": "echo 'p455w0rd!234' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "type": "shell",
       "scripts": [
-        "scripts/centos/6.5/base.sh",
-        "scripts/centos/6.5/update.sh",
-        "scripts/centos/6.5/sshd.sh",
-        "scripts/centos/6.5/services.sh",
-        "scripts/centos/6.5/chefdk.sh",
-        "scripts/centos/6.5/motd.sh",
-        "scripts/centos/6.5/cleanup.sh"
+        "scripts/centos/7/base.sh",
+        "scripts/centos/7/update.sh",
+        "scripts/centos/7/sshd.sh",
+        "scripts/centos/7/services.sh",
+        "scripts/centos/7/chefdk.sh",
+        "scripts/centos/7/motd.sh",
+        "scripts/centos/7/cleanup.sh"
       ]
     }
   ]

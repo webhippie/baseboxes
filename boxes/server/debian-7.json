@@ -1,10 +1,10 @@
 {
   "variables": {
     "version": "0.0.1",
-    "os": "server-debian-7.6",
+    "os": "server-debian-7",
 
-    "iso_url": "http://cdimage.debian.org/mirror/cdimage/archive/7.6.0/amd64/iso-cd/debian-7.6.0-amd64-netinst.iso",
-    "iso_checksum": "8a3c2ad7fd7a9c4c7e9bcb5cae38c135",
+    "iso_url": "http://cdimage.debian.org/mirror/cdimage/archive/7.7.0/amd64/iso-cd/debian-7.7.0-amd64-netinst.iso",
+    "iso_checksum": "0b31bccccb048d20b551f70830bb7ad0",
     "iso_checksum_type": "md5",
 
     "qemu_accelerator": "kvm"
@@ -36,7 +36,7 @@
       "boot_command": [
         "<esc><wait>",
         "install ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7.6/server.cfg ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7/server.cfg ",
         "debian-installer=en_US ",
         "auto ",
         "locale=en_US ",
@@ -57,13 +57,13 @@
       "execute_command": "echo 'p455w0rd!234' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "type": "shell",
       "scripts": [
-        "scripts/debian/7.6/base.sh",
-        "scripts/debian/7.6/update.sh",
-        "scripts/debian/7.6/sshd.sh",
-        "scripts/debian/7.6/services.sh",
-        "scripts/debian/7.6/chefdk.sh",
-        "scripts/debian/7.6/motd.sh",
-        "scripts/debian/7.6/cleanup.sh"
+        "scripts/debian/7/base.sh",
+        "scripts/debian/7/update.sh",
+        "scripts/debian/7/sshd.sh",
+        "scripts/debian/7/services.sh",
+        "scripts/debian/7/chefdk.sh",
+        "scripts/debian/7/motd.sh",
+        "scripts/debian/7/cleanup.sh"
       ]
     }
   ]

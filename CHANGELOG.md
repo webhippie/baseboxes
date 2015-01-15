@@ -6,6 +6,9 @@
 * Increased server disk size
 * Added device-mapper to openSUSE server images
 * Fixed chefdk install for Centos, Debian and Ubuntu
+* Renamed Centos 7.0 to Centos 7
+* Renamed Centos 6.5 to Centos 6
+* Renamed Debian 7.6 to Debian 7
 
 
 ## 2014-12-23

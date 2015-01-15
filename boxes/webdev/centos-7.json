@@ -1,11 +1,11 @@
 {
   "variables": {
-    "version": "1.0.0",
-    "os": "centos-6.5",
+    "version": "0.0.1",
+    "os": "webdev-centos-7",
     "fusion_path": "/usr/local/Caskroom/vmware-fusion/7.1.0-2314774/VMware Fusion.app",
 
-    "iso_url": "http://ftp.tu-chemnitz.de/pub/linux/centos/6.5/isos/x86_64/CentOS-6.5-x86_64-netinstall.iso",
-    "iso_checksum": "939fd1d87c11ffe7795324438b85adfb",
+    "iso_url": "http://ftp.tu-chemnitz.de/pub/linux/centos/7.1406/isos/x86_64/CentOS-7.0-1406-x86_64-NetInstall.iso",
+    "iso_checksum": "96de4f38a2f07da51831153549c8bd0c",
     "iso_checksum_type": "md5",
 
     "qemu_accelerator": "kvm"
@@ -28,7 +28,7 @@
         ["modifyvm", "{{.Name}}", "--memory", "512"],
         ["modifyvm", "{{.Name}}", "--cpus", "1"]
       ],
-      
+
       "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -42,7 +42,7 @@
         "biosdevname=0 ",
         "net.ifnames=0 ",
         "text ",
-        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-6.5/vagrant.cfg<enter>"
+        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-7/vagrant.cfg<enter>"
       ]
     },
     {
@@ -57,7 +57,7 @@
       "fusion_app_path": "{{user `fusion_path`}}",
       "vm_name": "{{user `os`}}",
       "tools_upload_flavor": "linux",
-
+      
       "vmx_data": {
         "memsize": "512",
         "numvcpus": "1",
@@ -77,7 +77,7 @@
         "biosdevname=0 ",
         "net.ifnames=0 ",
         "text ",
-        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-6.5/vagrant.cfg<enter>"
+        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-7/vagrant.cfg<enter>"
       ]
     },
     {
@@ -107,7 +107,7 @@
         "biosdevname=0 ",
         "net.ifnames=0 ",
         "text ",
-        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-6.5/vagrant.cfg<enter>"
+        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-7/vagrant.cfg<enter>"
       ]
     }
   ],
@@ -124,15 +124,77 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "type": "shell",
       "scripts": [
-        "scripts/centos/6.5/base.sh",
-        "scripts/centos/6.5/update.sh",
-        "scripts/centos/6.5/vmtools.sh",
-        "scripts/centos/6.5/sshd.sh",
-        "scripts/centos/6.5/chef.sh",
-        "scripts/centos/6.5/vagrant.sh",
-        "scripts/centos/6.5/motd.sh",
-        "scripts/centos/6.5/cleanup.sh",
-        "scripts/centos/6.5/zerodisk.sh"
+        "scripts/centos/7/base.sh",
+        "scripts/centos/7/update.sh",
+        "scripts/centos/7/vmtools.sh",
+        "scripts/centos/7/chef.sh",
+        "scripts/centos/7/vagrant.sh",
+        "scripts/centos/7/motd.sh"
+      ]
+    },
+    {
+      "type": "chef-solo",
+      "cookbook_paths": ["chef/cookbooks"],
+      "roles_path": "chef/roles",
+      "data_bags_path": "chef/data_bags",
+      "skip_install": true,
+
+      "run_list": [
+        "recipe[database]",
+        "recipe[sshkey]",
+        "recipe[yum]",
+        "recipe[sudo]",
+        "recipe[locales]",
+        "recipe[timezone]",
+        "recipe[hosts]",
+        "recipe[build]",
+        "recipe[network]",
+        "recipe[readline]",
+        "recipe[git]",
+        "recipe[cronlist]",
+        "recipe[homeshick]",
+        "recipe[htop]",
+        "recipe[imagemagick]",
+        "recipe[java]",
+        "recipe[screen]",
+        "recipe[nano]",
+        "recipe[vim]",
+        "recipe[sqlite]",
+        "recipe[php]",
+        "recipe[ruby]",
+        "recipe[ntp]",
+        "recipe[openssh]",
+        "recipe[elasticsearch]",
+        "recipe[memcached]",
+        "recipe[redis]",
+        "recipe[mysql]",
+        "recipe[nginx]",
+        "recipe[webdev]"
+      ],
+
+      "json": {
+        "nginx": {
+          "user": "vagrant",
+          "group": "vagrant",
+          "apps": [],
+          "confs": []
+        },
+        "php": {
+          "default_app": {
+            "dir": "/vagrant"
+          }
+        },
+        "ruby": {
+          "method": "source"
+        }
+      }
+    },
+    {
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "type": "shell",
+      "scripts": [
+        "scripts/centos/7/cleanup.sh",
+        "scripts/centos/7/zerodisk.sh"
       ]
     }
   ]

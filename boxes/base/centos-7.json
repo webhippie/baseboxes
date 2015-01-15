@@ -1,11 +1,11 @@
 {
   "variables": {
     "version": "1.0.0",
-    "os": "debian-7.6",
+    "os": "centos-7",
     "fusion_path": "/usr/local/Caskroom/vmware-fusion/7.1.0-2314774/VMware Fusion.app",
 
-    "iso_url": "http://cdimage.debian.org/mirror/cdimage/archive/7.6.0/amd64/iso-cd/debian-7.6.0-amd64-netinst.iso",
-    "iso_checksum": "8a3c2ad7fd7a9c4c7e9bcb5cae38c135",
+    "iso_url": "http://ftp.tu-chemnitz.de/pub/linux/centos/7.1406/isos/x86_64/CentOS-7.0-1406-x86_64-NetInstall.iso",
+    "iso_checksum": "96de4f38a2f07da51831153549c8bd0c",
     "iso_checksum_type": "md5",
 
     "qemu_accelerator": "kvm"
@@ -20,7 +20,7 @@
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
       "vm_name": "{{user `os`}}",
-      "guest_os_type": "Debian_64",
+      "guest_os_type": "RedHat_64",
       "guest_additions_mode": "upload",
       "hard_drive_interface": "sata",
       
@@ -36,23 +36,13 @@
       "ssh_port": 22,
       "headless": true,
       "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S halt -p",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
-        "<esc><wait>",
-        "install ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7.6/vagrant.cfg ",
-        "debian-installer=en_US ",
-        "auto ",
-        "locale=en_US ",
-        "kbd-chooser/method=us ",
-        "netcfg/get_hostname=vagrant ",
-        "netcfg/get_domain=webhippie.de ",
-        "fb=false ",
-        "debconf/frontend=noninteractive ",
-        "console-setup/ask_detect=false ",
-        "console-keymaps-at/keymap=de ",
-        "keyboard-configuration/xkb-keymap=de ",
-        "<enter>"
+        "<tab><wait> ",
+        "biosdevname=0 ",
+        "net.ifnames=0 ",
+        "text ",
+        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-7/vagrant.cfg<enter>"
       ]
     },
     {
@@ -63,7 +53,7 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "guest_os_type": "debian7-64",
+      "guest_os_type": "centos-64",
       "fusion_app_path": "{{user `fusion_path`}}",
       "vm_name": "{{user `os`}}",
       "tools_upload_flavor": "linux",
@@ -73,7 +63,7 @@
         "numvcpus": "1",
         "cpuid.coresPerSocket": "1"
       },
-      
+
       "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -81,23 +71,13 @@
       "ssh_port": 22,
       "headless": true,
       "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S halt -p",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
-        "<esc><wait>",
-        "install ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7.6/vagrant.cfg ",
-        "debian-installer=en_US ",
-        "auto ",
-        "locale=en_US ",
-        "kbd-chooser/method=us ",
-        "netcfg/get_hostname=vagrant ",
-        "netcfg/get_domain=webhippie.de ",
-        "fb=false ",
-        "debconf/frontend=noninteractive ",
-        "console-setup/ask_detect=false ",
-        "console-keymaps-at/keymap=de ",
-        "keyboard-configuration/xkb-keymap=de ",
-        "<enter>"
+        "<tab><wait> ",
+        "biosdevname=0 ",
+        "net.ifnames=0 ",
+        "text ",
+        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-7/vagrant.cfg<enter>"
       ]
     },
     {
@@ -121,23 +101,13 @@
       "ssh_port": 22,
       "headless": true,
       "http_directory": "http",
-      "shutdown_command": "echo 'vagrant' | sudo -S halt -p",
+      "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
-        "<esc><wait>",
-        "install ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7.6/vagrant.cfg ",
-        "debian-installer=en_US ",
-        "auto ",
-        "locale=en_US ",
-        "kbd-chooser/method=us ",
-        "netcfg/get_hostname=vagrant ",
-        "netcfg/get_domain=webhippie.de ",
-        "fb=false ",
-        "debconf/frontend=noninteractive ",
-        "console-setup/ask_detect=false ",
-        "console-keymaps-at/keymap=de ",
-        "keyboard-configuration/xkb-keymap=de ",
-        "<enter>"
+        "<tab><wait> ",
+        "biosdevname=0 ",
+        "net.ifnames=0 ",
+        "text ",
+        "ks=http://{{.HTTPIP}}:{{.HTTPPort}}/centos-7/vagrant.cfg<enter>"
       ]
     }
   ],
@@ -154,15 +124,15 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "type": "shell",
       "scripts": [
-        "scripts/debian/7.6/base.sh",
-        "scripts/debian/7.6/update.sh",
-        "scripts/debian/7.6/vmtools.sh",
-        "scripts/debian/7.6/sshd.sh",
-        "scripts/debian/7.6/chef.sh",
-        "scripts/debian/7.6/vagrant.sh",
-        "scripts/debian/7.6/motd.sh",
-        "scripts/debian/7.6/cleanup.sh",
-        "scripts/debian/7.6/zerodisk.sh"
+        "scripts/centos/7/base.sh",
+        "scripts/centos/7/update.sh",
+        "scripts/centos/7/vmtools.sh",
+        "scripts/centos/7/sshd.sh",
+        "scripts/centos/7/chef.sh",
+        "scripts/centos/7/vagrant.sh",
+        "scripts/centos/7/motd.sh",
+        "scripts/centos/7/cleanup.sh",
+        "scripts/centos/7/zerodisk.sh"
       ]
     }
   ]
