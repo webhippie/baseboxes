@@ -30,4 +30,4 @@ for you:
 
 ## Credits
 
-Copyright (c) 2014 Thomas Boerger <http://www.webhippie.de>
+Copyright (c) 2014-2015 Thomas Boerger <http://www.webhippie.de>
