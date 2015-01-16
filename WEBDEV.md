@@ -100,23 +100,23 @@ end
 
 ## Downloads
 
-* Centos 6.5
-  * [Virtualbox](http://vagrant.webhippie.de/webdev/centos-6.5-virtualbox-0.0.1.box)
-  * [VMware](http://vagrant.webhippie.de/webdev/centos-6.5-vmware-0.0.1.box)
-  * [Libvirt/KVM](http://vagrant.webhippie.de/webdev/centos-6.5-libvirt-0.0.1.box)
-  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/webdev-centos-6.5)
+* Centos 6
+  * [Virtualbox](http://vagrant.webhippie.de/webdev/centos-6-virtualbox-0.0.1.box)
+  * [VMware](http://vagrant.webhippie.de/webdev/centos-6-vmware-0.0.1.box)
+  * [Libvirt/KVM](http://vagrant.webhippie.de/webdev/centos-6-libvirt-0.0.1.box)
+  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/webdev-centos-6)
 
-* Centos 7.0
-  * [Virtualbox](http://vagrant.webhippie.de/webdev/centos-7.0-virtualbox-0.0.1.box)
-  * [VMware](http://vagrant.webhippie.de/webdev/centos-7.0-vmware-0.0.1.box)
-  * [Libvirt/KVM](http://vagrant.webhippie.de/webdev/centos-7.0-libvirt-0.0.1.box)
-  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/webdev-centos-7.0)
+* Centos 7
+  * [Virtualbox](http://vagrant.webhippie.de/webdev/centos-7-virtualbox-0.0.1.box)
+  * [VMware](http://vagrant.webhippie.de/webdev/centos-7-vmware-0.0.1.box)
+  * [Libvirt/KVM](http://vagrant.webhippie.de/webdev/centos-7-libvirt-0.0.1.box)
+  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/webdev-centos-7)
 
-* Debian 7.6
-  * [Virtualbox](http://vagrant.webhippie.de/webdev/debian-7.6-virtualbox-0.0.1.box)
-  * [VMware](http://vagrant.webhippie.de/webdev/debian-7.6-vmware-0.0.1.box)
-  * [Libvirt/KVM](http://vagrant.webhippie.de/webdev/debian-7.6-libvirt-0.0.1.box)
-  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/webdev-debian-7.6)
+* Debian 7
+  * [Virtualbox](http://vagrant.webhippie.de/webdev/debian-7-virtualbox-0.0.1.box)
+  * [VMware](http://vagrant.webhippie.de/webdev/debian-7-vmware-0.0.1.box)
+  * [Libvirt/KVM](http://vagrant.webhippie.de/webdev/debian-7-libvirt-0.0.1.box)
+  * Also available at [Vagrant Cloud](https://vagrantcloud.com/webhippie/boxes/webdev-debian-7)
 
 * openSUSE 13.1
   * [Virtualbox](http://vagrant.webhippie.de/webdev/opensuse-13.1-virtualbox-0.0.1.box)
@@ -145,4 +145,4 @@ end
 
 ## Credits
 
-Copyright (c) 2014 Thomas Boerger <http://www.webhippie.de>
+Copyright (c) 2014-2015 Thomas Boerger <http://www.webhippie.de>
