@@ -23,7 +23,7 @@
       "guest_os_type": "Ubuntu_64",
       "guest_additions_mode": "upload",
       "hard_drive_interface": "sata",
-      
+
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", "512"],
         ["modifyvm", "{{.Name}}", "--cpus", "1"]
@@ -53,7 +53,6 @@
         "keyboard-configuration/layout=Germany ",
         "keyboard-configuration/variant=Germany ",
         "console-setup/ask_detect=false ",
-        "partman-auto/disk=/dev/vda ",
         "initrd=/install/initrd.gz -- <enter>"
       ]
     },
@@ -69,13 +68,13 @@
       "fusion_app_path": "{{user `fusion_path`}}",
       "vm_name": "{{user `os`}}",
       "tools_upload_flavor": "linux",
-      
+
       "vmx_data": {
         "memsize": "512",
         "numvcpus": "1",
         "cpuid.coresPerSocket": "1"
       },
-      
+
       "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -129,7 +128,7 @@
         "<esc><esc><enter><wait> ",
         "/install/vmlinuz ",
         "noapic ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-13.10/vagrant.cfg ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-13.10/vagrant-libvirt.cfg ",
         "debian-installer=en_US ",
         "auto ",
         "locale=en_US ",

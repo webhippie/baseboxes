@@ -23,7 +23,7 @@
       "guest_os_type": "Debian_64",
       "guest_additions_mode": "upload",
       "hard_drive_interface": "sata",
-      
+
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", "512"],
         ["modifyvm", "{{.Name}}", "--cpus", "1"]
@@ -67,13 +67,13 @@
       "fusion_app_path": "{{user `fusion_path`}}",
       "vm_name": "{{user `os`}}",
       "tools_upload_flavor": "linux",
-      
+
       "vmx_data": {
         "memsize": "512",
         "numvcpus": "1",
         "cpuid.coresPerSocket": "1"
       },
-      
+
       "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -125,7 +125,7 @@
       "boot_command": [
         "<esc><wait>",
         "install ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7/vagrant.cfg ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7/vagrant-libvirt.cfg ",
         "debian-installer=en_US ",
         "auto ",
         "locale=en_US ",
@@ -137,7 +137,6 @@
         "console-setup/ask_detect=false ",
         "console-keymaps-at/keymap=de ",
         "keyboard-configuration/xkb-keymap=de ",
-        "partman-auto/disk=/dev/vda ",
         "<enter>"
       ]
     }
