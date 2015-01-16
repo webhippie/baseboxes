@@ -28,7 +28,7 @@
         ["modifyvm", "{{.Name}}", "--memory", "512"],
         ["modifyvm", "{{.Name}}", "--cpus", "1"]
       ],
-      
+
       "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -42,6 +42,7 @@
         "linux ",
         "biosdevname=0 ",
         "net.ifnames=0 ",
+        "netdevice=eth0 ",
         "netsetup=dhcp ",
         "lang=en_US.utf8 ",
         "textmode=1 ",
@@ -62,13 +63,13 @@
       "fusion_app_path": "{{user `fusion_path`}}",
       "vm_name": "{{user `os`}}",
       "tools_upload_flavor": "linux",
-      
+
       "vmx_data": {
         "memsize": "512",
         "numvcpus": "1",
         "cpuid.coresPerSocket": "1"
       },
-      
+
       "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -82,6 +83,7 @@
         "linux ",
         "biosdevname=0 ",
         "net.ifnames=0 ",
+        "netdevice=eth0 ",
         "netsetup=dhcp ",
         "lang=en_US.utf8 ",
         "textmode=1 ",
@@ -117,6 +119,7 @@
         "linux ",
         "biosdevname=0 ",
         "net.ifnames=0 ",
+        "netdevice=eth0 ",
         "netsetup=dhcp ",
         "lang=en_US.utf8 ",
         "textmode=1 ",
