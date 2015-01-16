@@ -137,6 +137,7 @@
         "console-setup/ask_detect=false ",
         "console-keymaps-at/keymap=de ",
         "keyboard-configuration/xkb-keymap=de ",
+        "partman-auto/disk=/dev/vda ",
         "<enter>"
       ]
     }

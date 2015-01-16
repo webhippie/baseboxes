@@ -121,7 +121,7 @@
         "lang=en_US.utf8 ",
         "textmode=1 ",
         "instmode=dvd ",
-        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.1/vagrant.xml ",
+        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.1/vagrant-libvirt.xml ",
         "<enter><wait>"
       ]
     }

@@ -53,6 +53,7 @@
         "keyboard-configuration/layout=Germany ",
         "keyboard-configuration/variant=Germany ",
         "console-setup/ask_detect=false ",
+        "partman-auto/disk=/dev/vda ",
         "initrd=/install/initrd.gz -- <enter>"
       ]
     },
