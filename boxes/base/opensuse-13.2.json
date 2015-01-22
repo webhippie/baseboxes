@@ -148,6 +148,7 @@
         "scripts/opensuse/13.2/vmtools.sh",
         "scripts/opensuse/13.2/sshd.sh",
         "scripts/opensuse/13.2/chef.sh",
+        "scripts/opensuse/13.2/bindfs.sh",
         "scripts/opensuse/13.2/vagrant.sh",
         "scripts/opensuse/13.2/motd.sh",
         "scripts/opensuse/13.2/cleanup.sh",

@@ -162,6 +162,7 @@
         "scripts/ubuntu/13.10/vmtools.sh",
         "scripts/ubuntu/13.10/sshd.sh",
         "scripts/ubuntu/13.10/chef.sh",
+        "scripts/ubuntu/13.10/bindfs.sh",
         "scripts/ubuntu/13.10/vagrant.sh",
         "scripts/ubuntu/13.10/motd.sh",
         "scripts/ubuntu/13.10/cleanup.sh",

@@ -162,6 +162,7 @@
         "scripts/ubuntu/14.04/vmtools.sh",
         "scripts/ubuntu/14.04/sshd.sh",
         "scripts/ubuntu/14.04/chef.sh",
+        "scripts/ubuntu/14.04/bindfs.sh",
         "scripts/ubuntu/14.04/vagrant.sh",
         "scripts/ubuntu/14.04/motd.sh",
         "scripts/ubuntu/14.04/cleanup.sh",

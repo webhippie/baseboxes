@@ -23,7 +23,7 @@
       "guest_os_type": "RedHat_64",
       "guest_additions_mode": "upload",
       "hard_drive_interface": "sata",
-      
+
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", "512"],
         ["modifyvm", "{{.Name}}", "--cpus", "1"]
@@ -57,7 +57,7 @@
       "fusion_app_path": "{{user `fusion_path`}}",
       "vm_name": "{{user `os`}}",
       "tools_upload_flavor": "linux",
-      
+
       "vmx_data": {
         "memsize": "512",
         "numvcpus": "1",
@@ -129,6 +129,7 @@
         "scripts/centos/7/vmtools.sh",
         "scripts/centos/7/sshd.sh",
         "scripts/centos/7/chef.sh",
+        "scripts/centos/7/bindfs.sh",
         "scripts/centos/7/vagrant.sh",
         "scripts/centos/7/motd.sh",
         "scripts/centos/7/cleanup.sh",

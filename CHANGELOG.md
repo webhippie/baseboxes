@@ -1,5 +1,10 @@
 # Changelog
 
+## 2015-01-22
+
+* Preinstall bindfs on all vagrant images
+
+
 ## 2015-01-15
 
 * Renamed qemu to libvirt and prepared for build

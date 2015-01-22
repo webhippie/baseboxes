@@ -23,12 +23,12 @@
       "guest_os_type": "RedHat_64",
       "guest_additions_mode": "upload",
       "hard_drive_interface": "sata",
-      
+
       "vboxmanage": [
         ["modifyvm", "{{.Name}}", "--memory", "512"],
         ["modifyvm", "{{.Name}}", "--cpus", "1"]
       ],
-      
+
       "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
@@ -129,6 +129,7 @@
         "scripts/centos/6/vmtools.sh",
         "scripts/centos/6/sshd.sh",
         "scripts/centos/6/chef.sh",
+        "scripts/centos/6/bindfs.sh",
         "scripts/centos/6/vagrant.sh",
         "scripts/centos/6/motd.sh",
         "scripts/centos/6/cleanup.sh",

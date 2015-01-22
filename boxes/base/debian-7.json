@@ -159,6 +159,7 @@
         "scripts/debian/7/vmtools.sh",
         "scripts/debian/7/sshd.sh",
         "scripts/debian/7/chef.sh",
+        "scripts/debian/7/bindfs.sh",
         "scripts/debian/7/vagrant.sh",
         "scripts/debian/7/motd.sh",
         "scripts/debian/7/cleanup.sh",
