@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/sh
 set -x
 
-yum -y install fuse fuse-devel
+apk add --update fuse fuse-dev
 
 cd /tmp
 wget http://bindfs.org/downloads/bindfs-1.12.6.tar.gz -O bindfs.tar.gz

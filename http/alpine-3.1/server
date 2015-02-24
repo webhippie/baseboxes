@@ -1,0 +1,18 @@
+KEYMAPOPTS="de de-latin1-nodeadkeys"
+HOSTNAMEOPTS="-n server"
+
+INTERFACESOPTS="auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+
+hostname server"
+
+DNSOPTS="-n 8.8.8.8"
+TIMEZONEOPTS="-z UTC"
+PROXYOPTS="none"
+APKREPOSOPTS="-f"
+SSHDOPTS="-c openssh"
+NTPOPTS="-c chrony"
+DISKOPTS="-s 0 -m sys /dev/sda"
