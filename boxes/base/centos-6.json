@@ -127,6 +127,7 @@
         "scripts/centos/6/base.sh",
         "scripts/centos/6/update.sh",
         "scripts/centos/6/vmtools.sh",
+        "scripts/centos/6/9p.sh",
         "scripts/centos/6/sshd.sh",
         "scripts/centos/6/chef.sh",
         "scripts/centos/6/bindfs.sh",
