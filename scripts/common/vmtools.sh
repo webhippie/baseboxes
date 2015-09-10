@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -x
 
-case "$PACKER_BUILDER_TYPE" in
-  vmware-iso|vmware-vmx)
+case "$PACKER_BUILD_NAME" in
+  vmware)
     mount -o loop /home/vagrant/linux.iso /mnt
     tar xfz /mnt/VMwareTools-*.tar.gz -C /tmp/
     umount /mnt
@@ -13,7 +13,7 @@ case "$PACKER_BUILDER_TYPE" in
     rm -f /home/vagrant/linux.iso
     ;;
 
-  virtualbox-iso|virtualbox-ovf)
+  virtualbox)
     mount -o loop /home/vagrant/VBoxGuestAdditions.iso /mnt
     /mnt/VBoxLinuxAdditions.run --nox11
     umount /mnt
