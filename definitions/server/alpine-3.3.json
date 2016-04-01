@@ -39,8 +39,8 @@
         "wget http://{{.HTTPIP}}:{{.HTTPPort}}/alpine-3.3/server<enter><wait>",
         "setup-alpine -f server<enter><wait>",
         "p455w0rd!234<enter><wait>",
-        "p455w0rd!234<enter><wait>",
-        "z<enter><wait10>",
+        "p455w0rd!234<enter><wait10><wait10>",
+        "z<enter>",
         "<wait10><wait10><wait10><wait10><wait10>",
         "reboot<enter>"
       ]
