@@ -20,9 +20,6 @@ for you:
   you can see on the definitions we have already preinstalled the vmtools and
   chef 11.
 
-* [Webdev](WEBDEV.md): Extended vagrant images where we have already preinstalled
-  a fullstack development environment for web applications.
-
 * [Server](SERVER.md): Not really vagrant images but definitions for generating
   qcow2 images which are getting used on our servers. These images can easily
   get imported through libvirt into KVM or Xen.
