@@ -43,15 +43,14 @@
       "http_directory": "http",
       "shutdown_command": "/sbin/poweroff",
       "boot_command": [
-        "<wait10><wait10>root<enter><wait>",
+        "<wait10>root<enter><wait>",
         "ifconfig eth0 10.0.2.15 netmask 255.255.255.0<enter><wait>",
         "wget http://{{.HTTPIP}}:{{.HTTPPort}}/alpine-3.3/vagrant<enter><wait>",
         "setup-alpine -f vagrant<enter><wait>",
-        "vagrant<enter><wait>",
-        "vagrant<enter><wait>",
-        "1<enter><wait10><wait10>",
+        "p455w0rd!234<enter><wait>",
+        "p455w0rd!234<enter><wait>",
         "z<enter><wait10>",
-        "<wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10>",
         "reboot<enter>"
       ]
     },
@@ -82,15 +81,14 @@
       "http_directory": "http",
       "shutdown_command": "/sbin/poweroff",
       "boot_command": [
-        "<wait10><wait10>root<enter><wait>",
+        "<wait10>root<enter><wait>",
         "ifconfig eth0 10.0.2.15 netmask 255.255.255.0<enter><wait>",
         "wget http://{{.HTTPIP}}:{{.HTTPPort}}/alpine-3.3/vagrant<enter><wait>",
         "setup-alpine -f vagrant<enter><wait>",
-        "vagrant<enter><wait>",
-        "vagrant<enter><wait>",
-        "1<enter><wait10><wait10>",
+        "p455w0rd!234<enter><wait>",
+        "p455w0rd!234<enter><wait>",
         "z<enter><wait10>",
-        "<wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10>",
         "reboot<enter>"
       ]
     },
@@ -118,15 +116,14 @@
       "http_directory": "http",
       "shutdown_command": "/sbin/poweroff",
       "boot_command": [
-        "<wait10><wait10>root<enter><wait>",
+        "<wait10>root<enter><wait>",
         "ifconfig eth0 10.0.2.15 netmask 255.255.255.0<enter><wait>",
         "wget http://{{.HTTPIP}}:{{.HTTPPort}}/alpine-3.3/vagrant<enter><wait>",
         "setup-alpine -f vagrant<enter><wait>",
-        "vagrant<enter><wait>",
-        "vagrant<enter><wait>",
-        "1<enter><wait10><wait10>",
+        "p455w0rd!234<enter><wait>",
+        "p455w0rd!234<enter><wait>",
         "z<enter><wait10>",
-        "<wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10>",
         "reboot<enter>"
       ]
     }
