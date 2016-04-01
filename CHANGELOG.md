@@ -1,5 +1,12 @@
 # Changelog
 
+
+## 2016-04-01
+
+* Restrcutured repository
+* Added more distribution versions
+
+
 ## 2015-01-22
 
 * Preinstall bindfs on all vagrant images

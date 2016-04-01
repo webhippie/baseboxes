@@ -1,11 +1,11 @@
 {
   "variables": {
     "version": "0.0.1",
-    "os": "server-ubuntu-14.04",
+    "os": "ubuntu-14.04",
 
-    "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04.1-server-amd64.iso",
-    "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
-    "iso_checksum_type": "md5",
+    "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04.4-server-amd64.iso",
+    "iso_checksum": "07e4bb5569814eab41fafac882ba127893e3ff0bdb7ec931c9b2d040e3e94e7a",
+    "iso_checksum_type": "sha256",
 
     "qemu_accelerator": "kvm"
   },

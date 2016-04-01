@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -x
 
-URL=https://opscode-omnibus-packages.s3.amazonaws.com/debian/6/x86_64/chefdk_0.3.5-1_amd64.deb
+URL=https://packages.chef.io/stable/debian/6/chefdk_0.12.0-1_amd64.deb
 
 wget -O /tmp/chefdk.deb \
   $URL && dpkg -i \

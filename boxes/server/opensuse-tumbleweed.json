@@ -1,0 +1,66 @@
+{
+  "variables": {
+    "version": "0.0.1",
+    "os": "opensuse-tumbleweed",
+
+    "iso_url": "http://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-NET-x86_64-Snapshot20160329-Media.iso",
+    "iso_checksum": "802226e67f45d65ad0040d87a785b608011677d40f5109b158b63f8875a78c11",
+    "iso_checksum_type": "sha256",
+
+    "qemu_accelerator": "kvm"
+  },
+  "builders": [
+    {
+      "name": "libvirt",
+      "type": "qemu",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "accelerator": "{{user `qemu_accelerator`}}",
+      "disk_interface": "virtio",
+      "net_device": "virtio-net",
+      "format": "qcow2",
+      "vm_name": "{{user `os`}}-{{user `version`}}",
+
+      "output_directory": "images/{{user `os`}}-{{user `version`}}",
+      "ssh_username": "deploy",
+      "ssh_password": "p455w0rd!234",
+      "ssh_wait_timeout": "90m",
+      "disk_size": 51200,
+      "ssh_port": 22,
+      "headless": true,
+      "http_directory": "http",
+      "shutdown_command": "echo 'p455w0rd!234' | sudo -S /sbin/halt -p",
+      "boot_command": [
+        "<esc><enter><wait>",
+        "linux ",
+        "biosdevname=0 ",
+        "net.ifnames=0 ",
+        "netdevice=eth0 ",
+        "netsetup=dhcp ",
+        "lang=en_US.utf8 ",
+        "textmode=1 ",
+        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-tumbleweed/server.xml ",
+        "<enter><wait>"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "echo 'p455w0rd!234' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "type": "shell",
+      "scripts": [
+        "scripts/opensuse/tumbleweed/wait.sh",
+        "scripts/opensuse/tumbleweed/base.sh",
+        "scripts/opensuse/tumbleweed/update.sh",
+        "scripts/opensuse/tumbleweed/sshd.sh",
+        "scripts/opensuse/tumbleweed/services.sh",
+        "scripts/opensuse/tumbleweed/chefdk.sh",
+        "scripts/opensuse/tumbleweed/motd.sh",
+        "scripts/opensuse/tumbleweed/cleanup.sh"
+      ]
+    }
+  ]
+}

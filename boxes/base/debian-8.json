@@ -1,0 +1,176 @@
+{
+  "variables": {
+    "version": "1.0.0",
+    "os": "debian-7",
+
+    "iso_url": "http://cdimage.debian.org/mirror/cdimage/archive/8.2.0/amd64/iso-cd/debian-8.2.0-amd64-netinst.iso",
+    "iso_checksum": "d393d17ac6b3113c81186e545c416a00f28ed6e05774284bb5e8f0df39fcbcb9",
+    "iso_checksum_type": "sha256",
+
+    "qemu_accelerator": "kvm",
+
+    "memory": "1024",
+    "cpus": "2",
+
+    "fusion_path": "/Applications/VMware Fusion.app"
+  },
+  "builders": [
+    {
+      "name": "virtualbox",
+      "type": "virtualbox-iso",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "vm_name": "{{user `os`}}",
+      "guest_os_type": "Debian_64",
+      "guest_additions_mode": "upload",
+      "hard_drive_interface": "sata",
+
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "{{user `memory`}}"],
+        ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
+      ],
+
+      "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "1000s",
+      "disk_size": 20480,
+      "ssh_port": 22,
+      "headless": false,
+      "http_directory": "http",
+      "shutdown_command": "echo 'vagrant' | sudo -S halt -p",
+      "boot_command": [
+        "<esc><wait>",
+        "install ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7/vagrant.cfg ",
+        "debian-installer=en_US ",
+        "auto ",
+        "locale=en_US ",
+        "kbd-chooser/method=us ",
+        "netcfg/get_hostname=vagrant ",
+        "netcfg/get_domain=webhippie.de ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "console-setup/ask_detect=false ",
+        "console-keymaps-at/keymap=de ",
+        "keyboard-configuration/xkb-keymap=de ",
+        "<enter>"
+      ]
+    },
+    {
+      "name": "vmware",
+      "type": "vmware-iso",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "vm_name": "{{user `os`}}",
+      "guest_os_type": "debian8-64",
+      "tools_upload_flavor": "",
+      "fusion_app_path": "{{user `fusion_path`}}",
+
+      "vmx_data": {
+        "memsize": "{{user `memory`}}",
+        "numvcpus": "{{user `cpus`}}"
+      },
+
+      "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "60m",
+      "disk_size": 20480,
+      "ssh_port": 22,
+      "headless": false,
+      "http_directory": "http",
+      "shutdown_command": "echo 'vagrant' | sudo -S halt -p",
+      "boot_command": [
+        "<esc><wait>",
+        "install ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7/vagrant.cfg ",
+        "debian-installer=en_US ",
+        "auto ",
+        "locale=en_US ",
+        "kbd-chooser/method=us ",
+        "netcfg/get_hostname=vagrant ",
+        "netcfg/get_domain=webhippie.de ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "console-setup/ask_detect=false ",
+        "console-keymaps-at/keymap=de ",
+        "keyboard-configuration/xkb-keymap=de ",
+        "<enter>"
+      ]
+    },
+    {
+      "name": "libvirt",
+      "type": "qemu",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "accelerator": "{{user `qemu_accelerator`}}",
+      "disk_interface": "virtio",
+      "net_device": "virtio-net",
+      "format": "qcow2",
+      "vm_name": "{{user `os`}}-{{user `version`}}",
+
+      "output_directory": "images/{{user `os`}}-libvirt-{{user `version`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "1000s",
+      "disk_size": 20480,
+      "ssh_port": 22,
+      "headless": false,
+      "http_directory": "http",
+      "shutdown_command": "echo 'vagrant' | sudo -S halt -p",
+      "boot_command": [
+        "<esc><wait>",
+        "install ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/debian-7/vagrant-libvirt.cfg ",
+        "debian-installer=en_US ",
+        "auto ",
+        "locale=en_US ",
+        "kbd-chooser/method=us ",
+        "netcfg/get_hostname=vagrant ",
+        "netcfg/get_domain=webhippie.de ",
+        "fb=false ",
+        "debconf/frontend=noninteractive ",
+        "console-setup/ask_detect=false ",
+        "console-keymaps-at/keymap=de ",
+        "keyboard-configuration/xkb-keymap=de ",
+        "<enter>"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "keep_input_artifact": false,
+      "output": "images/{{user `os`}}-{{.Provider}}-{{user `version`}}.box",
+      "type": "vagrant",
+      "only": ["virtualbox", "vmware", "libvirt"]
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "type": "shell",
+      "scripts": [
+        "scripts/debian/7/base.sh",
+        "scripts/debian/7/update.sh",
+        "scripts/debian/7/vmtools.sh",
+        "scripts/debian/7/sshd.sh",
+        "scripts/debian/7/chef.sh",
+        "scripts/debian/7/bindfs.sh",
+        "scripts/debian/7/vagrant.sh",
+        "scripts/debian/7/motd.sh",
+        "scripts/debian/7/cleanup.sh",
+        "scripts/debian/7/zerodisk.sh"
+      ]
+    }
+  ]
+}

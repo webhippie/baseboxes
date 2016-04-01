@@ -2,13 +2,17 @@
   "variables": {
     "version": "1.0.0",
     "os": "debian-7",
-    "fusion_path": "/usr/local/Caskroom/vmware-fusion/7.1.0-2314774/VMware Fusion.app",
 
-    "iso_url": "http://cdimage.debian.org/mirror/cdimage/archive/7.7.0/amd64/iso-cd/debian-7.7.0-amd64-netinst.iso",
-    "iso_checksum": "0b31bccccb048d20b551f70830bb7ad0",
-    "iso_checksum_type": "md5",
+    "iso_url": "http://cdimage.debian.org/mirror/cdimage/archive/7.9.0/amd64/iso-cd/debian-7.9.0-amd64-netinst.iso",
+    "iso_checksum": "b6a19b4cf1d046e5eba1ae235a94824bca5a7c8f092a28216396c9d585ef709d",
+    "iso_checksum_type": "sha256",
 
-    "qemu_accelerator": "kvm"
+    "qemu_accelerator": "kvm",
+
+    "memory": "1024",
+    "cpus": "2",
+
+    "fusion_path": "/Applications/VMware Fusion.app"
   },
   "builders": [
     {
@@ -25,16 +29,17 @@
       "hard_drive_interface": "sata",
 
       "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "512"],
-        ["modifyvm", "{{.Name}}", "--cpus", "1"]
+        ["modifyvm", "{{.Name}}", "--memory", "{{user `memory`}}"],
+        ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
       ],
 
       "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
+      "ssh_wait_timeout": "1000s",
       "disk_size": 20480,
       "ssh_port": 22,
-      "headless": true,
+      "headless": false,
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S halt -p",
       "boot_command": [
@@ -63,23 +68,23 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "guest_os_type": "debian7-64",
-      "fusion_app_path": "{{user `fusion_path`}}",
       "vm_name": "{{user `os`}}",
-      "tools_upload_flavor": "linux",
+      "guest_os_type": "debian7-64",
+      "tools_upload_flavor": "",
+      "fusion_app_path": "{{user `fusion_path`}}",
 
       "vmx_data": {
-        "memsize": "512",
-        "numvcpus": "1",
-        "cpuid.coresPerSocket": "1"
+        "memsize": "{{user `memory`}}",
+        "numvcpus": "{{user `cpus`}}"
       },
 
       "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
+      "ssh_wait_timeout": "60m",
       "disk_size": 20480,
       "ssh_port": 22,
-      "headless": true,
+      "headless": false,
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S halt -p",
       "boot_command": [
@@ -112,14 +117,15 @@
       "disk_interface": "virtio",
       "net_device": "virtio-net",
       "format": "qcow2",
-      "vm_name": "baseboxes-{{user `os`}}",
+      "vm_name": "{{user `os`}}-{{user `version`}}",
 
       "output_directory": "images/{{user `os`}}-libvirt-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
+      "ssh_wait_timeout": "1000s",
       "disk_size": 20480,
       "ssh_port": 22,
-      "headless": true,
+      "headless": false,
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S halt -p",
       "boot_command": [

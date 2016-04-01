@@ -1,0 +1,64 @@
+{
+  "variables": {
+    "version": "0.0.1",
+    "os": "alpine-3.3",
+
+    "iso_url": "http://dl-4.alpinelinux.org/alpine/v3.3/releases/x86_64/alpine-3.3.3-x86_64.iso",
+    "iso_checksum": "af766ac6221c6f5b471ca388be22df81ac6f21be37486ba6846f115d1798528a",
+    "iso_checksum_type": "sha256",
+
+    "qemu_accelerator": "kvm"
+  },
+  "builders": [
+    {
+      "name": "libvirt",
+      "type": "qemu",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "accelerator": "{{user `qemu_accelerator`}}",
+      "disk_interface": "virtio",
+      "net_device": "virtio-net",
+      "format": "qcow2",
+      "vm_name": "{{user `os`}}-{{user `version`}}",
+
+      "output_directory": "images/{{user `os`}}-{{user `version`}}",
+      "ssh_username": "root",
+      "ssh_password": "p455w0rd!234",
+      "ssh_wait_timeout": "90m",
+      "disk_size": 51200,
+      "ssh_port": 22,
+      "headless": true,
+      "http_directory": "http",
+      "shutdown_command": "/sbin/poweroff",
+      "boot_command": [
+        "<wait10><wait10>root<enter><wait>",
+        "ifconfig eth0 10.0.2.15 netmask 255.255.255.0<enter><wait>",
+        "wget http://{{.HTTPIP}}:{{.HTTPPort}}/alpine-3.3/server<enter><wait>",
+        "setup-alpine -f server<enter><wait>",
+        "p455w0rd!234<enter><wait>",
+        "p455w0rd!234<enter><wait>",
+        "1<enter><wait10><wait10>",
+        "z<enter><wait10>",
+        "<wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10><wait10>",
+        "reboot<enter>"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "/bin/sh '{{.Path}}'",
+      "type": "shell",
+      "scripts": [
+        "scripts/alpine/3.3/server.sh",
+        "scripts/alpine/3.3/update.sh",
+        "scripts/alpine/3.3/sshd.sh",
+        "scripts/alpine/3.3/services.sh",
+        "scripts/alpine/3.3/motd.sh",
+        "scripts/alpine/3.3/cleanup.sh"
+      ]
+    }
+  ]
+}

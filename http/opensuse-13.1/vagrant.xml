@@ -48,8 +48,8 @@
     </dhcp_options>
 
     <dns>
-      <hostname>vagrant</hostname>
-      <domain>webhippie.de</domain>
+      <hostname>vagrant-openSUSE-Bottle</hostname>
+      <domain>vagrantup.com</domain>
 
       <resolv_conf_policy>auto</resolv_conf_policy>
 

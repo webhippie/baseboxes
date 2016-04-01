@@ -1,11 +1,11 @@
 {
   "variables": {
     "version": "0.0.1",
-    "os": "server-debian-7",
+    "os": "debian-7",
 
-    "iso_url": "http://cdimage.debian.org/mirror/cdimage/archive/7.7.0/amd64/iso-cd/debian-7.7.0-amd64-netinst.iso",
-    "iso_checksum": "0b31bccccb048d20b551f70830bb7ad0",
-    "iso_checksum_type": "md5",
+    "iso_url": "http://cdimage.debian.org/mirror/cdimage/archive/7.9.0/amd64/iso-cd/debian-7.9.0-amd64-netinst.iso",
+    "iso_checksum": "b6a19b4cf1d046e5eba1ae235a94824bca5a7c8f092a28216396c9d585ef709d",
+    "iso_checksum_type": "sha256",
 
     "qemu_accelerator": "kvm"
   },

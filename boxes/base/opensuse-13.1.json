@@ -2,13 +2,17 @@
   "variables": {
     "version": "1.0.0",
     "os": "opensuse-13.1",
-    "fusion_path": "/usr/local/Caskroom/vmware-fusion/7.1.0-2314774/VMware Fusion.app",
 
     "iso_url": "http://download.opensuse.org/distribution/13.1/iso/openSUSE-13.1-DVD-x86_64.iso",
-    "iso_checksum": "1096c9c67fc8a67a94a32d04a15e909d",
-    "iso_checksum_type": "md5",
+    "iso_checksum": "0b8c40a36ff514797cb2ef69331f1c3c8a9ec6ca",
+    "iso_checksum_type": "sha1",
 
-    "qemu_accelerator": "kvm"
+    "qemu_accelerator": "kvm",
+
+    "memory": "1024",
+    "cpus": "2",
+
+    "fusion_path": "/Applications/VMware Fusion.app"
   },
   "builders": [
     {
@@ -21,20 +25,21 @@
 
       "vm_name": "{{user `os`}}",
       "guest_os_type": "OpenSUSE_64",
-      "guest_additions_mode": "upload",
+      "guest_additions_mode": "disable",
       "hard_drive_interface": "sata",
 
       "vboxmanage": [
-        ["modifyvm", "{{.Name}}", "--memory", "512"],
-        ["modifyvm", "{{.Name}}", "--cpus", "1"]
+        ["modifyvm", "{{.Name}}", "--memory", "{{user `memory`}}"],
+        ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
       ],
 
       "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
+      "ssh_wait_timeout": "1000s",
       "disk_size": 20480,
       "ssh_port": 22,
-      "headless": true,
+      "headless": false,
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -p",
       "boot_command": [
@@ -46,7 +51,6 @@
         "netsetup=dhcp ",
         "lang=en_US.utf8 ",
         "textmode=1 ",
-        "instmode=dvd ",
         "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.1/vagrant.xml ",
         "<enter><wait>"
       ]
@@ -59,23 +63,23 @@
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
 
-      "guest_os_type": "opensuse-64",
-      "fusion_app_path": "{{user `fusion_path`}}",
       "vm_name": "{{user `os`}}",
-      "tools_upload_flavor": "linux",
+      "guest_os_type": "opensuse-64",
+      "tools_upload_flavor": "",
+      "fusion_app_path": "{{user `fusion_path`}}",
 
       "vmx_data": {
-        "memsize": "512",
-        "numvcpus": "1",
-        "cpuid.coresPerSocket": "1"
+        "memsize": "{{user `memory`}}",
+        "numvcpus": "{{user `cpus`}}"
       },
 
       "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
+      "ssh_wait_timeout": "60m",
       "disk_size": 20480,
       "ssh_port": 22,
-      "headless": true,
+      "headless": false,
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -p",
       "boot_command": [
@@ -87,7 +91,6 @@
         "netsetup=dhcp ",
         "lang=en_US.utf8 ",
         "textmode=1 ",
-        "instmode=dvd ",
         "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.1/vagrant.xml ",
         "<enter><wait>"
       ]
@@ -104,14 +107,15 @@
       "disk_interface": "virtio",
       "net_device": "virtio-net",
       "format": "qcow2",
-      "vm_name": "baseboxes-{{user `os`}}",
+      "vm_name": "{{user `os`}}-{{user `version`}}",
 
       "output_directory": "images/{{user `os`}}-libvirt-{{user `version`}}",
       "ssh_username": "vagrant",
       "ssh_password": "vagrant",
+      "ssh_wait_timeout": "1000s",
       "disk_size": 20480,
       "ssh_port": 22,
-      "headless": true,
+      "headless": false,
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -p",
       "boot_command": [
@@ -123,7 +127,6 @@
         "netsetup=dhcp ",
         "lang=en_US.utf8 ",
         "textmode=1 ",
-        "instmode=dvd ",
         "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-13.1/vagrant-libvirt.xml ",
         "<enter><wait>"
       ]
