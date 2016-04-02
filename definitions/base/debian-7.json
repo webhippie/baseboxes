@@ -70,7 +70,7 @@
 
       "vm_name": "{{user `os`}}",
       "guest_os_type": "debian7-64",
-      "tools_upload_flavor": "",
+      "tools_upload_flavor": "linux",
       "fusion_app_path": "{{user `fusion_path`}}",
 
       "vmx_data": {

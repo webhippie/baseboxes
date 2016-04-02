@@ -1,7 +1,7 @@
 {
   "variables": {
     "version": "1.0.0",
-    "os": "ubuntu-14.04",
+    "os": "ubuntu-16.04",
 
     "iso_url": "http://releases.ubuntu.com/xenial/ubuntu-16.04-beta2-server-amd64.iso",
     "iso_checksum": "0f948fea5a587a62a873d2c001948a6ffbda20b67b05a468006caf9dfd41bcd7",
@@ -46,7 +46,7 @@
         "<esc><esc><enter><wait> ",
         "/install/vmlinuz ",
         "noapic ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-14.04/vagrant.cfg ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-16.04/vagrant.cfg ",
         "debian-installer=en_US ",
         "auto ",
         "locale=en_US ",
@@ -71,7 +71,7 @@
 
       "vm_name": "{{user `os`}}",
       "guest_os_type": "ubuntu-64",
-      "tools_upload_flavor": "",
+      "tools_upload_flavor": "linux",
       "fusion_app_path": "{{user `fusion_path`}}",
 
       "vmx_data": {
@@ -92,7 +92,7 @@
         "<esc><esc><enter><wait> ",
         "/install/vmlinuz ",
         "noapic ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-14.04/vagrant.cfg ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-16.04/vagrant.cfg ",
         "debian-installer=en_US ",
         "auto ",
         "locale=en_US ",
@@ -134,7 +134,7 @@
         "<esc><esc><enter><wait> ",
         "/install/vmlinuz ",
         "noapic ",
-        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-14.04/vagrant-libvirt.cfg ",
+        "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-16.04/vagrant-libvirt.cfg ",
         "debian-installer=en_US ",
         "auto ",
         "locale=en_US ",
@@ -163,16 +163,16 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "type": "shell",
       "scripts": [
-        "scripts/ubuntu/14.04/base.sh",
-        "scripts/ubuntu/14.04/update.sh",
-        "scripts/ubuntu/14.04/vmtools.sh",
-        "scripts/ubuntu/14.04/sshd.sh",
-        "scripts/ubuntu/14.04/chef.sh",
-        "scripts/ubuntu/14.04/bindfs.sh",
-        "scripts/ubuntu/14.04/vagrant.sh",
-        "scripts/ubuntu/14.04/motd.sh",
-        "scripts/ubuntu/14.04/cleanup.sh",
-        "scripts/ubuntu/14.04/zerodisk.sh"
+        "scripts/ubuntu/16.04/base.sh",
+        "scripts/ubuntu/16.04/update.sh",
+        "scripts/ubuntu/16.04/vmtools.sh",
+        "scripts/ubuntu/16.04/sshd.sh",
+        "scripts/ubuntu/16.04/chef.sh",
+        "scripts/ubuntu/16.04/bindfs.sh",
+        "scripts/ubuntu/16.04/vagrant.sh",
+        "scripts/ubuntu/16.04/motd.sh",
+        "scripts/ubuntu/16.04/cleanup.sh",
+        "scripts/ubuntu/16.04/zerodisk.sh"
       ]
     }
   ]

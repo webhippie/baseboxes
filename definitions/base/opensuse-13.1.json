@@ -25,7 +25,7 @@
 
       "vm_name": "{{user `os`}}",
       "guest_os_type": "OpenSUSE_64",
-      "guest_additions_mode": "disable",
+      "guest_additions_mode": "upload",
       "hard_drive_interface": "sata",
 
       "vboxmanage": [
@@ -65,7 +65,7 @@
 
       "vm_name": "{{user `os`}}",
       "guest_os_type": "opensuse-64",
-      "tools_upload_flavor": "",
+      "tools_upload_flavor": "linux",
       "fusion_app_path": "{{user `fusion_path`}}",
 
       "vmx_data": {
