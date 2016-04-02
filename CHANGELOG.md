@@ -1,6 +1,12 @@
 # Changelog
 
 
+## 2016-04-02
+
+* Extended alpine build process
+* Added fedora basics
+
+
 ## 2016-04-01
 
 * Restrcutured repository
