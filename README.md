@@ -4,6 +4,22 @@ This repository holds our [packer](https://www.packer.io) definition for various
 base boxes to setup our development machines with vagrant.
 
 
+## Alpine Linux
+
+```bash
+packer build -parallel=false definitions/base/alpine-3.3.json
+packer build -parallel=false definitions/server/alpne-3.3.json
+```
+
+**3.3**
+
+* [QCOW2](http://vagrant.webhippie.de/alpine-3.3-0.0.1.qcow2)
+* [Virtualbox](http://vagrant.webhippie.de/alpine-3.3-virtualbox-1.0.0.box)
+* [VMware](http://vagrant.webhippie.de/alpine-3.3-vmware-1.0.0.box)
+* [Libvirt/KVM](http://vagrant.webhippie.de/alpine-3.3-libvirt-1.0.0.box)
+* Also available at [Atlas](https://atlas.hashicorp.com/webhippie/boxes/alpine-3.3)
+
+
 ## openSUSE
 
 ```bash
@@ -78,6 +94,33 @@ packer build -parallel=false definitions/server/centos-6.json
 * [VMware](http://vagrant.webhippie.de/centos-6-vmware-1.0.0.box)
 * [Libvirt/KVM](http://vagrant.webhippie.de/centos-6-libvirt-1.0.0.box)
 * Also available at [Atlas](https://atlas.hashicorp.com/webhippie/boxes/centos-6)
+
+
+## Fedora
+
+```bash
+packer build -parallel=false definitions/base/fedora-23.json
+packer build -parallel=false definitions/server/fedora-23.json
+
+packer build -parallel=false definitions/base/fedora-22.json
+packer build -parallel=false definitions/server/fedora-22.json
+```
+
+**23**
+
+* [QCOW2](http://vagrant.webhippie.de/fedora-23-0.0.1.qcow2)
+* [Virtualbox](http://vagrant.webhippie.de/fedora-23-virtualbox-1.0.0.box)
+* [VMware](http://vagrant.webhippie.de/fedora-23-vmware-1.0.0.box)
+* [Libvirt/KVM](http://vagrant.webhippie.de/fedora-23-libvirt-1.0.0.box)
+* Also available at [Atlas](https://atlas.hashicorp.com/webhippie/boxes/fedora-23)
+
+**22**
+
+* [QCOW2](http://vagrant.webhippie.de/fedora-22-0.0.1.qcow2)
+* [Virtualbox](http://vagrant.webhippie.de/fedora-22-virtualbox-1.0.0.box)
+* [VMware](http://vagrant.webhippie.de/fedora-22-vmware-1.0.0.box)
+* [Libvirt/KVM](http://vagrant.webhippie.de/fedora-22-libvirt-1.0.0.box)
+* Also available at [Atlas](https://atlas.hashicorp.com/webhippie/boxes/fedora-22)
 
 
 ## Debian

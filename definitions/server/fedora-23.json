@@ -1,0 +1,61 @@
+{
+  "variables": {
+    "version": "0.0.1",
+    "os": "fedora-23",
+
+    "iso_url": "http://ftp.halifax.rwth-aachen.de/fedora/linux/releases/23/Server/x86_64/iso/Fedora-Server-netinst-x86_64-23.iso",
+    "iso_checksum": "32e0a15a1c71d0e2fd36a0af5b67a3b3af82976d2dfca0aefcb90d42f2ae6844",
+    "iso_checksum_type": "sha256",
+
+    "qemu_accelerator": "kvm"
+  },
+  "builders": [
+    {
+      "name": "libvirt",
+      "type": "qemu",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "accelerator": "{{user `qemu_accelerator`}}",
+      "disk_interface": "virtio",
+      "net_device": "virtio-net",
+      "format": "qcow2",
+      "vm_name": "{{user `os`}}-{{user `version`}}",
+
+      "output_directory": "images/{{user `os`}}-{{user `version`}}",
+      "ssh_username": "deploy",
+      "ssh_password": "p455w0rd!234",
+      "ssh_wait_timeout": "90m",
+      "disk_size": 51200,
+      "ssh_port": 22,
+      "headless": true,
+      "http_directory": "http",
+      "shutdown_command": "echo 'p455w0rd!234' | sudo -S shutdown -P now",
+      "boot_command": [
+        "<esc><wait>",
+        "linux ",
+        "biosdevname=0 ",
+        "net.ifnames=0 ",
+        "inst.nodnf=1 ",
+        "inst.ks=http://{{.HTTPIP}}:{{.HTTPPort}}/fedora-23/server.cfg<enter>"
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "echo 'p455w0rd!234' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "type": "shell",
+      "scripts": [
+        "scripts/fedora/23/base.sh",
+        "scripts/fedora/23/update.sh",
+        "scripts/fedora/23/sshd.sh",
+        "scripts/fedora/23/services.sh",
+        "scripts/fedora/23/chefdk.sh",
+        "scripts/fedora/23/motd.sh",
+        "scripts/fedora/23/cleanup.sh"
+      ]
+    }
+  ]
+}
