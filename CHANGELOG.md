@@ -4,6 +4,7 @@
 ## 2017-04-28
 
 * Refactored and updated Ubuntu images
+* Refactored and updated Debian images
 
 
 ## 2016-04-02

@@ -1,17 +1,34 @@
 #!/usr/bin/env bash
 set -x
 
-apt-get -y update
-apt-get -y install linux-headers-$(uname -r) build-essential wget aptitude --fix-missing
-apt-get -y install zlib1g-dev libssl-dev libreadline-gplv2-dev dkms --fix-missing
-apt-get -y install curl unzip debconf-utils nfs-common sudo git-core --fix-missing
+DEBIAN_FRONTEND=noninteractive apt-get -y update
+
+DEBIAN_FRONTEND=noninteractive apt-get -y install --fix-missing \
+  linux-headers-$(uname -r) \
+  build-essential \
+  wget \
+  aptitude \
+  zlib1g-dev \
+  libssl-dev \
+  libreadline-gplv2-dev \
+  dkms \
+  curl \
+  unzip \
+  debconf-utils \
+  nfs-common \
+  sudo \
+  git-core \
+  cloud-initramfs-growroot
 
 if [ -f /etc/init.d/virtualbox-ose-guest-utils ]
 then
   /etc/init.d/virtualbox-ose-guest-utils stop
   rmmod vboxguest
 
-  aptitude -y purge virtualbox-ose-guest-x11 virtualbox-ose-guest-dkms virtualbox-ose-guest-utils
+  DEBIAN_FRONTEND=noninteractive aptitude -y purge \
+    virtualbox-ose-guest-x11 \
+    virtualbox-ose-guest-dkms \
+    virtualbox-ose-guest-utils
 fi
 
 cat <<EOF > /etc/default/grub

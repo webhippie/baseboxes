@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -x
 
-aptitude -y autoclean
-aptitude --purge clean
+DEBIAN_FRONTEND=noninteractive aptitude -y autoclean
+DEBIAN_FRONTEND=noninteractive aptitude --purge clean
 
 rm -rf /var/mail/* > /dev/null 2>&1
 rm -rf /var/lib/dhcp/* > /dev/null 2>&1

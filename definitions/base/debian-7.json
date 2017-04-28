@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "os": "debian-7",
 
-    "iso_url": "http://cdimage.debian.org/mirror/cdimage/archive/7.9.0/amd64/iso-cd/debian-7.9.0-amd64-netinst.iso",
-    "iso_checksum": "b6a19b4cf1d046e5eba1ae235a94824bca5a7c8f092a28216396c9d585ef709d",
+    "iso_url": "http://cdimage.debian.org/mirror/cdimage/archive/7.11.0/amd64/iso-cd/debian-7.11.0-amd64-netinst.iso",
+    "iso_checksum": "62876fb786f203bc732ec1bd2ca4c8faea19d0a97c5936d69f3406ef92ff49bd",
     "iso_checksum_type": "sha256",
 
     "qemu_accelerator": "kvm",

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -x
 
-URL=https://packages.chef.io/stable/debian/8/chefdk_0.12.0-1_amd64.deb
+URL=https://packages.chef.io/files/stable/chefdk/1.3.43/debian/8/chefdk_1.3.43-1_amd64.deb
 
 wget -O /tmp/chefdk.deb \
   $URL && dpkg -i \

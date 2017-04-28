@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -x
 
-apt-get -y update
-apt-get -y upgrade
+DEBIAN_FRONTEND=noninteractive apt-get -y update
+DEBIAN_FRONTEND=noninteractive apt-get -y upgrade
 
 exit 0
