@@ -3,8 +3,8 @@
     "version": "0.0.1",
     "os": "ubuntu-16.04",
 
-    "iso_url": "http://releases.ubuntu.com/xenial/ubuntu-16.04-beta2-server-amd64.iso",
-    "iso_checksum": "0f948fea5a587a62a873d2c001948a6ffbda20b67b05a468006caf9dfd41bcd7",
+    "iso_url": "http://releases.ubuntu.com/xenial/ubuntu-16.04.2-server-amd64.iso",
+    "iso_checksum": "737ae7041212c628de5751d15c3016058b0e833fdc32e7420209b76ca3d0a535",
     "iso_checksum_type": "sha256",
 
     "qemu_accelerator": "kvm"
@@ -34,7 +34,10 @@
       "http_directory": "http",
       "shutdown_command": "echo 'p455w0rd!234' | sudo -S shutdown -P now",
       "boot_command": [
-        "<esc><esc><enter><wait> ",
+        "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
         "/install/vmlinuz ",
         "noapic ",
         "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-16.04/server.cfg ",
@@ -42,13 +45,15 @@
         "auto ",
         "locale=en_US ",
         "kbd-chooser/method=de ",
-        "hostname=server ",
         "fb=false ",
         "debconf/frontend=noninteractive ",
-        "keyboard-configuration/modelcode=pc105 ",
         "keyboard-configuration/layout=Germany ",
         "keyboard-configuration/variant=Germany ",
         "console-setup/ask_detect=false ",
+        "console-setup/layoutcode=de ",
+        "console-setup/modelcode=pc105 ",
+        "netcfg/get_domain=webhippie.de ",
+        "netcfg/get_hostname=server ",
         "initrd=/install/initrd.gz -- <enter>"
       ]
     }
@@ -58,13 +63,12 @@
       "execute_command": "echo 'p455w0rd!234' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "type": "shell",
       "scripts": [
-        "scripts/ubuntu/14.04/base.sh",
-        "scripts/ubuntu/14.04/update.sh",
-        "scripts/ubuntu/14.04/sshd.sh",
-        "scripts/ubuntu/14.04/services.sh",
-        "scripts/ubuntu/14.04/chefdk.sh",
-        "scripts/ubuntu/14.04/motd.sh",
-        "scripts/ubuntu/14.04/cleanup.sh"
+        "scripts/ubuntu/16.04/base.sh",
+        "scripts/ubuntu/16.04/update.sh",
+        "scripts/ubuntu/16.04/sshd.sh",
+        "scripts/ubuntu/16.04/services.sh",
+        "scripts/ubuntu/16.04/motd.sh",
+        "scripts/ubuntu/16.04/cleanup.sh"
       ]
     }
   ]

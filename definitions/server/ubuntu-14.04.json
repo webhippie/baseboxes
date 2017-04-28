@@ -3,8 +3,8 @@
     "version": "0.0.1",
     "os": "ubuntu-14.04",
 
-    "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04.4-server-amd64.iso",
-    "iso_checksum": "07e4bb5569814eab41fafac882ba127893e3ff0bdb7ec931c9b2d040e3e94e7a",
+    "iso_url": "http://releases.ubuntu.com/trusty/ubuntu-14.04.5-server-amd64.iso",
+    "iso_checksum": "dde07d37647a1d2d9247e33f14e91acb10445a97578384896b4e1d985f754cc1",
     "iso_checksum_type": "sha256",
 
     "qemu_accelerator": "kvm"
@@ -62,7 +62,6 @@
         "scripts/ubuntu/14.04/update.sh",
         "scripts/ubuntu/14.04/sshd.sh",
         "scripts/ubuntu/14.04/services.sh",
-        "scripts/ubuntu/14.04/chefdk.sh",
         "scripts/ubuntu/14.04/motd.sh",
         "scripts/ubuntu/14.04/cleanup.sh"
       ]

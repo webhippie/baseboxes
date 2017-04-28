@@ -3,13 +3,13 @@
     "version": "1.0.0",
     "os": "ubuntu-16.04",
 
-    "iso_url": "http://releases.ubuntu.com/xenial/ubuntu-16.04-beta2-server-amd64.iso",
-    "iso_checksum": "0f948fea5a587a62a873d2c001948a6ffbda20b67b05a468006caf9dfd41bcd7",
+    "iso_url": "http://releases.ubuntu.com/xenial/ubuntu-16.04.2-server-amd64.iso",
+    "iso_checksum": "737ae7041212c628de5751d15c3016058b0e833fdc32e7420209b76ca3d0a535",
     "iso_checksum_type": "sha256",
 
     "qemu_accelerator": "kvm",
 
-    "memory": "1024",
+    "memory": "2048",
     "cpus": "2",
 
     "fusion_path": "/Applications/VMware Fusion.app"
@@ -43,7 +43,10 @@
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
-        "<esc><esc><enter><wait> ",
+        "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
         "/install/vmlinuz ",
         "noapic ",
         "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-16.04/vagrant.cfg ",
@@ -51,13 +54,15 @@
         "auto ",
         "locale=en_US ",
         "kbd-chooser/method=de ",
-        "hostname=vagrant ",
         "fb=false ",
         "debconf/frontend=noninteractive ",
-        "keyboard-configuration/modelcode=pc105 ",
         "keyboard-configuration/layout=Germany ",
         "keyboard-configuration/variant=Germany ",
         "console-setup/ask_detect=false ",
+        "console-setup/layoutcode=de ",
+        "console-setup/modelcode=pc105 ",
+        "netcfg/get_domain=vagrantup.com ",
+        "netcfg/get_hostname=vagrant ",
         "initrd=/install/initrd.gz -- <enter>"
       ]
     },
@@ -89,7 +94,10 @@
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
-        "<esc><esc><enter><wait> ",
+        "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
         "/install/vmlinuz ",
         "noapic ",
         "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-16.04/vagrant.cfg ",
@@ -97,13 +105,15 @@
         "auto ",
         "locale=en_US ",
         "kbd-chooser/method=de ",
-        "hostname=vagrant ",
         "fb=false ",
         "debconf/frontend=noninteractive ",
-        "keyboard-configuration/modelcode=pc105 ",
         "keyboard-configuration/layout=Germany ",
         "keyboard-configuration/variant=Germany ",
         "console-setup/ask_detect=false ",
+        "console-setup/layoutcode=de ",
+        "console-setup/modelcode=pc105 ",
+        "netcfg/get_domain=vagrantup.com ",
+        "netcfg/get_hostname=vagrant ",
         "initrd=/install/initrd.gz -- <enter>"
       ]
     },
@@ -131,7 +141,10 @@
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
-        "<esc><esc><enter><wait> ",
+        "<enter><wait><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+        "<bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
         "/install/vmlinuz ",
         "noapic ",
         "preseed/url=http://{{.HTTPIP}}:{{.HTTPPort}}/ubuntu-16.04/vagrant-libvirt.cfg ",
@@ -139,13 +152,15 @@
         "auto ",
         "locale=en_US ",
         "kbd-chooser/method=de ",
-        "hostname=vagrant ",
         "fb=false ",
         "debconf/frontend=noninteractive ",
-        "keyboard-configuration/modelcode=pc105 ",
         "keyboard-configuration/layout=Germany ",
         "keyboard-configuration/variant=Germany ",
         "console-setup/ask_detect=false ",
+        "console-setup/layoutcode=de ",
+        "console-setup/modelcode=pc105 ",
+        "netcfg/get_domain=vagrantup.com ",
+        "netcfg/get_hostname=vagrant ",
         "initrd=/install/initrd.gz -- <enter>"
       ]
     }

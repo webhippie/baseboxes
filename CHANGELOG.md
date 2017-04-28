@@ -1,6 +1,11 @@
 # Changelog
 
 
+## 2017-04-28
+
+* Refactored and updated Ubuntu images
+
+
 ## 2016-04-02
 
 * Extended alpine build process

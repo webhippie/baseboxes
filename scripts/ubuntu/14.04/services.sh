@@ -1,1 +1,6 @@
-../13.10/services.sh
+#!/usr/bin/env bash
+set -x
+
+update-rc.d ssh defaults
+
+exit 0
