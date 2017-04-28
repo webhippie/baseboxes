@@ -4,7 +4,7 @@ set -x
 cat > /etc/yum.repos.d/epel.repo << EOM
 [epel]
 name=epel
-mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-22&arch=\$basearch
+mirrorlist=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-25&arch=\$basearch
 enabled=1
 gpgcheck=0
 EOM
@@ -12,7 +12,7 @@ EOM
 cat > /etc/yum.repos.d/remi.repo << EOM
 [remi]
 name=remi
-mirrorlist=http://rpms.famillecollet.com/fedora/22/remi/mirror
+mirrorlist=http://rpms.famillecollet.com/fedora/25/remi/mirror
 enabled=1
 gpgcheck=0
 EOM

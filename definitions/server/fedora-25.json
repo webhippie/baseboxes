@@ -1,10 +1,10 @@
 {
   "variables": {
     "version": "0.0.1",
-    "os": "fedora-23",
+    "os": "fedora-25",
 
-    "iso_url": "http://ftp.halifax.rwth-aachen.de/fedora/linux/releases/23/Server/x86_64/iso/Fedora-Server-netinst-x86_64-23.iso",
-    "iso_checksum": "32e0a15a1c71d0e2fd36a0af5b67a3b3af82976d2dfca0aefcb90d42f2ae6844",
+    "iso_url": "http://ftp.halifax.rwth-aachen.de/fedora/linux/releases/25/Server/x86_64/iso/Fedora-Server-netinst-x86_64-25.iso",
+    "iso_checksum": "86bc3694f4938382753d1e9536f2140a6c9c1978207766340c679a89509073c7",
     "iso_checksum_type": "sha256",
 
     "qemu_accelerator": "kvm"
@@ -39,7 +39,7 @@
         "biosdevname=0 ",
         "net.ifnames=0 ",
         "inst.nodnf=1 ",
-        "inst.ks=http://{{.HTTPIP}}:{{.HTTPPort}}/fedora-23/server.cfg<enter>"
+        "inst.ks=http://{{.HTTPIP}}:{{.HTTPPort}}/fedora-25/server.cfg<enter>"
       ]
     }
   ],
@@ -48,13 +48,13 @@
       "execute_command": "echo 'p455w0rd!234' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "type": "shell",
       "scripts": [
-        "scripts/fedora/23/base.sh",
-        "scripts/fedora/23/update.sh",
-        "scripts/fedora/23/sshd.sh",
-        "scripts/fedora/23/services.sh",
-        "scripts/fedora/23/chefdk.sh",
-        "scripts/fedora/23/motd.sh",
-        "scripts/fedora/23/cleanup.sh"
+        "scripts/fedora/25/base.sh",
+        "scripts/fedora/25/update.sh",
+        "scripts/fedora/25/sshd.sh",
+        "scripts/fedora/25/services.sh",
+        "scripts/fedora/25/chefdk.sh",
+        "scripts/fedora/25/motd.sh",
+        "scripts/fedora/25/cleanup.sh"
       ]
     }
   ]
