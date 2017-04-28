@@ -39,7 +39,7 @@
       "ssh_wait_timeout": "1000s",
       "disk_size": 20480,
       "ssh_port": 22,
-      "headless": false,
+      "headless": true,
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
@@ -85,7 +85,7 @@
       "ssh_wait_timeout": "60m",
       "disk_size": 20480,
       "ssh_port": 22,
-      "headless": false,
+      "headless": true,
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
@@ -127,7 +127,7 @@
       "ssh_wait_timeout": "1000s",
       "disk_size": 20480,
       "ssh_port": 22,
-      "headless": false,
+      "headless": true,
       "http_directory": "http",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "boot_command": [
