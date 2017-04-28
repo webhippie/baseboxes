@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "os": "centos-7",
 
-    "iso_url": "http://ftp.tu-chemnitz.de/pub/linux/centos/7.2.1511/isos/x86_64/CentOS-7-x86_64-NetInstall-1511.iso",
-    "iso_checksum": "9ed9ffb5d89ab8cca834afce354daa70a21dcb410f58287d6316259ff89758f5",
+    "iso_url": "http://ftp.tu-chemnitz.de/pub/linux/centos/7.3.1611/isos/x86_64/CentOS-7-x86_64-NetInstall-1611.iso",
+    "iso_checksum": "f2f7367deb90a25822947660c71638333ca0eceeabecc2d631be6cd508c24494",
     "iso_checksum_type": "sha256",
 
     "qemu_accelerator": "kvm",

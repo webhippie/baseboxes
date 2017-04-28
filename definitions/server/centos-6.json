@@ -3,8 +3,8 @@
     "version": "0.0.1",
     "os": "centos-6",
 
-    "iso_url": "http://ftp.tu-chemnitz.de/pub/linux/centos/6.7/isos/x86_64/CentOS-6.7-x86_64-netinstall.iso",
-    "iso_checksum": "411da8c3f66839eef9ae47bf4515cc0b82f2a1dfc7b2d5bde2d203ca7e3220f3",
+    "iso_url": "http://ftp.tu-chemnitz.de/pub/linux/centos/6.9/isos/x86_64/CentOS-6.9-x86_64-netinstall.iso",
+    "iso_checksum": "6b2cbec908708476389b143841a8e73462506de0744bda8b4192d3655d5bb8d2",
     "iso_checksum_type": "sha256",
 
     "qemu_accelerator": "kvm"
@@ -25,7 +25,7 @@
       "vm_name": "{{user `os`}}-{{user `version`}}",
 
       "output_directory": "images/{{user `os`}}-{{user `version`}}",
-      "ssh_username": "deploy",
+      "ssh_username": "root",
       "ssh_password": "p455w0rd!234",
       "ssh_wait_timeout": "90m",
       "disk_size": 51200,

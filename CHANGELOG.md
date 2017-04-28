@@ -5,6 +5,7 @@
 
 * Refactored and updated Ubuntu images
 * Refactored and updated Debian images
+* Refactored and updated Centos images
 
 
 ## 2016-04-02

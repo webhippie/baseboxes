@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -x
 
-URL=https://packages.chef.io/stable/el/6/chefdk-0.12.0-1.el6.x86_64.rpm
+URL=https://packages.chef.io/files/stable/chefdk/1.3.43/el/6/chefdk-1.3.43-1.el6.x86_64.rpm
 
 wget -O /tmp/chefdk.rpm \
   $URL && yum --nogpgcheck -y localinstall \
