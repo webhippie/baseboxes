@@ -25,7 +25,7 @@
       "vm_name": "{{user `os`}}-{{user `version`}}",
 
       "output_directory": "images/{{user `os`}}-{{user `version`}}",
-      "ssh_username": "deploy",
+      "ssh_username": "root",
       "ssh_password": "p455w0rd!234",
       "ssh_wait_timeout": "90m",
       "disk_size": 51200,
