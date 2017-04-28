@@ -9,7 +9,7 @@
 
     "qemu_accelerator": "kvm",
 
-    "memory": "2048",
+    "memory": "1024",
     "cpus": "2",
 
     "fusion_path": "/Applications/VMware Fusion.app"
