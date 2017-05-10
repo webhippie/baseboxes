@@ -1,0 +1,162 @@
+{
+  "variables": {
+    "version": "1.0.0",
+    "os": "opensuse-42.2",
+
+    "iso_url": "http://download.opensuse.org/distribution/leap/42.2/iso/openSUSE-Leap-42.2-NET-x86_64.iso",
+    "iso_checksum": "7667262584cc4936673578b5242efdff86cc1434ce60a25324faad7a2a36dbd7",
+    "iso_checksum_type": "sha256",
+
+    "qemu_accelerator": "kvm",
+
+    "memory": "1024",
+    "cpus": "2",
+
+    "fusion_path": "/Applications/VMware Fusion.app"
+  },
+  "builders": [
+    {
+      "name": "virtualbox",
+      "type": "virtualbox-iso",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "vm_name": "{{user `os`}}",
+      "guest_os_type": "OpenSUSE_64",
+      "guest_additions_mode": "upload",
+      "hard_drive_interface": "sata",
+
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "{{user `memory`}}"],
+        ["modifyvm", "{{.Name}}", "--cpus", "{{user `cpus`}}"]
+      ],
+
+      "output_directory": "images/{{user `os`}}-virtualbox-{{user `version`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "1000s",
+      "disk_size": 20480,
+      "ssh_port": 22,
+      "headless": false,
+      "http_directory": "http",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -p",
+      "boot_command": [
+        "<esc><enter><wait>",
+        "linux ",
+        "biosdevname=0 ",
+        "net.ifnames=0 ",
+        "netdevice=eth0 ",
+        "netsetup=dhcp ",
+        "lang=en_US.utf8 ",
+        "textmode=1 ",
+        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-42.2/vagrant.xml ",
+        "<enter><wait>"
+      ]
+    },
+    {
+      "name": "vmware",
+      "type": "vmware-iso",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "vm_name": "{{user `os`}}",
+      "guest_os_type": "opensuse-64",
+      "tools_upload_flavor": "linux",
+      "fusion_app_path": "{{user `fusion_path`}}",
+
+      "vmx_data": {
+        "memsize": "{{user `memory`}}",
+        "numvcpus": "{{user `cpus`}}"
+      },
+
+      "output_directory": "images/{{user `os`}}-vmware-{{user `version`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "60m",
+      "disk_size": 20480,
+      "ssh_port": 22,
+      "headless": false,
+      "http_directory": "http",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -p",
+      "boot_command": [
+        "<esc><enter><wait>",
+        "linux ",
+        "biosdevname=0 ",
+        "net.ifnames=0 ",
+        "netdevice=eth0 ",
+        "netsetup=dhcp ",
+        "lang=en_US.utf8 ",
+        "textmode=1 ",
+        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-42.2/vagrant.xml ",
+        "<enter><wait>"
+      ]
+    },
+    {
+      "name": "libvirt",
+      "type": "qemu",
+
+      "iso_url": "{{user `iso_url`}}",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+
+      "accelerator": "{{user `qemu_accelerator`}}",
+      "disk_interface": "virtio",
+      "net_device": "virtio-net",
+      "format": "qcow2",
+      "vm_name": "{{user `os`}}-{{user `version`}}",
+
+      "output_directory": "images/{{user `os`}}-libvirt-{{user `version`}}",
+      "ssh_username": "vagrant",
+      "ssh_password": "vagrant",
+      "ssh_wait_timeout": "90m",
+      "disk_size": 20480,
+      "ssh_port": 22,
+      "headless": false,
+      "http_directory": "http",
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -p",
+      "boot_command": [
+        "<esc><enter><wait>",
+        "linux ",
+        "biosdevname=0 ",
+        "net.ifnames=0 ",
+        "netdevice=eth0 ",
+        "netsetup=dhcp ",
+        "lang=en_US.utf8 ",
+        "textmode=1 ",
+        "autoyast=http://{{.HTTPIP}}:{{.HTTPPort}}/opensuse-42.2/vagrant-libvirt.xml ",
+        "<enter><wait>"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "keep_input_artifact": false,
+      "output": "images/{{user `os`}}-{{.Provider}}-{{user `version`}}.box",
+      "type": "vagrant",
+      "only": ["virtualbox", "vmware", "libvirt"]
+    }
+  ],
+  "provisioners": [
+    {
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+      "type": "shell",
+      "scripts": [
+        "scripts/opensuse/42.2/wait.sh",
+        "scripts/opensuse/42.2/base.sh",
+        "scripts/opensuse/42.2/update.sh",
+        "scripts/opensuse/42.2/vmtools.sh",
+        "scripts/opensuse/42.2/sshd.sh",
+        "scripts/opensuse/42.2/chef.sh",
+        "scripts/opensuse/42.2/bindfs.sh",
+        "scripts/opensuse/42.2/vagrant.sh",
+        "scripts/opensuse/42.2/motd.sh",
+        "scripts/opensuse/42.2/cleanup.sh",
+        "scripts/opensuse/42.2/zerodisk.sh"
+      ]
+    }
+  ]
+}
