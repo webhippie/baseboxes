@@ -1,6 +1,11 @@
 # Changelog
 
 
+## 2017-04-10
+
+* Update the Alpine definition
+
+
 ## 2017-04-28
 
 * Refactored and updated Ubuntu images

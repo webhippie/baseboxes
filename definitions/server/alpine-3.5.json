@@ -1,10 +1,10 @@
 {
   "variables": {
-    "version": "0.0.1",
-    "os": "alpine-3.3",
+    "version": "1.0.0",
+    "os": "alpine-3.5",
 
-    "iso_url": "http://dl-4.alpinelinux.org/alpine/v3.3/releases/x86_64/alpine-3.3.3-x86_64.iso",
-    "iso_checksum": "af766ac6221c6f5b471ca388be22df81ac6f21be37486ba6846f115d1798528a",
+    "iso_url": "http://dl-4.alpinelinux.org/alpine/v3.5/releases/x86_64/alpine-standard-3.5.0-x86_64.iso",
+    "iso_checksum": "444ceb980d1215a371904368eace7cf490de7e2f42e039589f1c9f6fb76f8f60",
     "iso_checksum_type": "sha256",
 
     "qemu_accelerator": "kvm"
@@ -30,19 +30,33 @@
       "ssh_wait_timeout": "90m",
       "disk_size": 51200,
       "ssh_port": 22,
-      "headless": false,
+      "headless": true,
       "http_directory": "http",
       "shutdown_command": "/sbin/poweroff",
       "boot_command": [
         "<wait10>root<enter><wait>",
         "ifconfig eth0 10.0.2.15 netmask 255.255.255.0<enter><wait>",
-        "wget http://{{.HTTPIP}}:{{.HTTPPort}}/alpine-3.3/server<enter><wait>",
+        "wget http://{{.HTTPIP}}:{{.HTTPPort}}/alpine-3.5/server<enter><wait>",
         "setup-alpine -f server<enter><wait>",
-        "p455w0rd!234<enter><wait>",
+        "root<enter><wait>",
         "p455w0rd!234<enter><wait10><wait10>",
         "z<enter>",
         "<wait10><wait10><wait10><wait10><wait10>",
         "reboot<enter>"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "checksum",
+      "checksum_types": ["sha256"],
+      "output": "images/{{user `os`}}-{{user `version`}}.sha256"
+    },
+    {
+      "type": "shell-local",
+      "inline": [
+        "mv images/{{user `os`}}-{{user `version`}}/{{user `os`}}-{{user `version`}} images/{{user `os`}}-{{user `version`}}.qcow2"
+        "rm -r images/{{user `os`}}-{{user `version`}}"
       ]
     }
   ],
@@ -51,12 +65,12 @@
       "execute_command": "/bin/sh '{{.Path}}'",
       "type": "shell",
       "scripts": [
-        "scripts/alpine/3.3/server.sh",
-        "scripts/alpine/3.3/update.sh",
-        "scripts/alpine/3.3/sshd.sh",
-        "scripts/alpine/3.3/services.sh",
-        "scripts/alpine/3.3/motd.sh",
-        "scripts/alpine/3.3/cleanup.sh"
+        "scripts/alpine/3.5/base.sh",
+        "scripts/alpine/3.5/update.sh",
+        "scripts/alpine/3.5/sshd.sh",
+        "scripts/alpine/3.5/services.sh",
+        "scripts/alpine/3.5/motd.sh",
+        "scripts/alpine/3.5/cleanup.sh"
       ]
     }
   ]

@@ -1,5 +1,5 @@
 KEYMAPOPTS="de de-latin1-nodeadkeys"
-HOSTNAMEOPTS="-n vagrant"
+HOSTNAMEOPTS="-n server"
 
 INTERFACESOPTS="auto lo
 iface lo inet loopback
@@ -7,12 +7,12 @@ iface lo inet loopback
 auto eth0
 iface eth0 inet dhcp
 
-hostname vagrant"
+hostname server"
 
 DNSOPTS="-n 8.8.8.8"
 TIMEZONEOPTS="-z UTC"
 PROXYOPTS="none"
-APKREPOSOPTS="http://nl.alpinelinux.org/alpine/v3.3/main"
+APKREPOSOPTS="http://nl.alpinelinux.org/alpine/v3.5/main"
 SSHDOPTS="-c openssh"
 NTPOPTS="-c chrony"
-DISKOPTS="-s 0 -m sys /dev/sda"
+DISKOPTS="-s 0 -m sys /dev/vda"
