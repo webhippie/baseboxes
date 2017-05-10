@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 set -x
 
-DEBIAN_FRONTEND=noninteractive aptitude -y autoclean
-DEBIAN_FRONTEND=noninteractive aptitude --purge clean
+if [[ -x /usr/bin/apt ]]
+then
+  DEBIAN_FRONTEND=noninteractive apt -y autoclean
+  DEBIAN_FRONTEND=noninteractive apt --purge clean
+else
+  DEBIAN_FRONTEND=noninteractive apt-get -y autoclean
+  DEBIAN_FRONTEND=noninteractive apt-get --purge clean
+fi
 
 rm -rf /var/mail/* > /dev/null 2>&1
 rm -rf /var/lib/dhcp/* > /dev/null 2>&1
